@@ -23,6 +23,24 @@
 		50505A6929C8A425009890B4 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 50505A6829C8A425009890B4 /* FirebaseCrashlytics */; };
 		50505A6B29C8A425009890B4 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 50505A6A29C8A425009890B4 /* FirebaseDatabase */; };
 		50505A6D29C8A425009890B4 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 50505A6C29C8A425009890B4 /* FirebaseDatabaseSwift */; };
+		5097C8EF29D1C61C0024DE86 /* CarBode in Frameworks */ = {isa = PBXBuildFile; productRef = 5097C8EE29D1C61C0024DE86 /* CarBode */; };
+		5097C8F229D1C9530024DE86 /* GeneralAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C8F129D1C9530024DE86 /* GeneralAPI.swift */; };
+		5097C8F429D1C9780024DE86 /* OpenFoodFactsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C8F329D1C9780024DE86 /* OpenFoodFactsAPI.swift */; };
+		5097C8F829D1CEA40024DE86 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C8F729D1CEA40024DE86 /* AuthView.swift */; };
+		5097C8FC29D1CF090024DE86 /* SignInScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C8FB29D1CF090024DE86 /* SignInScreenView.swift */; };
+		5097C8FE29D1CF2F0024DE86 /* SignUpScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C8FD29D1CF2F0024DE86 /* SignUpScreenView.swift */; };
+		5097C90029D1CF780024DE86 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C8FF29D1CF780024DE86 /* TodayView.swift */; };
+		5097C90229D1CF9B0024DE86 /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C90129D1CF9B0024DE86 /* GoalView.swift */; };
+		5097C90429D1CFC00024DE86 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C90329D1CFC00024DE86 /* AddView.swift */; };
+		5097C90629D1CFE60024DE86 /* AddScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C90529D1CFE60024DE86 /* AddScanView.swift */; };
+		5097C90829D1CFFD0024DE86 /* AddSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C90729D1CFFD0024DE86 /* AddSearchView.swift */; };
+		5097C90A29D1D02C0024DE86 /* AddRetrieveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C90929D1D02C0024DE86 /* AddRetrieveView.swift */; };
+		5097C90C29D1D03F0024DE86 /* AddCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C90B29D1D03F0024DE86 /* AddCreateView.swift */; };
+		5097C90E29D1D05C0024DE86 /* DietView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C90D29D1D05C0024DE86 /* DietView.swift */; };
+		5097C91029D1D06B0024DE86 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C90F29D1D06B0024DE86 /* SettingsView.swift */; };
+		5097C91329D1D10C0024DE86 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 5097C91229D1D10C0024DE86 /* PopupView */; };
+		50DF38CA29C9D0ED002BE5C0 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 50DF38C929C9D0ED002BE5C0 /* SwiftUICharts */; };
+		50DF38CC29C9D155002BE5C0 /* ViewSharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF38CB29C9D155002BE5C0 /* ViewSharedComponents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +73,21 @@
 		50505A4E29C8A071009890B4 /* MacroTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroTrackerUITests.swift; sourceTree = "<group>"; };
 		50505A5029C8A071009890B4 /* MacroTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		50505A5D29C8A2A6009890B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5097C8F129D1C9530024DE86 /* GeneralAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAPI.swift; sourceTree = "<group>"; };
+		5097C8F329D1C9780024DE86 /* OpenFoodFactsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsAPI.swift; sourceTree = "<group>"; };
+		5097C8F729D1CEA40024DE86 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		5097C8FB29D1CF090024DE86 /* SignInScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenView.swift; sourceTree = "<group>"; };
+		5097C8FD29D1CF2F0024DE86 /* SignUpScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreenView.swift; sourceTree = "<group>"; };
+		5097C8FF29D1CF780024DE86 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		5097C90129D1CF9B0024DE86 /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
+		5097C90329D1CFC00024DE86 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		5097C90529D1CFE60024DE86 /* AddScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScanView.swift; sourceTree = "<group>"; };
+		5097C90729D1CFFD0024DE86 /* AddSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSearchView.swift; sourceTree = "<group>"; };
+		5097C90929D1D02C0024DE86 /* AddRetrieveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRetrieveView.swift; sourceTree = "<group>"; };
+		5097C90B29D1D03F0024DE86 /* AddCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCreateView.swift; sourceTree = "<group>"; };
+		5097C90D29D1D05C0024DE86 /* DietView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietView.swift; sourceTree = "<group>"; };
+		5097C90F29D1D06B0024DE86 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		50DF38CB29C9D155002BE5C0 /* ViewSharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSharedComponents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,11 +96,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				50505A6D29C8A425009890B4 /* FirebaseDatabaseSwift in Frameworks */,
+				50DF38CA29C9D0ED002BE5C0 /* SwiftUICharts in Frameworks */,
 				50505A6B29C8A425009890B4 /* FirebaseDatabase in Frameworks */,
+				5097C91329D1D10C0024DE86 /* PopupView in Frameworks */,
 				50505A6529C8A425009890B4 /* FirebaseAnalyticsSwift in Frameworks */,
 				50505A6929C8A425009890B4 /* FirebaseCrashlytics in Frameworks */,
 				50505A6729C8A425009890B4 /* FirebaseAuth in Frameworks */,
 				50505A6329C8A425009890B4 /* FirebaseAnalytics in Frameworks */,
+				5097C8EF29D1C61C0024DE86 /* CarBode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,11 +148,13 @@
 		50505A3129C8A06F009890B4 /* MacroTracker */ = {
 			isa = PBXGroup;
 			children = (
+				5097C8F629D1CE820024DE86 /* Views */,
+				5097C8F029D1C9490024DE86 /* API */,
 				50505A3229C8A06F009890B4 /* MacroTrackerApp.swift */,
-				50505A3429C8A06F009890B4 /* ContentView.swift */,
 				50505A3629C8A071009890B4 /* Assets.xcassets */,
 				50505A3829C8A071009890B4 /* MacroTracker.entitlements */,
 				50505A3929C8A071009890B4 /* Preview Content */,
+				50DF38CB29C9D155002BE5C0 /* ViewSharedComponents.swift */,
 			);
 			path = MacroTracker;
 			sourceTree = "<group>";
@@ -146,6 +184,43 @@
 			path = MacroTrackerUITests;
 			sourceTree = "<group>";
 		};
+		5097C8F029D1C9490024DE86 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				5097C8F129D1C9530024DE86 /* GeneralAPI.swift */,
+				5097C8F329D1C9780024DE86 /* OpenFoodFactsAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		5097C8F629D1CE820024DE86 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				50505A3429C8A06F009890B4 /* ContentView.swift */,
+				5097C8FA29D1CEF90024DE86 /* Auth */,
+				5097C8FF29D1CF780024DE86 /* TodayView.swift */,
+				5097C90129D1CF9B0024DE86 /* GoalView.swift */,
+				5097C90329D1CFC00024DE86 /* AddView.swift */,
+				5097C90529D1CFE60024DE86 /* AddScanView.swift */,
+				5097C90729D1CFFD0024DE86 /* AddSearchView.swift */,
+				5097C90929D1D02C0024DE86 /* AddRetrieveView.swift */,
+				5097C90B29D1D03F0024DE86 /* AddCreateView.swift */,
+				5097C90D29D1D05C0024DE86 /* DietView.swift */,
+				5097C90F29D1D06B0024DE86 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5097C8FA29D1CEF90024DE86 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				5097C8F729D1CEA40024DE86 /* AuthView.swift */,
+				5097C8FB29D1CF090024DE86 /* SignInScreenView.swift */,
+				5097C8FD29D1CF2F0024DE86 /* SignUpScreenView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -169,6 +244,9 @@
 				50505A6829C8A425009890B4 /* FirebaseCrashlytics */,
 				50505A6A29C8A425009890B4 /* FirebaseDatabase */,
 				50505A6C29C8A425009890B4 /* FirebaseDatabaseSwift */,
+				50DF38C929C9D0ED002BE5C0 /* SwiftUICharts */,
+				5097C8EE29D1C61C0024DE86 /* CarBode */,
+				5097C91229D1D10C0024DE86 /* PopupView */,
 			);
 			productName = MacroTracker;
 			productReference = 50505A2F29C8A06F009890B4 /* MacroTracker.app */;
@@ -244,6 +322,9 @@
 			mainGroup = 50505A2629C8A06F009890B4;
 			packageReferences = (
 				50505A6129C8A425009890B4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				50DF38C829C9D0ED002BE5C0 /* XCRemoteSwiftPackageReference "ChartView" */,
+				5097C8ED29D1C61C0024DE86 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */,
+				5097C91129D1D10C0024DE86 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = 50505A3029C8A06F009890B4 /* Products */;
 			projectDirPath = "";
@@ -290,8 +371,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5097C90A29D1D02C0024DE86 /* AddRetrieveView.swift in Sources */,
+				5097C8F429D1C9780024DE86 /* OpenFoodFactsAPI.swift in Sources */,
+				5097C90629D1CFE60024DE86 /* AddScanView.swift in Sources */,
 				50505A3529C8A06F009890B4 /* ContentView.swift in Sources */,
+				5097C8FE29D1CF2F0024DE86 /* SignUpScreenView.swift in Sources */,
+				5097C91029D1D06B0024DE86 /* SettingsView.swift in Sources */,
+				5097C8F829D1CEA40024DE86 /* AuthView.swift in Sources */,
+				5097C90829D1CFFD0024DE86 /* AddSearchView.swift in Sources */,
+				5097C90029D1CF780024DE86 /* TodayView.swift in Sources */,
+				50DF38CC29C9D155002BE5C0 /* ViewSharedComponents.swift in Sources */,
+				5097C90429D1CFC00024DE86 /* AddView.swift in Sources */,
+				5097C90E29D1D05C0024DE86 /* DietView.swift in Sources */,
 				50505A3329C8A06F009890B4 /* MacroTrackerApp.swift in Sources */,
+				5097C90C29D1D03F0024DE86 /* AddCreateView.swift in Sources */,
+				5097C90229D1CF9B0024DE86 /* GoalView.swift in Sources */,
+				5097C8F229D1C9530024DE86 /* GeneralAPI.swift in Sources */,
+				5097C8FC29D1CF090024DE86 /* SignInScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +544,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MacroTracker/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -458,7 +555,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
@@ -466,7 +563,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = it.SironiSprocati.MacroTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -484,6 +583,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MacroTracker/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -494,7 +594,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
@@ -502,7 +602,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = it.SironiSprocati.MacroTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -645,6 +747,30 @@
 				kind = branch;
 			};
 		};
+		5097C8ED29D1C61C0024DE86 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		5097C91129D1D10C0024DE86 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		50DF38C829C9D0ED002BE5C0 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -677,6 +803,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 50505A6129C8A425009890B4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabaseSwift;
+		};
+		5097C8EE29D1C61C0024DE86 /* CarBode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5097C8ED29D1C61C0024DE86 /* XCRemoteSwiftPackageReference "CarBode-Barcode-Scanner-For-SwiftUI" */;
+			productName = CarBode;
+		};
+		5097C91229D1D10C0024DE86 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5097C91129D1D10C0024DE86 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
+		50DF38C929C9D0ED002BE5C0 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50DF38C829C9D0ED002BE5C0 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

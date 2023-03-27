@@ -19,6 +19,24 @@
       }
     },
     {
+      "identity" : "carbode-barcode-scanner-for-swiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/heart/CarBode-Barcode-Scanner-For-SwiftUI.git",
+      "state" : {
+        "revision" : "6167624ec47174900434f1c03dfa0b2dd5d19c0d",
+        "version" : "2.2.3"
+      }
+    },
+    {
+      "identity" : "chartview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AppPear/ChartView",
+      "state" : {
+        "revision" : "9115a992c91fa19cbb4f2241084240d38654a1fc",
+        "version" : "1.5.5"
+      }
+    },
+    {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
@@ -88,6 +106,15 @@
       "state" : {
         "revision" : "819d0a2173aff699fb8c364b6fb906f7cdb1a692",
         "version" : "2.30909.0"
+      }
+    },
+    {
+      "identity" : "popupview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/exyte/PopupView",
+      "state" : {
+        "revision" : "2cfc7fd290e2f7402a51359f5c675023332b4df4",
+        "version" : "2.1.1"
       }
     },
     {
