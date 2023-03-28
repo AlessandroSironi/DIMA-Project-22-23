@@ -7,10 +7,11 @@
 
 import SwiftUI
 import FirebaseAuth
-import FirebaseDatabase
+import FirebaseFirestore
 
 struct SignUpScreenView: View {
-    @ObservedObject private var environment = EnvironmentSingleton.shared
+    let db = Firestore.firestore()
+    
     @State var email = ""
     @State var password = ""
     @State var name = ""
@@ -61,22 +62,23 @@ struct SignUpScreenView: View {
         Auth.auth().createUser(withEmail: email, password: password, completion: { result, err in
             if let err = err {
                 print("Failed due to error:", err)
-                self.errorMsg = "Failed to create user: \(err)"
+                //TODO: Show error
                 return
             }
             print("Successfully created account with ID: \(result?.user.uid ?? "")")
-            environment.setIsAuthenticated (value: true)
-            environment.user = UserModel (
-              //TODO: retrieve actual data from database
-              name: "Mario",
-              surname: "Rossi",
-              situation: UserSituation(
-                  consumedFoodItems: Dictionary<UUID, FoodItem>(),
-                  consumedFoodAssumptions: [FoodAssumption](),
-                  targets: [NutritionFactsTarget]()
-              ),
-              uid: result?.user.uid ?? ""
-            )
+            
+            db.collection("users").document(result?.user.uid ?? "").setData([
+              "name" : name,
+              "surname" : surname,
+              "coffee_assumption" : [],
+              "water_assumption" : [],
+              "favourites" : [],
+              "foods" : [],
+            ]) { err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                }
+            }
         })
     }
 }

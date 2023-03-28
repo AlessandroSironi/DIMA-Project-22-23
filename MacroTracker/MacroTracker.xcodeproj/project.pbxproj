@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43BF22A229D2FC6B004C6E0B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 43BF22A129D2FC6B004C6E0B /* FirebaseFirestore */; };
+		43BF22A729D30A16004C6E0B /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF22A629D30A16004C6E0B /* FoodItem.swift */; };
 		50505A3329C8A06F009890B4 /* MacroTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50505A3229C8A06F009890B4 /* MacroTrackerApp.swift */; };
 		50505A3529C8A06F009890B4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50505A3429C8A06F009890B4 /* ContentView.swift */; };
 		50505A3729C8A071009890B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50505A3629C8A071009890B4 /* Assets.xcassets */; };
@@ -61,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		43BF22A629D30A16004C6E0B /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
 		50505A2F29C8A06F009890B4 /* MacroTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50505A3229C8A06F009890B4 /* MacroTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroTrackerApp.swift; sourceTree = "<group>"; };
 		50505A3429C8A06F009890B4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,6 +101,7 @@
 				50505A6D29C8A425009890B4 /* FirebaseDatabaseSwift in Frameworks */,
 				50DF38CA29C9D0ED002BE5C0 /* SwiftUICharts in Frameworks */,
 				50505A6B29C8A425009890B4 /* FirebaseDatabase in Frameworks */,
+				43BF22A229D2FC6B004C6E0B /* FirebaseFirestore in Frameworks */,
 				5097C91329D1D10C0024DE86 /* PopupView in Frameworks */,
 				50505A6529C8A425009890B4 /* FirebaseAnalyticsSwift in Frameworks */,
 				50505A6929C8A425009890B4 /* FirebaseCrashlytics in Frameworks */,
@@ -124,6 +128,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43BF22A029D2FC6B004C6E0B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43BF22A529D30A05004C6E0B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				43BF22A629D30A16004C6E0B /* FoodItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		50505A2629C8A06F009890B4 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +151,7 @@
 				50505A4329C8A071009890B4 /* MacroTrackerTests */,
 				50505A4D29C8A071009890B4 /* MacroTrackerUITests */,
 				50505A3029C8A06F009890B4 /* Products */,
+				43BF22A029D2FC6B004C6E0B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,6 +168,7 @@
 		50505A3129C8A06F009890B4 /* MacroTracker */ = {
 			isa = PBXGroup;
 			children = (
+				43BF22A529D30A05004C6E0B /* Model */,
 				5097C8F629D1CE820024DE86 /* Views */,
 				5097C8F029D1C9490024DE86 /* API */,
 				50505A3229C8A06F009890B4 /* MacroTrackerApp.swift */,
@@ -247,6 +268,7 @@
 				50DF38C929C9D0ED002BE5C0 /* SwiftUICharts */,
 				5097C8EE29D1C61C0024DE86 /* CarBode */,
 				5097C91229D1D10C0024DE86 /* PopupView */,
+				43BF22A129D2FC6B004C6E0B /* FirebaseFirestore */,
 			);
 			productName = MacroTracker;
 			productReference = 50505A2F29C8A06F009890B4 /* MacroTracker.app */;
@@ -375,6 +397,7 @@
 				5097C8F429D1C9780024DE86 /* OpenFoodFactsAPI.swift in Sources */,
 				5097C90629D1CFE60024DE86 /* AddScanView.swift in Sources */,
 				50505A3529C8A06F009890B4 /* ContentView.swift in Sources */,
+				43BF22A729D30A16004C6E0B /* FoodItem.swift in Sources */,
 				5097C8FE29D1CF2F0024DE86 /* SignUpScreenView.swift in Sources */,
 				5097C91029D1D06B0024DE86 /* SettingsView.swift in Sources */,
 				5097C8F829D1CEA40024DE86 /* AuthView.swift in Sources */,
@@ -774,6 +797,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		43BF22A129D2FC6B004C6E0B /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50505A6129C8A425009890B4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
 		50505A6229C8A425009890B4 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 50505A6129C8A425009890B4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

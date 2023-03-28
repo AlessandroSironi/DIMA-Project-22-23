@@ -12,31 +12,29 @@ class OpenFoodFactsAPI {
     private let API: GeneralAPI
     
     public struct Response: Codable {
-        let code: String
+        let barcode: String
         let product: ResponseProduct
         let status: Int
     }
     
     public struct ResponseProduct: Codable {
-        let product_name: String
-        let brands: String
+        let name: String
+        let brand: String
         let nutriments: ResponseProductNutrients
     }
     
     public struct ResponseProductNutrients: Codable {
-        let energy: Int
+        let kcal: Float
+        let carbs: Float
         let proteins: Float
-        let fat: Float
-        let carbohydrates: Float
-        let fiber: Float
+        let fats: Float
         
         private enum CodingKeys: String, CodingKey {
             case
-            energy = "energy-kcal_100g",
+            kcal = "energy-kcal_100g",
+            carbs = "carbohydrates_100g",
             proteins = "proteins_100g",
-            fat = "fat_100g",
-            carbohydrates = "carbohydrates_100g",
-            fiber = "fiber_100g"
+            fat = "fat_100g"
         }
     }
     
@@ -48,19 +46,21 @@ class OpenFoodFactsAPI {
         ))
     }
     
-    public func getProduct(id: String) async -> CommercialFoodItem? {
+    public func getProduct(id: String) async -> FoodItem? {
         let action: String = "product/" + id + ".json"
         let response = await self.API.sendRequest(
             url: self.API.defineUrl(by: action, parameters: []),
             responseModel: Response.self
         )
-        do {
-            return CommercialFoodItem(
-                model: try response.get()
-            )
+        
+        do{
+            let responseItem = try response.get()
+            
+            let foodItem = FoodItem(name: responseItem.product.name, barcode: responseItem.barcode, brand: responseItem.product.brand, kcal: responseItem.product.nutriments.kcal, carbs: responseItem.product.nutriments.carbs, proteins: responseItem.product.nutriments.proteins, fats: responseItem.product.nutriments.fats)
+            
+            return foodItem
         } catch {
-            print("Failed")
-            // Should throw an error
+            print("Fail")
             return nil
         }
     }

@@ -9,7 +9,6 @@ import SwiftUI
 import FirebaseAuth
 
 struct SignInScreenView: View {
-    @ObservedObject private var environment = EnvironmentSingleton.shared
     @State var email = ""
     @State var password = ""
     @State var errorMsg = ""
@@ -54,18 +53,6 @@ struct SignInScreenView: View {
                 return
             }
             print("Successfully logged in with ID: \(result?.user.uid ?? "")")
-            environment.setIsAuthenticated (value: true)
-            environment.user = UserModel (
-                //TODO: retrieve actual data from database
-                name: "Mario",
-                surname: "Rossi",
-                situation: UserSituation(
-                    consumedFoodItems: Dictionary<UUID, FoodItem>(),
-                    consumedFoodAssumptions: [FoodAssumption](),
-                    targets: [NutritionFactsTarget]()
-                ),
-                uid: result?.user.uid ?? ""
-            )
         }
     }
 }

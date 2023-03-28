@@ -73,6 +73,13 @@ struct AddScanView: View {
                 .frame(width: 300, height: 80)
                 .background(Color.gray)
                 .cornerRadius(30.0)
+        } customize: {
+            $0
+                .type(.floater())
+                .position(.top)
+                .animation(.spring())
+                .closeOnTapOutside(true)
+                .backgroundColor(.black.opacity(0.5))
         }
         
     }

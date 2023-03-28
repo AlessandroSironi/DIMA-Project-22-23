@@ -9,12 +9,12 @@ import SwiftUI
 import Combine // In order to use Just in numeric field sanitization
 
 struct AddRetrieveView: View {
-    
-    //@ObservedObject private var environment = EnvironmentSingleton.shared
     @Environment(\.dismiss) var dismiss
     
     // Product to be retrieved
     var productCode: String
+    
+    let openFoodFactsAPI: OpenFoodFactsAPI
     
     // Default quantity
     @State var quantity: String = "100"
@@ -28,6 +28,8 @@ struct AddRetrieveView: View {
     // Font: Assumption
     @State private var formProductAssumptionQuantity: String = "100"
     @State private var formProductAssumptionDate: Date = Date()
+    
+    @State var foodItem: FoodItem
         
     init(productCode: String) {
         self.productCode = productCode
@@ -42,19 +44,19 @@ struct AddRetrieveView: View {
                     HStack {
                         Text("Name").frame(width: 100, alignment: .leading)
                         Spacer()
-                        Text(commercialFoodItem.name)
+                        Text(foodItem.name)
                             .foregroundColor(.gray)
                     }
                     HStack {
                         Text("Brand").frame(width: 100, alignment: .leading)
                         Spacer()
-                        Text(commercialFoodItem.brand)
+                        Text(foodItem.brand)
                             .foregroundColor(.gray)
                     }
                     HStack {
                         Text("Barcode").frame(width: 100, alignment: .leading)
                         Spacer()
-                        Text(commercialFoodItem.barcode)
+                        Text(foodItem.barcode)
                             .foregroundColor(.gray)
                     }
                 }
@@ -87,19 +89,6 @@ struct AddRetrieveView: View {
                             }
                     }
                     HStack {
-                        Text("🥑 Fat (g)")
-                        Spacer()
-                        TextField("100.0", text: $formProductNutrimentsFat)
-                            .keyboardType(.numberPad)
-                            .multilineTextAlignment(.trailing)
-                            .onReceive(Just(formProductNutrimentsFat)) { newValue in
-                                let filtered = newValue.filter { ".0123456789".contains($0) }
-                                if filtered != newValue {
-                                    self.formProductNutrimentsFat = filtered
-                                }
-                            }
-                    }
-                    HStack {
                         Text("🥩 Protein (g)")
                         Spacer()
                         TextField("100.0", text: $formProductNutrimentsProtein)
@@ -109,6 +98,19 @@ struct AddRetrieveView: View {
                                 let filtered = newValue.filter { ".0123456789".contains($0) }
                                 if filtered != newValue {
                                     self.formProductNutrimentsProtein = filtered
+                                }
+                            }
+                    }
+                    HStack {
+                        Text("🥑 Fat (g)")
+                        Spacer()
+                        TextField("100.0", text: $formProductNutrimentsFat)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
+                            .onReceive(Just(formProductNutrimentsFat)) { newValue in
+                                let filtered = newValue.filter { ".0123456789".contains($0) }
+                                if filtered != newValue {
+                                    self.formProductNutrimentsFat = filtered
                                 }
                             }
                     }
@@ -142,21 +144,9 @@ struct AddRetrieveView: View {
                 }
                 
                 Button(action: {
-                    if self.environment.getIsAuthenticated() {
-                        
-                        self.commercialFoodItem.nutrients.energy.value = Double(self.formProductNutrimentsEnergy)!
-                        self.commercialFoodItem.nutrients.carbohydrates.value = Double(self.formProductNutrimentsCarbohydrates)!
-                        self.commercialFoodItem.nutrients.fats.value = Double(self.formProductNutrimentsFat)!
-                        self.commercialFoodItem.nutrients.proteins.value = Double(self.formProductNutrimentsProtein)!
-                        
-                        self.environment.user!.situation.addAssumption(
-                            foodItem: self.commercialFoodItem,
-                            quantity: Measurement(value: Double(formProductAssumptionQuantity)!, unit: UnitMass.grams),
-                            date: Date()
-                        )
-                        self.environment.serializeUser()
-                        dismiss()
-                    }
+                    //TODO: adding to firestore the product
+                    
+                    dismiss()
                 }) {
                     Text("Insert product")
                         .bold()
@@ -172,9 +162,9 @@ struct AddRetrieveView: View {
             }
             
             .task {
-                if let canBeNilFoodItem = await self.environment.openFoodFactsAPI.getProduct(id: productCode) {
+                if let foodItem = await self.openFoodFactsAPI.getProduct(id: productCode) {
                     
-                    self.commercialFoodItem = canBeNilFoodItem
+                    self.foodItem = foodItem
                     
                     self.formProductNutrimentsEnergy = String(format: "%.0f", self.commercialFoodItem.nutrients.energy.value)
                     self.formProductNutrimentsCarbohydrates = String(format: "%.2f", self.commercialFoodItem.nutrients.carbohydrates.value)

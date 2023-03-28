@@ -11,8 +11,6 @@ import Charts
 
 struct GoalView: View {
     
-    @State private var week = DailyNutrition.weekSituation
-    
     var body: some View {
         
         NavigationStack {

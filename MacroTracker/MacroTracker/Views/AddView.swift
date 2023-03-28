@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddView: View {
+    /*
     let names = [
         "Pasta della marca A",
         "Pasta della marca B",
@@ -17,6 +18,7 @@ struct AddView: View {
         "Insalata",
         "Riso"
     ]
+     */
     @State private var searchText = ""
     
     var body: some View {
@@ -168,6 +170,7 @@ struct AddView: View {
         
     }
     
+    /*
     var searchResults: [String] {
         if searchText.isEmpty {
             return []
@@ -175,6 +178,7 @@ struct AddView: View {
             return names.filter { $0.contains(searchText) }
         }
     }
+     */
     
 }
 
