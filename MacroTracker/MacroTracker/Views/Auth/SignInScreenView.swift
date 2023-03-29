@@ -29,11 +29,23 @@ struct SignInScreenView: View {
                         .textFieldStyle(.roundedBorder)
                         .frame(width: 280, height: 45, alignment: .center)
                     Text("Forgot Password?")
-                    Button(action: {
+                    /*
+                    Button() {
                         loginUser()
-                    }, label: {
+                    } label:
+                    {
+                        NavigationLink(destination: ContentView()) {
+                            PrimaryButton(title: "Sign In")
+                        }
+                    }.padding(.horizontal)
+                     */
+                    
+                    Button() {
+                        loginUser()
+                    } label: {
                         PrimaryButton(title: "Sign In")
-                    }).padding(.horizontal)
+                            .padding(.horizontal)
+                    }
                     Spacer()
                 }
             }

@@ -47,11 +47,12 @@ struct SignUpScreenView: View {
                         .textFieldStyle(.roundedBorder)
                         .frame(width: 280, height: 45, alignment: .center)
                     Text(errorMsg)
-                    Button(action: {
+                    Button() {
                         createUser()
-                    }, label: {
+                    } label: {
                         PrimaryButton(title: "Sign Up")
-                    }).padding(.horizontal)
+                            .padding(.horizontal)
+                    }
                     Spacer()
                 }
             }
@@ -69,17 +70,18 @@ struct SignUpScreenView: View {
             
             db.collection("users").document(result?.user.uid ?? "").setData([
               "name" : name,
-              "surname" : surname,
-              "coffee_assumption" : [],
-              "water_assumption" : [],
+              "surname" : surname
+              /*"coffee_assumption" : "",
+              "water_assumption": "",
               "favourites" : [],
-              "foods" : [],
+              "foods" : [], */
             ]) { err in
                 if let err = err {
                     print("Error adding document: \(err)")
                 }
             }
         })
+        HomeView()
     }
 }
 

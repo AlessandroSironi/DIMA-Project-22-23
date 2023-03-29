@@ -13,7 +13,7 @@ struct AuthView: View {
         NavigationStack(path: $path) {
             Text("")
                 .bold()
-                .navigationTitle("MacroCounter")
+                .navigationTitle("MacroTracker")
             Spacer()
             Text("Content Filler")
             Spacer()

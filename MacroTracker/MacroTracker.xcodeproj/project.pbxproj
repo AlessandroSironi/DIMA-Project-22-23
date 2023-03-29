@@ -41,6 +41,7 @@
 		5097C90E29D1D05C0024DE86 /* DietView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C90D29D1D05C0024DE86 /* DietView.swift */; };
 		5097C91029D1D06B0024DE86 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097C90F29D1D06B0024DE86 /* SettingsView.swift */; };
 		5097C91329D1D10C0024DE86 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 5097C91229D1D10C0024DE86 /* PopupView */; };
+		50B0615829D4756E00280D2D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B0615729D4756E00280D2D /* HomeView.swift */; };
 		50DF38CA29C9D0ED002BE5C0 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 50DF38C929C9D0ED002BE5C0 /* SwiftUICharts */; };
 		50DF38CC29C9D155002BE5C0 /* ViewSharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF38CB29C9D155002BE5C0 /* ViewSharedComponents.swift */; };
 /* End PBXBuildFile section */
@@ -90,6 +91,7 @@
 		5097C90B29D1D03F0024DE86 /* AddCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCreateView.swift; sourceTree = "<group>"; };
 		5097C90D29D1D05C0024DE86 /* DietView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietView.swift; sourceTree = "<group>"; };
 		5097C90F29D1D06B0024DE86 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		50B0615729D4756E00280D2D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		50DF38CB29C9D155002BE5C0 /* ViewSharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSharedComponents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,6 +230,7 @@
 				5097C90B29D1D03F0024DE86 /* AddCreateView.swift */,
 				5097C90D29D1D05C0024DE86 /* DietView.swift */,
 				5097C90F29D1D06B0024DE86 /* SettingsView.swift */,
+				50B0615729D4756E00280D2D /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				5097C90229D1CF9B0024DE86 /* GoalView.swift in Sources */,
 				5097C8F229D1C9530024DE86 /* GeneralAPI.swift in Sources */,
 				5097C8FC29D1CF090024DE86 /* SignInScreenView.swift in Sources */,
+				50B0615829D4756E00280D2D /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

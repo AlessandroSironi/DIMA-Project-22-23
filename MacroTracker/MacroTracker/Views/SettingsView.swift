@@ -6,19 +6,31 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SettingsView: View {
     var body: some View {
         
         NavigationStack {
             List {
+                //TODO: These will be Navigation Links?!
                 Text("Account")
                 Text("Notifications")
                 Text("Appearance")
                 Text("Credits")
-            }
-            .navigationTitle("Settings")
-            Spacer()
+                Button() {
+                    do {
+                        try Auth.auth().signOut()
+                    } catch {
+                        print("Error signing out user...")
+                    }
+                } label:
+                {
+                    NavigationLink(destination: ContentView()) {
+                        Text("Logout")
+                    }
+                }
+               }.navigationTitle("Settings")
         }
     }
 }

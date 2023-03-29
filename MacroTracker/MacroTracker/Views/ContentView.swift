@@ -5,34 +5,16 @@
 //  Created by Alessandro Sironi on 20/03/23.
 //
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
-    
+    @State private var userIsLoggedIn = false
     var body: some View {
-        TabView {
-            TodayView()
-                .tabItem {
-                    Label("Today", systemImage: "calendar")
-                }
-            GoalView()
-                .tabItem {
-                    Label("Goal", systemImage: "trophy")
-                }
-            AddView()
-                .tabItem {
-                    Label("Add", systemImage: "plus")
-                }
-            DietView()
-                .tabItem {
-                    Label("Diet", systemImage: "fork.knife")
-                }
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "person")
-                }
+        if (userIsLoggedIn) {
+            HomeView()
+        } else {
+            AuthView()
         }
-        //.accentColor(.green)
-        //.tint(.green)
     }
     
 }
