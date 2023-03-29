@@ -34,7 +34,7 @@ class OpenFoodFactsAPI {
             kcal = "energy-kcal_100g",
             carbs = "carbohydrates_100g",
             proteins = "proteins_100g",
-            fat = "fat_100g"
+            fats = "fat_100g"
         }
     }
     

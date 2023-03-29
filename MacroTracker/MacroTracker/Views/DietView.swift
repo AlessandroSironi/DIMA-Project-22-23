@@ -9,8 +9,6 @@ import SwiftUI
 
 
 struct DietView: View {
-    
-    @ObservedObject private var environment = EnvironmentSingleton.shared
     @State private var foodItemsList: [FoodItem] = []
     
     var body: some View {
@@ -19,30 +17,22 @@ struct DietView: View {
             
             Section {
                 
-                if self.environment.getIsAuthenticated() {
-                    
-                    Picker(selection: /*@START_MENU_TOKEN@*/.constant(1)/*@END_MENU_TOKEN@*/, label: Text("Picker")) {
-                        Text("Alimenti").tag(1)
-                        Text("Combinazioni").tag(2)
-                    }
-                    .pickerStyle(.segmented)
-                    .padding()
-                    
-                    List(self.foodItemsList) { foodItem in
-                        FoodItemListRow(foodItem: foodItem)
-                    }
-                    .listStyle(.inset)
-                    
-                } else {
-                    Text("Nothing to show. User not authenticated.")
+                Picker(selection: /*@START_MENU_TOKEN@*/.constant(1)/*@END_MENU_TOKEN@*/, label: Text("Picker")) {
+                    Text("Alimenti").tag(1)
+                    Text("Combinazioni").tag(2)
                 }
+                .pickerStyle(.segmented)
+                .padding()
+                
+                List(self.foodItemsList) { foodItem in
+                    FoodItemListRow(foodItem: foodItem)
+                }
+                .listStyle(.inset)
                 
             }
             
             .task {
-                if self.environment.getIsAuthenticated() {
-                    self.foodItemsList = self.environment.user!.situation.foodItemsList
-                }
+                //TODO: retrieve from firebase
             }
             
             .navigationTitle("Diet")

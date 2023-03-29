@@ -14,8 +14,6 @@ struct AddRetrieveView: View {
     // Product to be retrieved
     var productCode: String
     
-    let openFoodFactsAPI: OpenFoodFactsAPI
-    
     // Default quantity
     @State var quantity: String = "100"
     
@@ -29,7 +27,7 @@ struct AddRetrieveView: View {
     @State private var formProductAssumptionQuantity: String = "100"
     @State private var formProductAssumptionDate: Date = Date()
     
-    @State var foodItem: FoodItem
+    @State var foodItem: FoodItem = FoodItem()
         
     init(productCode: String) {
         self.productCode = productCode
@@ -162,14 +160,14 @@ struct AddRetrieveView: View {
             }
             
             .task {
-                if let foodItem = await self.openFoodFactsAPI.getProduct(id: productCode) {
+                if let foodItem = await OpenFoodFactsAPI().getProduct(id: productCode) {
                     
                     self.foodItem = foodItem
                     
-                    self.formProductNutrimentsEnergy = String(format: "%.0f", self.commercialFoodItem.nutrients.energy.value)
-                    self.formProductNutrimentsCarbohydrates = String(format: "%.2f", self.commercialFoodItem.nutrients.carbohydrates.value)
-                    self.formProductNutrimentsFat = String(format: "%.2f", self.commercialFoodItem.nutrients.fats.value)
-                    self.formProductNutrimentsProtein = String(format: "%.2f", self.commercialFoodItem.nutrients.proteins.value)
+                    self.formProductNutrimentsEnergy = String(format: "%.0f", self.foodItem.kcal)
+                    self.formProductNutrimentsCarbohydrates = String(format: "%.2f", self.foodItem.carbs)
+                    self.formProductNutrimentsFat = String(format: "%.2f", self.foodItem.proteins)
+                    self.formProductNutrimentsProtein = String(format: "%.2f", self.foodItem.fats)
                     
                 } else {
                     dismiss()

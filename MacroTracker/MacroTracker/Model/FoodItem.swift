@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FoodItem {
+class FoodItem: Identifiable{
     let name: String
     let barcode: String
     let brand: String
@@ -15,6 +15,16 @@ class FoodItem {
     let carbs: Float
     let proteins: Float
     let fats: Float
+    
+    init() {
+        self.name = ""
+        self.barcode = ""
+        self.brand = ""
+        self.kcal = 0.0
+        self.carbs = 0.0
+        self.proteins = 0.0
+        self.fats = 0.0
+    }
     
     init(name: String, barcode: String, brand: String, kcal: Float, carbs: Float, proteins: Float, fats: Float) {
         self.name = name

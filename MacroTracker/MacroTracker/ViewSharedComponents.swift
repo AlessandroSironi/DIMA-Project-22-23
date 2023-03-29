@@ -73,7 +73,7 @@ struct FoodItemListRow: View {
                     Spacer()
                 }
                 HStack {
-                    Text("Energy: " + String(format: "%.0f ", foodItem.nutrients.energy.value) + String(foodItem.nutrients.energy.unit.symbol))
+                    Text("Energy: " + String(format: "%.0f ", foodItem.kcal) + " kcal")
                         .font(.caption)
                         .textCase(.uppercase)
                     Spacer()

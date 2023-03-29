@@ -8,8 +8,6 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @ObservedObject private var environment = EnvironmentSingleton.shared
-    
     var body: some View {
         TabView {
             TodayView()
