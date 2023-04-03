@@ -10,11 +10,7 @@ import FirebaseAuth
 struct ContentView: View {
     @State private var userIsLoggedIn = false
     var body: some View {
-        if (userIsLoggedIn) {
-            HomeView()
-        } else {
-            AuthView()
-        }
+        HomeView()
     }
     
 }

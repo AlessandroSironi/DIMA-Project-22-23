@@ -12,7 +12,7 @@ struct SettingsView: View {
     var body: some View {
         @State var userIsLoggingOut = false
         if (userIsLoggingOut) {
-            ContentView()
+            AuthView()
         } else {
             NavigationStack {
                 List {
@@ -24,15 +24,14 @@ struct SettingsView: View {
                     Button() {
                         do {
                             try Auth.auth().signOut()
+                            print("User LOGGED OUT")
                         } catch {
                             print("Error signing out user...")
                         }
                         userIsLoggingOut = true
                     } label:
                     {
-                        NavigationLink(destination: ContentView()) {
-                            Text("Logout")
-                        }
+                        Text("Logout")
                     }
                 }.navigationTitle("Settings")
             }
