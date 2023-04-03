@@ -10,27 +10,32 @@ import FirebaseAuth
 
 struct SettingsView: View {
     var body: some View {
-        
-        NavigationStack {
-            List {
-                //TODO: These will be Navigation Links?!
-                Text("Account")
-                Text("Notifications")
-                Text("Appearance")
-                Text("Credits")
-                Button() {
-                    do {
-                        try Auth.auth().signOut()
-                    } catch {
-                        print("Error signing out user...")
+        @State var userIsLoggingOut = false
+        if (userIsLoggingOut) {
+            ContentView()
+        } else {
+            NavigationStack {
+                List {
+                    //TODO: These will be Navigation Links?!
+                    Text("Account")
+                    Text("Notifications")
+                    Text("Appearance")
+                    Text("Credits")
+                    Button() {
+                        do {
+                            try Auth.auth().signOut()
+                        } catch {
+                            print("Error signing out user...")
+                        }
+                        userIsLoggingOut = true
+                    } label:
+                    {
+                        NavigationLink(destination: ContentView()) {
+                            Text("Logout")
+                        }
                     }
-                } label:
-                {
-                    NavigationLink(destination: ContentView()) {
-                        Text("Logout")
-                    }
-                }
-               }.navigationTitle("Settings")
+                }.navigationTitle("Settings")
+            }
         }
     }
 }

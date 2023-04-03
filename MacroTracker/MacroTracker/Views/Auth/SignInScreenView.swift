@@ -12,7 +12,15 @@ struct SignInScreenView: View {
     @State var email = ""
     @State var password = ""
     @State var errorMsg = ""
+    @State var loginSuccessful = false
     var body: some View {
+        if (loginSuccessful) {
+            HomeView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .transition(.move(edge: .leading))
+                .navigationBarBackButtonHidden()
+                .navigationTitle("Today")
+        } else {
             ZStack {
                 Color("Background").edgesIgnoringSafeArea(.all)
                 VStack {
@@ -30,14 +38,14 @@ struct SignInScreenView: View {
                         .frame(width: 280, height: 45, alignment: .center)
                     Text("Forgot Password?")
                     /*
-                    Button() {
-                        loginUser()
-                    } label:
-                    {
-                        NavigationLink(destination: ContentView()) {
-                            PrimaryButton(title: "Sign In")
-                        }
-                    }.padding(.horizontal)
+                     Button() {
+                     loginUser()
+                     } label:
+                     {
+                     NavigationLink(destination: ContentView()) {
+                     PrimaryButton(title: "Sign In")
+                     }
+                     }.padding(.horizontal)
                      */
                     
                     Button() {
@@ -49,6 +57,7 @@ struct SignInScreenView: View {
                     Spacer()
                 }
             }
+        }
     }
     
     struct SignInScreenView_Previews: PreviewProvider {
@@ -61,9 +70,11 @@ struct SignInScreenView: View {
         Auth.auth().signIn(withEmail: email, password: password) { result, err in
             if let err = err {
                 print("Failed due to error:", err)
+                loginSuccessful = false
                 self.errorMsg = "Failed to login user: \(err)"
                 return
             }
+            loginSuccessful = true
             print("Successfully logged in with ID: \(result?.user.uid ?? "")")
         }
     }

@@ -17,43 +17,52 @@ struct SignUpScreenView: View {
     @State var name = ""
     @State var surname = ""
     @State var errorMsg = ""
+    @State var signUpSuccessful = false
     var body: some View {
-        NavigationView() {
-            ZStack {
-                Color("Background").edgesIgnoringSafeArea(.all)
-                VStack {
-                    Text("")
-                        .font(.title)
-                        .bold()
-                        .navigationTitle("Sign Up")
-                    Spacer()
-                    TextField("Email", text: $email)
-                        .keyboardType(.emailAddress)
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 280, height: 45, alignment: .center)
-                    SecureField("Password", text: $password)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 280, height: 45, alignment: .center)
-                    TextField("Name", text: $name)
-                        .disableAutocorrection(true)
-                        .autocapitalization(.words)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 280, height: 45, alignment: .center)
-                    TextField("Surname", text: $surname)
-                        .disableAutocorrection(true)
-                        .autocapitalization(.words)
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 280, height: 45, alignment: .center)
-                    Text(errorMsg)
-                    Button() {
-                        createUser()
-                    } label: {
-                        PrimaryButton(title: "Sign Up")
-                            .padding(.horizontal)
+        if (signUpSuccessful) {
+            HomeView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .transition(.move(edge: .leading))
+                .navigationBarBackButtonHidden()
+                .navigationTitle("Today")
+        } else {
+            NavigationView() {
+                ZStack {
+                    Color("Background").edgesIgnoringSafeArea(.all)
+                    VStack {
+                        Text("")
+                            .font(.title)
+                            .bold()
+                            .navigationTitle("Sign Up")
+                        Spacer()
+                        TextField("Email", text: $email)
+                            .keyboardType(.emailAddress)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
+                            .textFieldStyle(.roundedBorder)
+                            .frame(width: 280, height: 45, alignment: .center)
+                        SecureField("Password", text: $password)
+                            .textFieldStyle(.roundedBorder)
+                            .frame(width: 280, height: 45, alignment: .center)
+                        TextField("Name", text: $name)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.words)
+                            .textFieldStyle(.roundedBorder)
+                            .frame(width: 280, height: 45, alignment: .center)
+                        TextField("Surname", text: $surname)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.words)
+                            .textFieldStyle(.roundedBorder)
+                            .frame(width: 280, height: 45, alignment: .center)
+                        Text(errorMsg)
+                        Button() {
+                            createUser()
+                        } label: {
+                            PrimaryButton(title: "Sign Up")
+                                .padding(.horizontal)
+                        }
+                        Spacer()
                     }
-                    Spacer()
                 }
             }
         }
@@ -63,6 +72,7 @@ struct SignUpScreenView: View {
         Auth.auth().createUser(withEmail: email, password: password, completion: { result, err in
             if let err = err {
                 print("Failed due to error:", err)
+                signUpSuccessful = false
                 //TODO: Show error
                 return
             }
@@ -81,7 +91,7 @@ struct SignUpScreenView: View {
                 }
             }
         })
-        HomeView()
+        signUpSuccessful = true
     }
 }
 

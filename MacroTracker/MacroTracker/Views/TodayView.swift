@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 import Charts
 import SwiftUICharts // External plugin: https://github.com/AppPear/ChartView/
 
@@ -35,9 +36,9 @@ extension DailyNutrition {
 
 struct TodayView: View {
     
-    
     var body: some View {
-        Text("Hello world")
+        @State var uidLoggedUser = Auth.auth().currentUser?.uid
+        Text("Hello user  \(uidLoggedUser ?? "USER0")")
     }
 }
 
