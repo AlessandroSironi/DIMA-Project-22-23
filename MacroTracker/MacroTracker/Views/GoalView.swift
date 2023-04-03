@@ -10,56 +10,55 @@ import SwiftUICharts // External plugin: https://github.com/AppPear/ChartView/
 import Charts
 
 struct GoalView: View {
-    
+    @State var kcalGoal = 2000
+    @State var carbsGoal = 200
+    @State var proteinsGoal = 200
+    @State var fatsGoal = 100
     var body: some View {
-        
-        NavigationStack {
-            Text("")
-                .bold()
-                .navigationTitle("Goal")
-            
-            List {
-                NavigationStack {
-                    HStack{
-                        Text("Weight")
-                        Spacer()
-                        Text("70kg").foregroundColor(Color.gray)
-                        
+        VStack {
+            VStack{
+                Text("Set your KCal Goal")
+                
+                HStack{
+                    Button {
+                        kcalGoal -= 50
+                    } label: {
+                        Image(systemName: "minus.circle")
+                    }
+                    
+                    TextField("kcal Goal", value: $kcalGoal, formatter: NumberFormatter())
+                        .multilineTextAlignment(.center)
+                        .keyboardType(.decimalPad)
+                        .frame(minWidth: 15, maxWidth: 60)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.all)
+                    
+                    Button {
+                        kcalGoal += 50
+                    } label: {
+                        Image(systemName: "plus.circle")
                     }
                 }
                 
-                NavigationStack {
-                    HStack {
-                        Text("Calories")
-                        Spacer()
-                        Text("2000kcal").foregroundColor(Color.gray)
-                    }
-                }
-                
-                NavigationStack {
-                    HStack{
-                        Text("Carbs")
-                        Spacer()
-                        Text("200g").foregroundColor(Color.gray)
-                    }
-                }
-                
-                NavigationStack {
-                    HStack{
-                        Text("Proteins")
-                        Spacer()
-                        Text("200g").foregroundColor(Color.gray)
-                    }
-                }
-                
-                NavigationStack {
-                    HStack{
-                        Text("Fats")
-                        Spacer()
-                        Text("70g").foregroundColor(Color.gray)
-                    }
-                }
             }
+            //TODO: update on database.
+            HStack {
+                Stepper("kcal Goal", onIncrement: { kcalGoal += 10 }, onDecrement: { kcalGoal -= 10 })
+                    .padding(.all)
+                TextField("kcal Goal", value: $kcalGoal, formatter: NumberFormatter())
+                    .multilineTextAlignment(.center)
+                    .keyboardType(.decimalPad)
+                    .frame(minWidth: 15, maxWidth: 60)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.all)
+            }
+            Stepper("Carbs Goal: \(carbsGoal) ", onIncrement: { carbsGoal += 10 }, onDecrement: { carbsGoal -= 10 })
+            .padding(.all)
+            Stepper("Proteins Goal: \(proteinsGoal) ", onIncrement: { proteinsGoal += 10 }, onDecrement: { proteinsGoal -= 10 })
+            .padding(.all)
+            Stepper("Fats Goal: \(fatsGoal) ", onIncrement: { fatsGoal += 10 }, onDecrement: { fatsGoal -= 10 })
+            .padding(.all)
+            
         }
     }
 }

@@ -9,8 +9,8 @@ import SwiftUI
 import FirebaseAuth
 
 struct SettingsView: View {
+    @State var userIsLoggingOut = false
     var body: some View {
-        @State var userIsLoggingOut = false
         if (userIsLoggingOut) {
             AuthView()
         } else {
