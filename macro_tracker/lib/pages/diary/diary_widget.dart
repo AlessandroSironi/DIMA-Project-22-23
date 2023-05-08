@@ -166,7 +166,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                               shape: BoxShape.rectangle,
                                             ),
                                             child: Column(
-                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
