@@ -1,3 +1,4 @@
+import '../../auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/food_item_widget.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
@@ -19,10 +20,10 @@ export 'diary_model.dart';
 class DiaryWidget extends StatefulWidget {
   const DiaryWidget({
     Key? key,
-    this.numOfGlasses,
+    //this.numOfGlasses,
   }) : super(key: key);
 
-  final DocumentReference? numOfGlasses;
+  //final DocumentReference? numOfGlasses;
 
   @override
   _DiaryWidgetState createState() => _DiaryWidgetState();
@@ -998,7 +999,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                         size: 30.0,
                                       ),
                                       onPressed: () {
-                                        print('removeWater pressed ...');
+                                        removeWaterGlass();
                                       },
                                     ),
                                     Image.asset(
@@ -1019,7 +1020,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                         size: 30.0,
                                       ),
                                       onPressed: () {
-                                        print('addWater pressed ...');
+                                        addWaterGlass();
                                       },
                                     ),
                                     Container(
@@ -1042,18 +1043,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
-                                      child: Text(
-                                        '2',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 16.0,
-                                            ),
-                                      ),
+                                      child: glassesOfWater(context),
                                     ),
                                     Text(
                                       'glasses',
@@ -2158,7 +2148,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                               size: 30.0,
                                             ),
                                             onPressed: () {
-                                              print('removeWater pressed ...');
+                                              removeWaterGlass();
                                             },
                                           ),
                                           Image.asset(
@@ -2180,7 +2170,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                               size: 30.0,
                                             ),
                                             onPressed: () {
-                                              print('addWater pressed ...');
+                                              addWaterGlass();
                                             },
                                           ),
                                         ],
@@ -2492,6 +2482,112 @@ class _DiaryWidgetState extends State<DiaryWidget> {
           ),
         ),
       ),
+    );
+  }
+  /* FutureBuilder<int> getNumOfGlasses() {
+    return new FutureBuilder<int>(
+      future: FirebaseFirestore.instance.collection('users').doc(currentUserDocument?.uid).collection('water_assumption').where(
+        'date', isGreaterThanOrEqualTo: _model.calendarSelectedDay1?.start
+      )
+      .where (
+        'date', isLessThanOrEqualTo: _model.calendarSelectedDay1?.start
+      )
+      .snapshots().length,
+      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        return Widget(child: Text (
+          snapshot.data!.data().toString(),
+          style: FlutterFlowTheme.of(context)
+              .bodyMedium
+              .override(
+                fontFamily: 'Outfit',
+                color:
+                    FlutterFlowTheme.of(context)
+                        .primaryText,
+                fontSize: 16.0,
+              ),
+        ););
+      }
+    )
+  } */
+
+  void addWaterGlass() async {
+    CollectionReference collection = FirebaseFirestore.instance.collection('users').doc(currentUserDocument?.uid).collection('water_assumption');
+    
+    //TODO: calendar date!!!!!!!!!!!
+    collection.add({
+      'date': new DateTime.now()
+    })
+    .catchError((error) => print("Failed to add water glass: $error"));
+  }
+
+  void removeWaterGlass() async {
+    CollectionReference collection = FirebaseFirestore.instance.collection('users').doc(currentUserDocument?.uid).collection('water_assumption');
+    //TODO: calendar date!!!!!!!!!!!
+    DateTime now = DateTime.now();
+    // Set the start of the day
+    DateTime startOfToday = DateTime(now.year, now.month, now.day);
+
+    // Set the end of the day
+    DateTime endOfToday = DateTime(now.year, now.month, now.day + 1);
+    
+    QuerySnapshot querySnapshot = await collection.where('date', isGreaterThanOrEqualTo: startOfToday)
+                            .where('date', isLessThan: endOfToday)
+                            .orderBy('date', descending: true)
+                            .limit(1)
+                            .get();
+    if (querySnapshot.size > 0) {
+      // Get the reference to the latest document
+      DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+      DocumentReference documentReference = documentSnapshot.reference;
+
+      // Delete the latest document
+      await documentReference.delete();
+      print("Deleting...");
+    }                       
+  }
+
+  Widget glassesOfWater(BuildContext context) {
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('users').doc(currentUserDocument?.uid).collection('water_assumption');
+
+    // Get the current date
+    DateTime now = DateTime.now();
+
+    // Set the start of the day
+    DateTime startOfToday = DateTime(now.year, now.month, now.day);
+
+    // Set the end of the day
+    DateTime endOfToday = DateTime(now.year, now.month, now.day + 1);
+
+    // Create a query for documents with a timestamp between startOfToday and endOfToday
+    Query query = collection.where('date', isGreaterThanOrEqualTo: startOfToday)
+                            .where('date', isLessThan: endOfToday);
+
+    return StreamBuilder<QuerySnapshot>(
+      stream: query.snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        }
+
+        // Get the number of documents in the query result
+        int? count = snapshot.data?.docs.length;
+
+        return Text('$count',
+          style: FlutterFlowTheme.of(context)
+              .bodyMedium
+              .override(
+                fontFamily: 'Outfit',
+                color:
+                    FlutterFlowTheme.of(context)
+                        .primaryText,
+                fontSize: 16.0,
+              ),);
+      },
     );
   }
 }
