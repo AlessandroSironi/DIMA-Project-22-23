@@ -88,11 +88,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'Diary')
               : DiaryWidget(
-                  numOfGlasses: params.getParam(
-                      'numOfGlasses',
-                      ParamType.DocumentReference,
-                      false,
-                      ['users', 'water_assumption']),
+
                 ),
         ),
         FFRoute(
