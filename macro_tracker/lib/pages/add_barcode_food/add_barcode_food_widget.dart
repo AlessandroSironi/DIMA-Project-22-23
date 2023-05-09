@@ -722,6 +722,13 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                         ],
                       ),
                     ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 1.0,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).alternate,
+                      ),
+                    ),
                   ],
                 ),
               if (responsiveVisibility(
@@ -736,16 +743,12 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1.0,
-                            height: MediaQuery.of(context).size.height * 0.05,
-                            decoration: BoxDecoration(),
-                          ),
-                        ],
+                      Container(
+                        width: MediaQuery.of(context).size.width * 1.0,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).alternate,
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1373,6 +1376,13 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                               ),
                             ),
                           ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 1.0,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).alternate,
                         ),
                       ),
                     ],
