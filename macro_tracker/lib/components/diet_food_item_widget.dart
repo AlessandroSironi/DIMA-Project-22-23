@@ -75,7 +75,7 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Giovanni raga pesto al gusto di cazzo',
+                        'Giovanni raga pesto',
                         textAlign: TextAlign.start,
                         maxLines: 1,
                         style: FlutterFlowTheme.of(context).bodyMedium,
@@ -122,7 +122,7 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
                       size: 28.0,
                     ),
                     onPressed: () async {
-                      context.pushNamed('Diary');
+                      context.goNamed('Diary');
                     },
                   ),
                 ],

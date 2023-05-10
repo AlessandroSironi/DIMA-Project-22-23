@@ -173,7 +173,7 @@ class _AddWidgetState extends State<AddWidget> {
                               20.0, 20.0, 20.0, 20.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              context.goNamed('Diet');
+                              context.pushNamed('Diet');
                             },
                             text: 'Food from Diet',
                             icon: Icon(

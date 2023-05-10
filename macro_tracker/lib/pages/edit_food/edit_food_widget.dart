@@ -75,7 +75,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
               buttonSize: 60.0,
               icon: Icon(
                 Icons.delete,
-                color: FlutterFlowTheme.of(context).primaryText,
+                color: FlutterFlowTheme.of(context).white,
                 size: 24.0,
               ),
               onPressed: () async {
@@ -132,13 +132,6 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 1.0,
-                        height: MediaQuery.of(context).size.height * 0.05,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).alternate,
-                        ),
-                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             70.0, 20.0, 70.0, 0.0),
@@ -705,7 +698,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed('Diary');
+                                context.pushNamed('Diet');
                               },
                               text: 'Cancel',
                               options: FFButtonOptions(
@@ -734,7 +727,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed('Diary');
+                                context.pushNamed('Diet');
                               },
                               text: 'Confirm',
                               options: FFButtonOptions(
@@ -766,7 +759,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                         width: MediaQuery.of(context).size.width * 1.0,
                         height: MediaQuery.of(context).size.height * 0.05,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                       ),
                     ],
@@ -787,7 +780,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                         width: MediaQuery.of(context).size.width * 1.0,
                         height: MediaQuery.of(context).size.height * 0.05,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                       ),
                       Padding(
@@ -1358,7 +1351,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed('Diary');
+                                context.pushNamed('Diet');
                               },
                               text: 'Cancel',
                               options: FFButtonOptions(
@@ -1387,7 +1380,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed('Diary');
+                                context.pushNamed('Diet');
                               },
                               text: 'Confirm',
                               options: FFButtonOptions(
@@ -1419,7 +1412,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                         width: MediaQuery.of(context).size.width * 1.0,
                         height: MediaQuery.of(context).size.height * 0.05,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                       ),
                     ],

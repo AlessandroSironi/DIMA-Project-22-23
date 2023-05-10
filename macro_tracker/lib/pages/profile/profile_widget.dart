@@ -65,6 +65,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
           !anim.applyInitialState),
       this,
     );
+
+    animationsMap['containerOnActionTriggerAnimation2']!.controller.duration =
+        0.ms;
   }
 
   @override

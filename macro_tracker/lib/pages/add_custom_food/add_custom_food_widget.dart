@@ -5,8 +5,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'add_custom_food_model.dart';
 export 'add_custom_food_model.dart';
 
@@ -88,13 +86,13 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    /* Container(
                       width: MediaQuery.of(context).size.width * 1.0,
                       height: MediaQuery.of(context).size.height * 0.05,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                       ),
-                    ),
+                    ), */
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(70.0, 20.0, 70.0, 0.0),
@@ -651,7 +649,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
-                              context.pushNamed('Diary');
+                              context.goNamed('Diary');
                             },
                             text: 'Add to diet',
                             options: FFButtonOptions(
@@ -680,7 +678,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           ),
                           FFButtonWidget(
                             onPressed: () async {
-                              context.pushNamed('Diary');
+                              context.goNamed('Diary');
                             },
                             text: 'Log food',
                             options: FFButtonOptions(
@@ -712,7 +710,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                       width: MediaQuery.of(context).size.width * 1.0,
                       height: MediaQuery.of(context).size.height * 0.05,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).alternate,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                       ),
                     ),
                   ],
@@ -733,7 +731,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                         width: MediaQuery.of(context).size.width * 1.0,
                         height: MediaQuery.of(context).size.height * 0.05,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                       ),
                       Padding(
@@ -1307,7 +1305,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed('Diary');
+                                context.goNamed('Diary');
                               },
                               text: 'Add to diet',
                               options: FFButtonOptions(
@@ -1336,7 +1334,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed('Diary');
+                                context.goNamed('Diary');
                               },
                               text: 'Log food',
                               options: FFButtonOptions(
@@ -1368,7 +1366,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                         width: MediaQuery.of(context).size.width * 1.0,
                         height: MediaQuery.of(context).size.height * 0.05,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).alternate,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                       ),
                     ],

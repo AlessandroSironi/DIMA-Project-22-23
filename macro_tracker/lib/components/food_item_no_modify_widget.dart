@@ -106,7 +106,7 @@ class _FoodItemNoModifyWidgetState extends State<FoodItemNoModifyWidget> {
                       size: 28.0,
                     ),
                     onPressed: () async {
-                      context.pushNamed('Diary');
+                      context.goNamed('Diary');
                     },
                   ),
                 ],
