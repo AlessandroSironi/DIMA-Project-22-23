@@ -20,10 +20,7 @@ export 'diary_model.dart';
 class DiaryWidget extends StatefulWidget {
   const DiaryWidget({
     Key? key,
-    //this.numOfGlasses,
   }) : super(key: key);
-
-  //final DocumentReference? numOfGlasses;
 
   @override
   _DiaryWidgetState createState() => _DiaryWidgetState();
@@ -999,7 +996,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                         size: 30.0,
                                       ),
                                       onPressed: () {
-                                        removeWaterGlass();
+                                        removeAssumptionItem(
+                                            "water_assumption", true);
                                       },
                                     ),
                                     Image.asset(
@@ -1020,7 +1018,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                         size: 30.0,
                                       ),
                                       onPressed: () {
-                                        addWaterGlass();
+                                        addAssumptionItem(
+                                            "water_assumption", true);
                                       },
                                     ),
                                     Container(
@@ -1043,7 +1042,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
-                                      child: glassesOfWater(context),
+                                      child: countDailyAssumption(
+                                          context, "water_assumption", true),
                                     ),
                                     Text(
                                       'glasses',
@@ -1119,7 +1119,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                         size: 30.0,
                                       ),
                                       onPressed: () {
-                                        print('removeCoffee pressed ...');
+                                        removeAssumptionItem(
+                                            "coffee_assumption", true);
                                       },
                                     ),
                                     Image.asset(
@@ -1140,7 +1141,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                         size: 30.0,
                                       ),
                                       onPressed: () {
-                                        print('addCoffee pressed ...');
+                                        addAssumptionItem(
+                                            "coffee_assumption", true);
                                       },
                                     ),
                                   ],
@@ -1152,18 +1154,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
-                                      child: Text(
-                                        '2',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 16.0,
-                                            ),
-                                      ),
+                                      child: countDailyAssumption(
+                                          context, "coffee_assumption", true),
                                     ),
                                     Text(
                                       'cups',
@@ -1211,17 +1203,106 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                           10.0, 10.0, 10.0, 10.0),
-                      child: ListView(
+                      child: PagedListView<DocumentSnapshot<Object?>?,
+                          FoodsRecord>(
+                        pagingController: () {
+                          final Query<Object?> Function(Query<Object?>)
+                              queryBuilder = (foodsRecord) => foodsRecord
+                                  .where('datetime',
+                                      isGreaterThanOrEqualTo:
+                                          functions.getTodayInterval()?.start)
+                                  .where('datetime',
+                                      isLessThanOrEqualTo:
+                                          functions.getTodayInterval()?.end);
+                          if (_model.pagingController != null) {
+                            final query =
+                                queryBuilder(FoodsRecord.collection());
+                            if (query != _model.pagingQuery) {
+                              // The query has changed
+                              _model.pagingQuery = query;
+                              _model.streamSubscriptions
+                                  .forEach((s) => s?.cancel());
+                              _model.streamSubscriptions.clear();
+                              _model.pagingController!.refresh();
+                            }
+                            return _model.pagingController!;
+                          }
+
+                          _model.pagingController =
+                              PagingController(firstPageKey: null);
+                          _model.pagingQuery =
+                              queryBuilder(FoodsRecord.collection());
+                          _model.pagingController!
+                              .addPageRequestListener((nextPageMarker) {
+                            queryFoodsRecordPage(
+                              queryBuilder: (foodsRecord) => foodsRecord
+                                  .where('datetime',
+                                      isGreaterThanOrEqualTo:
+                                          functions.getTodayInterval()?.start)
+                                  .where('datetime',
+                                      isLessThanOrEqualTo:
+                                          functions.getTodayInterval()?.end),
+                              nextPageMarker: nextPageMarker,
+                              pageSize: 25,
+                              isStream: true,
+                            ).then((page) {
+                              _model.pagingController!.appendPage(
+                                page.data,
+                                page.nextPageMarker,
+                              );
+                              final streamSubscription =
+                                  page.dataStream?.listen((data) {
+                                data.forEach((item) {
+                                  final itemIndexes = _model
+                                      .pagingController!.itemList!
+                                      .asMap()
+                                      .map((k, v) =>
+                                          MapEntry(v.reference.id, k));
+                                  final index = itemIndexes[item.reference.id];
+                                  final items =
+                                      _model.pagingController!.itemList!;
+                                  if (index != null) {
+                                    items
+                                        .replaceRange(index, index + 1, [item]);
+                                    _model.pagingController!.itemList = {
+                                      for (var item in items)
+                                        item.reference: item
+                                    }.values.toList();
+                                  }
+                                });
+                                setState(() {});
+                              });
+                              _model.streamSubscriptions
+                                  .add(streamSubscription);
+                            });
+                          });
+                          return _model.pagingController!;
+                        }(),
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
+                        reverse: false,
                         scrollDirection: Axis.vertical,
-                        children: [
-                          wrapWithModel(
-                            model: _model.foodItemModel1,
-                            updateCallback: () => setState(() {}),
-                            child: FoodItemWidget(),
+                        builderDelegate: PagedChildBuilderDelegate<FoodsRecord>(
+                          // Customize what your widget looks like when it's loading the first page.
+                          firstPageProgressIndicatorBuilder: (_) => Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                color: FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
                           ),
-                        ],
+
+                          itemBuilder: (context, _, listViewIndex) {
+                            final listViewFoodsRecord = _model
+                                .pagingController!.itemList![listViewIndex];
+                            return FoodItemWidget(
+                              key: Key(
+                                  'Key7bl_${listViewIndex}_of_${_model.pagingController!.itemList!.length}'),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -2148,7 +2229,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                               size: 30.0,
                                             ),
                                             onPressed: () {
-                                              removeWaterGlass();
+                                              removeAssumptionItem(
+                                                  "water_assumption", false);
                                             },
                                           ),
                                           Image.asset(
@@ -2170,7 +2252,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                               size: 30.0,
                                             ),
                                             onPressed: () {
-                                              addWaterGlass();
+                                              addAssumptionItem(
+                                                  "water_assumption", false);
                                             },
                                           ),
                                         ],
@@ -2184,20 +2267,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 5.0, 0.0, 0.0),
-                                            child: Text(
-                                              '2',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        fontSize: 16.0,
-                                                      ),
-                                            ),
+                                            child: countDailyAssumption(context,
+                                                "water_assumption", false),
                                           ),
                                           Text(
                                             'glasses',
@@ -2274,7 +2345,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                               size: 30.0,
                                             ),
                                             onPressed: () {
-                                              print('removeCoffee pressed ...');
+                                              removeAssumptionItem(
+                                                  "coffee_assumption", false);
                                             },
                                           ),
                                           Image.asset(
@@ -2296,7 +2368,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                               size: 30.0,
                                             ),
                                             onPressed: () {
-                                              print('addCoffee pressed ...');
+                                              addAssumptionItem(
+                                                  "coffee_assumption", false);
                                             },
                                           ),
                                         ],
@@ -2310,20 +2383,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 5.0, 0.0, 0.0),
-                                            child: Text(
-                                              '2',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        fontSize: 16.0,
-                                                      ),
-                                            ),
+                                            child: countDailyAssumption(context,
+                                                "coffee_assumption", false),
                                           ),
                                           Text(
                                             'cups',
@@ -2484,57 +2545,46 @@ class _DiaryWidgetState extends State<DiaryWidget> {
       ),
     );
   }
-  /* FutureBuilder<int> getNumOfGlasses() {
-    return new FutureBuilder<int>(
-      future: FirebaseFirestore.instance.collection('users').doc(currentUserDocument?.uid).collection('water_assumption').where(
-        'date', isGreaterThanOrEqualTo: _model.calendarSelectedDay1?.start
-      )
-      .where (
-        'date', isLessThanOrEqualTo: _model.calendarSelectedDay1?.start
-      )
-      .snapshots().length,
-      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        return Widget(child: Text (
-          snapshot.data!.data().toString(),
-          style: FlutterFlowTheme.of(context)
-              .bodyMedium
-              .override(
-                fontFamily: 'Outfit',
-                color:
-                    FlutterFlowTheme.of(context)
-                        .primaryText,
-                fontSize: 16.0,
-              ),
-        ););
-      }
-    )
-  } */
 
-  void addWaterGlass() async {
-    CollectionReference collection = FirebaseFirestore.instance.collection('users').doc(currentUserDocument?.uid).collection('water_assumption');
-    
-    //TODO: calendar date!!!!!!!!!!!
-    collection.add({
-      'date': new DateTime.now()
-    })
-    .catchError((error) => print("Failed to add water glass: $error"));
+  void addAssumptionItem(String targetCollection, bool isMobile) async {
+    CollectionReference collection = FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection(targetCollection);
+
+    DateTime date = isMobile
+        ? _model.calendarSelectedDay1!.start
+        : _model.calendarSelectedDay2!.start;
+
+    print("bla: $date");
+
+    collection.add({'date': date}).catchError(
+        (error) => print("Failed to add item: $error"));
   }
 
-  void removeWaterGlass() async {
-    CollectionReference collection = FirebaseFirestore.instance.collection('users').doc(currentUserDocument?.uid).collection('water_assumption');
-    //TODO: calendar date!!!!!!!!!!!
-    DateTime now = DateTime.now();
+  void removeAssumptionItem(String targetCollection, bool isMobile) async {
+    CollectionReference collection = FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection(targetCollection);
+
+    // Uses different calendar widgets based on the platform
     // Set the start of the day
-    DateTime startOfToday = DateTime(now.year, now.month, now.day);
+    DateTime startOfToday = isMobile
+        ? _model.calendarSelectedDay1!.start
+        : _model.calendarSelectedDay2!.start;
 
     // Set the end of the day
-    DateTime endOfToday = DateTime(now.year, now.month, now.day + 1);
-    
-    QuerySnapshot querySnapshot = await collection.where('date', isGreaterThanOrEqualTo: startOfToday)
-                            .where('date', isLessThan: endOfToday)
-                            .orderBy('date', descending: true)
-                            .limit(1)
-                            .get();
+    DateTime endOfToday = isMobile
+        ? _model.calendarSelectedDay1!.end
+        : _model.calendarSelectedDay2!.end;
+
+    QuerySnapshot querySnapshot = await collection
+        .where('date', isGreaterThanOrEqualTo: startOfToday)
+        .where('date', isLessThan: endOfToday)
+        .orderBy('date', descending: true)
+        .limit(1)
+        .get();
     if (querySnapshot.size > 0) {
       // Get the reference to the latest document
       DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
@@ -2543,25 +2593,33 @@ class _DiaryWidgetState extends State<DiaryWidget> {
       // Delete the latest document
       await documentReference.delete();
       print("Deleting...");
-    }                       
+    }
   }
 
-  Widget glassesOfWater(BuildContext context) {
-    CollectionReference collection =
-        FirebaseFirestore.instance.collection('users').doc(currentUserDocument?.uid).collection('water_assumption');
+  Widget countDailyAssumption(
+      BuildContext context, String targetCollection, bool isMobile) {
+    CollectionReference collection = FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection(targetCollection);
 
-    // Get the current date
-    DateTime now = DateTime.now();
-
+    // Uses different calendar widgets based on the platform
     // Set the start of the day
-    DateTime startOfToday = DateTime(now.year, now.month, now.day);
+    DateTime startOfToday = isMobile
+        ? _model.calendarSelectedDay1!.start
+        : _model.calendarSelectedDay2!.start;
 
     // Set the end of the day
-    DateTime endOfToday = DateTime(now.year, now.month, now.day + 1);
+    DateTime endOfToday = isMobile
+        ? _model.calendarSelectedDay1!.end
+        : _model.calendarSelectedDay2!.end;
+
+    print("start: $startOfToday - end: $endOfToday");
 
     // Create a query for documents with a timestamp between startOfToday and endOfToday
-    Query query = collection.where('date', isGreaterThanOrEqualTo: startOfToday)
-                            .where('date', isLessThan: endOfToday);
+    Query query = collection
+        .where('date', isGreaterThanOrEqualTo: startOfToday)
+        .where('date', isLessThan: endOfToday);
 
     return StreamBuilder<QuerySnapshot>(
       stream: query.snapshots(),
@@ -2577,16 +2635,16 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         // Get the number of documents in the query result
         int? count = snapshot.data?.docs.length;
 
-        return Text('$count',
-          style: FlutterFlowTheme.of(context)
-              .bodyMedium
-              .override(
+        print("length: $count");
+
+        return Text(
+          '$count',
+          style: FlutterFlowTheme.of(context).bodyMedium.override(
                 fontFamily: 'Outfit',
-                color:
-                    FlutterFlowTheme.of(context)
-                        .primaryText,
+                color: FlutterFlowTheme.of(context).primaryText,
                 fontSize: 16.0,
-              ),);
+              ),
+        );
       },
     );
   }
