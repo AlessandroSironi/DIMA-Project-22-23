@@ -510,6 +510,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                         ],
                       ),
                     ),
+                    //Enable Daily Reminder
+                    
                     Expanded(
                       child: Padding(
                         padding:
