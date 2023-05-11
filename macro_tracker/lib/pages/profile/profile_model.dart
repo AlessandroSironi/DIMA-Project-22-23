@@ -9,6 +9,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'package:macro_tracker/services/local_notification_service.dart';
+
 class ProfileModel extends FlutterFlowModel {
   /// Initialization and disposal methods.
 
@@ -17,5 +19,7 @@ class ProfileModel extends FlutterFlowModel {
   void dispose() {}
 
   /// Additional helper methods are added here.
+  
+  LocalNotificationService notificationService = LocalNotificationService();
 
 }

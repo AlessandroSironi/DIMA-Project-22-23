@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 import 'profile_model.dart';
 export 'profile_model.dart';
 
+import 'package:macro_tracker/services/local_notification_service.dart';
+
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({Key? key}) : super(key: key);
 
@@ -58,7 +60,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => ProfileModel());
-
+    _model.notificationService.initialize();
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -529,6 +531,39 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                   context.goNamedAuth('Login', mounted);
                                 },
                                 text: 'Log Out',
+                                options: FFButtonOptions(
+                                  width: 130.0,
+                                  height: 50.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .override(
+                                        fontFamily: 'Outfit',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                  elevation: 3.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 16.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                 _model.notificationService.showNotification(0, 'Test', 'Test Notifica');
+                                },
+                                text: 'Test Notification',
                                 options: FFButtonOptions(
                                   width: 130.0,
                                   height: 50.0,
