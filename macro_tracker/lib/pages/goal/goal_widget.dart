@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -47,16 +50,98 @@ class _GoalWidgetState extends State<GoalWidget> {
     _model.carbsValueController2 ??= TextEditingController();
     _model.proteinsValueController2 ??= TextEditingController();
     _model.fatsValueController2 ??= TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          _model.kcalValueController1?.text = '2000';
-          _model.carbsValueController1?.text = '250';
-          _model.proteinsValueController1?.text = '180';
-          _model.fatsValueController1?.text = '60';
-          _model.kcalValueController2?.text = '2000';
-          _model.carbsValueController2?.text = '250';
-          _model.proteinsValueController2?.text = '2000';
-          _model.fatsValueController2?.text = '250';
-        }));
+
+    // Fetch data from Firestore and set the values of the controllers
+    fetchDataAndSetValues();
+
+    // Listen for changes in kcalValueController1
+    _model.kcalValueController1?.addListener(() {
+      String newValue = _model.kcalValueController1.text;
+      updateFirestoreValue('kcal_goal', newValue);
+    });
+
+    // Listen for changes in carbsValueController1
+    _model.carbsValueController1?.addListener(() {
+      String newValue = _model.carbsValueController1.text;
+      updateFirestoreValue('carbs_goal', newValue);
+    });
+
+    // Listen for changes in proteinsValueController1
+    _model.proteinsValueController1?.addListener(() {
+      String newValue = _model.proteinsValueController1.text;
+      updateFirestoreValue('proteins_goal', newValue);
+    });
+
+    // Listen for changes in fatsValueController1
+    _model.fatsValueController1?.addListener(() {
+      String newValue = _model.fatsValueController1.text;
+      updateFirestoreValue('fats_goal', newValue);
+    });
+
+    // Listen for changes in kcalValueController2
+    _model.kcalValueController2?.addListener(() {
+      String newValue = _model.kcalValueController2.text;
+      updateFirestoreValue('kcal_goal', newValue);
+    });
+
+    // Listen for changes in carbsValueController2
+    _model.carbsValueController2?.addListener(() {
+      String newValue = _model.carbsValueController2.text;
+      updateFirestoreValue('carbs_goal', newValue);
+    });
+
+    // Listen for changes in proteinsValueController2
+    _model.proteinsValueController2?.addListener(() {
+      String newValue = _model.proteinsValueController2.text;
+      updateFirestoreValue('proteins_goal', newValue);
+    });
+
+    // Listen for changes in fatsValueController2
+    _model.fatsValueController2?.addListener(() {
+      String newValue = _model.fatsValueController2.text;
+      updateFirestoreValue('fats_goal', newValue);
+    });
+  }
+
+  void fetchDataAndSetValues() {
+    CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('users');
+    DocumentReference userDocument =
+        usersCollection.doc(currentUserDocument?.uid);
+
+    // Fetch the data from Firestore
+    userDocument.get().then((snapshot) {
+      if (snapshot.exists) {
+        // Extract the data from the snapshot
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+
+        // Update the TextEditingController values
+        setState(() {
+          _model.kcalValueController1?.text = data['kcal_goal'];
+          _model.carbsValueController1?.text = data['carbs_goal'];
+          _model.proteinsValueController1?.text = data['proteins_goal'];
+          _model.fatsValueController1?.text = data['fats_goal'];
+          _model.kcalValueController2?.text = data['kcal_goal'];
+          _model.carbsValueController2?.text = data['carbs_goal'];
+          _model.proteinsValueController2?.text = data['proteins_goal'];
+          _model.fatsValueController2?.text = data['fats_goal'];
+        });
+      }
+    });
+  }
+
+  void updateFirestoreValue(String field, String value) {
+    DocumentReference userDocument = FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserDocument?.uid);
+
+    Map<String, dynamic> updateData = {field: value};
+
+    userDocument.update(updateData).then((_) {
+      print('Value updated successfully');
+    }).catchError((error) {
+      print('Failed to update value: $error');
+    });
   }
 
   @override
@@ -3971,5 +4056,48 @@ class _GoalWidgetState extends State<GoalWidget> {
         ),
       ),
     );
+  }
+
+  void getGoalValues(BuildContext context) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        print('Document data: ${documentSnapshot.data()}');
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
+
+    /*
+    return StreamBuilder<QuerySnapshot>(
+      stream: query.snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        }
+
+        // Get the number of documents in the query result
+        int? count = snapshot.data?.docs.length;
+
+        print("length: $count");
+
+        return Text(
+          '$count',
+          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                fontFamily: 'Outfit',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: 16.0,
+              ),
+        );
+      },
+    );
+    */
   }
 }

@@ -308,6 +308,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                 return;
                               }
 
+                              //creates initial fields for the user after his
+                              //creation into firebase
+
                               final usersCreateData = {
                                 ...createUsersRecordData(
                                   email: _model.emailController.text,
@@ -315,6 +318,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   surname: _model.surnameController.text,
                                 ),
                                 'created_time': FieldValue.serverTimestamp(),
+                                'kcal_goal': '2000',
+                                'carbs_goal': '250',
+                                'proteins_goal': '180',
+                                'fats_goal': '60',
                               };
                               await UsersRecord.collection
                                   .doc(user.uid)

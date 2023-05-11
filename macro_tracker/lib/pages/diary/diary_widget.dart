@@ -2556,8 +2556,6 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         ? _model.calendarSelectedDay1!.start
         : _model.calendarSelectedDay2!.start;
 
-    print("bla: $date");
-
     collection.add({'date': date}).catchError(
         (error) => print("Failed to add item: $error"));
   }
@@ -2614,8 +2612,6 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         ? _model.calendarSelectedDay1!.end
         : _model.calendarSelectedDay2!.end;
 
-    print("start: $startOfToday - end: $endOfToday");
-
     // Create a query for documents with a timestamp between startOfToday and endOfToday
     Query query = collection
         .where('date', isGreaterThanOrEqualTo: startOfToday)
@@ -2634,8 +2630,6 @@ class _DiaryWidgetState extends State<DiaryWidget> {
 
         // Get the number of documents in the query result
         int? count = snapshot.data?.docs.length;
-
-        print("length: $count");
 
         return Text(
           '$count',
