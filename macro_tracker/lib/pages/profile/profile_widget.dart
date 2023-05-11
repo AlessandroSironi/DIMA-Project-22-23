@@ -607,7 +607,6 @@ class _ProfileWidgetState extends State<ProfileWidget>
           ],
         ),
       ),
-      
     );
   }
 }
