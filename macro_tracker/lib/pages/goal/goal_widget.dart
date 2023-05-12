@@ -7,11 +7,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:easy_debounce/easy_debounce.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'goal_model.dart';
 export 'goal_model.dart';
 
@@ -24,6 +21,9 @@ class GoalWidget extends StatefulWidget {
 
 class _GoalWidgetState extends State<GoalWidget> {
   late GoalModel _model;
+
+  final int amountToModifyKcal = 50;
+  final int amountToModifyOthers = 10;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int get carouselCurrentIndex1 => _model.carouselController1 != null &&
@@ -51,56 +51,7 @@ class _GoalWidgetState extends State<GoalWidget> {
     _model.proteinsValueController2 ??= TextEditingController();
     _model.fatsValueController2 ??= TextEditingController();
 
-    // Fetch data from Firestore and set the values of the controllers
     fetchDataAndSetValues();
-
-    // Listen for changes in kcalValueController1
-    _model.kcalValueController1?.addListener(() {
-      String newValue = _model.kcalValueController1.text;
-      updateFirestoreValue('kcal_goal', newValue);
-    });
-
-    // Listen for changes in carbsValueController1
-    _model.carbsValueController1?.addListener(() {
-      String newValue = _model.carbsValueController1.text;
-      updateFirestoreValue('carbs_goal', newValue);
-    });
-
-    // Listen for changes in proteinsValueController1
-    _model.proteinsValueController1?.addListener(() {
-      String newValue = _model.proteinsValueController1.text;
-      updateFirestoreValue('proteins_goal', newValue);
-    });
-
-    // Listen for changes in fatsValueController1
-    _model.fatsValueController1?.addListener(() {
-      String newValue = _model.fatsValueController1.text;
-      updateFirestoreValue('fats_goal', newValue);
-    });
-
-    // Listen for changes in kcalValueController2
-    _model.kcalValueController2?.addListener(() {
-      String newValue = _model.kcalValueController2.text;
-      updateFirestoreValue('kcal_goal', newValue);
-    });
-
-    // Listen for changes in carbsValueController2
-    _model.carbsValueController2?.addListener(() {
-      String newValue = _model.carbsValueController2.text;
-      updateFirestoreValue('carbs_goal', newValue);
-    });
-
-    // Listen for changes in proteinsValueController2
-    _model.proteinsValueController2?.addListener(() {
-      String newValue = _model.proteinsValueController2.text;
-      updateFirestoreValue('proteins_goal', newValue);
-    });
-
-    // Listen for changes in fatsValueController2
-    _model.fatsValueController2?.addListener(() {
-      String newValue = _model.fatsValueController2.text;
-      updateFirestoreValue('fats_goal', newValue);
-    });
   }
 
   void fetchDataAndSetValues() {
@@ -141,6 +92,31 @@ class _GoalWidgetState extends State<GoalWidget> {
       print('Value updated successfully');
     }).catchError((error) {
       print('Failed to update value: $error');
+    });
+  }
+
+  void modifyMacroValue(String field, int amount) {
+    DocumentReference userDocument = FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserDocument?.uid);
+
+    // Get the existing value from the database
+    userDocument.get().then((snapshot) {
+      if (snapshot.exists) {
+        Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+        String currentValue = data?[field];
+        int parsedValue = int.tryParse(currentValue) ?? 0;
+        int updatedValue = parsedValue + amount;
+
+        // Update the value in Firestore
+        userDocument.update({field: updatedValue.toString()}).then((_) {
+          print('Value updated successfully');
+        }).catchError((error) {
+          print('Failed to update value: $error');
+        });
+      }
+    }).catchError((error) {
+      print('Failed to retrieve current value: $error');
     });
   }
 
@@ -309,120 +285,20 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                         size: 30.0,
                                                       ),
                                                       onPressed: () {
+                                                        modifyMacroValue(
+                                                            'kcal_goal',
+                                                            -amountToModifyKcal);
                                                         print(
                                                             'minusKcal pressed ...');
                                                       },
                                                     ),
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.0, 0.0),
-                                                        child: Container(
-                                                          width:
-                                                              double.infinity,
-                                                          child: TextFormField(
-                                                            controller: _model
-                                                                .kcalValueController1,
-                                                            onChanged: (_) =>
-                                                                EasyDebounce
-                                                                    .debounce(
-                                                              '_model.kcalValueController1',
-                                                              Duration(
-                                                                  milliseconds:
-                                                                      2000),
-                                                              () => setState(
-                                                                  () {}),
-                                                            ),
-                                                            obscureText: false,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              hintStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium,
-                                                              enabledBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              focusedBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              errorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              focusedErrorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              contentPadding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          10.0,
-                                                                          10.0,
-                                                                          10.0),
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                            validator: _model
-                                                                .kcalValueController1Validator
-                                                                .asValidator(
-                                                                    context),
-                                                            inputFormatters: [
-                                                              FilteringTextInputFormatter
-                                                                  .allow(RegExp(
-                                                                      '[0-9]'))
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                    buildTextFieldFromFirestore(
+                                                        _model
+                                                            .kcalValueController1,
+                                                        '_model.kcalValueController1',
+                                                        'kcal_goal',
+                                                        _model
+                                                            .kcalValueController1Validator),
                                                     FlutterFlowIconButton(
                                                       borderColor:
                                                           Colors.transparent,
@@ -438,6 +314,9 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                         size: 30.0,
                                                       ),
                                                       onPressed: () {
+                                                        modifyMacroValue(
+                                                            'kcal_goal',
+                                                            amountToModifyKcal);
                                                         print(
                                                             'plusKcal pressed ...');
                                                       },
@@ -594,120 +473,20 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                         size: 30.0,
                                                       ),
                                                       onPressed: () {
+                                                        modifyMacroValue(
+                                                            'carbs_goal',
+                                                            -amountToModifyOthers);
                                                         print(
                                                             'minusCarbs pressed ...');
                                                       },
                                                     ),
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.0, 0.0),
-                                                        child: Container(
-                                                          width:
-                                                              double.infinity,
-                                                          child: TextFormField(
-                                                            controller: _model
-                                                                .carbsValueController1,
-                                                            onChanged: (_) =>
-                                                                EasyDebounce
-                                                                    .debounce(
-                                                              '_model.carbsValueController1',
-                                                              Duration(
-                                                                  milliseconds:
-                                                                      2000),
-                                                              () => setState(
-                                                                  () {}),
-                                                            ),
-                                                            obscureText: false,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              hintStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium,
-                                                              enabledBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              focusedBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              errorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              focusedErrorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              contentPadding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          10.0,
-                                                                          10.0,
-                                                                          10.0),
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                            validator: _model
-                                                                .carbsValueController1Validator
-                                                                .asValidator(
-                                                                    context),
-                                                            inputFormatters: [
-                                                              FilteringTextInputFormatter
-                                                                  .allow(RegExp(
-                                                                      '[0-9]'))
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                    buildTextFieldFromFirestore(
+                                                        _model
+                                                            .carbsValueController1,
+                                                        '_model.carbsValueController1',
+                                                        "carbs_goal",
+                                                        _model
+                                                            .carbsValueController1Validator),
                                                     FlutterFlowIconButton(
                                                       borderColor:
                                                           Colors.transparent,
@@ -723,6 +502,9 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                         size: 30.0,
                                                       ),
                                                       onPressed: () {
+                                                        modifyMacroValue(
+                                                            'carbs_goal',
+                                                            amountToModifyOthers);
                                                         print(
                                                             'plusCarbs pressed ...');
                                                       },
@@ -881,120 +663,20 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                         size: 30.0,
                                                       ),
                                                       onPressed: () {
+                                                        modifyMacroValue(
+                                                            'proteins_goal',
+                                                            -amountToModifyOthers);
                                                         print(
                                                             'minusProteins pressed ...');
                                                       },
                                                     ),
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.0, 0.0),
-                                                        child: Container(
-                                                          width:
-                                                              double.infinity,
-                                                          child: TextFormField(
-                                                            controller: _model
-                                                                .proteinsValueController1,
-                                                            onChanged: (_) =>
-                                                                EasyDebounce
-                                                                    .debounce(
-                                                              '_model.proteinsValueController1',
-                                                              Duration(
-                                                                  milliseconds:
-                                                                      2000),
-                                                              () => setState(
-                                                                  () {}),
-                                                            ),
-                                                            obscureText: false,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              hintStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium,
-                                                              enabledBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              focusedBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              errorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              focusedErrorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              contentPadding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          10.0,
-                                                                          10.0,
-                                                                          10.0),
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                            validator: _model
-                                                                .proteinsValueController1Validator
-                                                                .asValidator(
-                                                                    context),
-                                                            inputFormatters: [
-                                                              FilteringTextInputFormatter
-                                                                  .allow(RegExp(
-                                                                      '[0-9]'))
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                    buildTextFieldFromFirestore(
+                                                        _model
+                                                            .proteinsValueController1,
+                                                        '_model.proteinsValueController1',
+                                                        'proteins_goal',
+                                                        _model
+                                                            .proteinsValueController1Validator),
                                                     FlutterFlowIconButton(
                                                       borderColor:
                                                           Colors.transparent,
@@ -1010,6 +692,9 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                         size: 30.0,
                                                       ),
                                                       onPressed: () {
+                                                        modifyMacroValue(
+                                                            'proteins_goal',
+                                                            amountToModifyOthers);
                                                         print(
                                                             'plusProteins pressed ...');
                                                       },
@@ -1166,120 +851,20 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                         size: 30.0,
                                                       ),
                                                       onPressed: () {
+                                                        modifyMacroValue(
+                                                            'fats_goal',
+                                                            -amountToModifyOthers);
                                                         print(
                                                             'minusFats pressed ...');
                                                       },
                                                     ),
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.0, 0.0),
-                                                        child: Container(
-                                                          width:
-                                                              double.infinity,
-                                                          child: TextFormField(
-                                                            controller: _model
-                                                                .fatsValueController1,
-                                                            onChanged: (_) =>
-                                                                EasyDebounce
-                                                                    .debounce(
-                                                              '_model.fatsValueController1',
-                                                              Duration(
-                                                                  milliseconds:
-                                                                      2000),
-                                                              () => setState(
-                                                                  () {}),
-                                                            ),
-                                                            obscureText: false,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              hintStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium,
-                                                              enabledBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              focusedBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              errorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              focusedErrorBorder:
-                                                                  OutlineInputBorder(
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                  color: Color(
-                                                                      0x00000000),
-                                                                  width: 1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                              ),
-                                                              contentPadding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          10.0,
-                                                                          10.0,
-                                                                          10.0),
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                            validator: _model
-                                                                .fatsValueController1Validator
-                                                                .asValidator(
-                                                                    context),
-                                                            inputFormatters: [
-                                                              FilteringTextInputFormatter
-                                                                  .allow(RegExp(
-                                                                      '[0-9]'))
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                    buildTextFieldFromFirestore(
+                                                        _model
+                                                            .fatsValueController1,
+                                                        '_model.fatsValueController1',
+                                                        "fats_goal",
+                                                        _model
+                                                            .fatsValueController1Validator),
                                                     FlutterFlowIconButton(
                                                       borderColor:
                                                           Colors.transparent,
@@ -1295,6 +880,9 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                         size: 30.0,
                                                       ),
                                                       onPressed: () {
+                                                        modifyMacroValue(
+                                                            'fats_goal',
+                                                            amountToModifyOthers);
                                                         print(
                                                             'plusFats pressed ...');
                                                       },
@@ -2298,119 +1886,20 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                       size: 30.0,
                                                     ),
                                                     onPressed: () {
+                                                      modifyMacroValue(
+                                                          'kcal_goal',
+                                                          -amountToModifyKcal);
                                                       print(
                                                           'minusKcal pressed ...');
                                                     },
                                                   ),
-                                                  Expanded(
-                                                    child: Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: Container(
-                                                        width: double.infinity,
-                                                        child: TextFormField(
-                                                          controller: _model
-                                                              .kcalValueController2,
-                                                          onChanged: (_) =>
-                                                              EasyDebounce
-                                                                  .debounce(
-                                                            '_model.kcalValueController2',
-                                                            Duration(
-                                                                milliseconds:
-                                                                    2000),
-                                                            () =>
-                                                                setState(() {}),
-                                                          ),
-                                                          obscureText: false,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            hintStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium,
-                                                            enabledBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            focusedBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            errorBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            focusedErrorBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            contentPadding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0),
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          validator: _model
-                                                              .kcalValueController2Validator
-                                                              .asValidator(
-                                                                  context),
-                                                          inputFormatters: [
-                                                            FilteringTextInputFormatter
-                                                                .allow(RegExp(
-                                                                    '[0-9]'))
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  buildTextFieldFromFirestore(
+                                                      _model
+                                                          .kcalValueController2,
+                                                      '_model.kcalValueController2',
+                                                      'kcal_goal',
+                                                      _model
+                                                          .kcalValueController2Validator),
                                                   FlutterFlowIconButton(
                                                     borderColor:
                                                         Colors.transparent,
@@ -2426,6 +1915,9 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                       size: 30.0,
                                                     ),
                                                     onPressed: () {
+                                                      modifyMacroValue(
+                                                          'kcal_goal',
+                                                          amountToModifyKcal);
                                                       print(
                                                           'plusKcal pressed ...');
                                                     },
@@ -2537,119 +2029,20 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                       size: 30.0,
                                                     ),
                                                     onPressed: () {
+                                                      modifyMacroValue(
+                                                          'carbs_goal',
+                                                          -amountToModifyOthers);
                                                       print(
                                                           'minusCarbs pressed ...');
                                                     },
                                                   ),
-                                                  Expanded(
-                                                    child: Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: Container(
-                                                        width: double.infinity,
-                                                        child: TextFormField(
-                                                          controller: _model
-                                                              .carbsValueController2,
-                                                          onChanged: (_) =>
-                                                              EasyDebounce
-                                                                  .debounce(
-                                                            '_model.carbsValueController2',
-                                                            Duration(
-                                                                milliseconds:
-                                                                    2000),
-                                                            () =>
-                                                                setState(() {}),
-                                                          ),
-                                                          obscureText: false,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            hintStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium,
-                                                            enabledBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            focusedBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            errorBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            focusedErrorBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            contentPadding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0),
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          validator: _model
-                                                              .carbsValueController2Validator
-                                                              .asValidator(
-                                                                  context),
-                                                          inputFormatters: [
-                                                            FilteringTextInputFormatter
-                                                                .allow(RegExp(
-                                                                    '[0-9]'))
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  buildTextFieldFromFirestore(
+                                                      _model
+                                                          .carbsValueController2,
+                                                      '_model.carbsValueController2',
+                                                      'carbs_goal',
+                                                      _model
+                                                          .carbsValueController2Validator),
                                                   FlutterFlowIconButton(
                                                     borderColor:
                                                         Colors.transparent,
@@ -2665,6 +2058,9 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                       size: 30.0,
                                                     ),
                                                     onPressed: () {
+                                                      modifyMacroValue(
+                                                          'carbs_goal',
+                                                          amountToModifyOthers);
                                                       print(
                                                           'plusCarbs pressed ...');
                                                     },
@@ -2783,119 +2179,20 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                       size: 30.0,
                                                     ),
                                                     onPressed: () {
+                                                      modifyMacroValue(
+                                                          'proteins_goal',
+                                                          -amountToModifyOthers);
                                                       print(
                                                           'minusProteins pressed ...');
                                                     },
                                                   ),
-                                                  Expanded(
-                                                    child: Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: Container(
-                                                        width: double.infinity,
-                                                        child: TextFormField(
-                                                          controller: _model
-                                                              .proteinsValueController2,
-                                                          onChanged: (_) =>
-                                                              EasyDebounce
-                                                                  .debounce(
-                                                            '_model.proteinsValueController2',
-                                                            Duration(
-                                                                milliseconds:
-                                                                    2000),
-                                                            () =>
-                                                                setState(() {}),
-                                                          ),
-                                                          obscureText: false,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            hintStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium,
-                                                            enabledBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            focusedBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            errorBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            focusedErrorBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            contentPadding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0),
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          validator: _model
-                                                              .proteinsValueController2Validator
-                                                              .asValidator(
-                                                                  context),
-                                                          inputFormatters: [
-                                                            FilteringTextInputFormatter
-                                                                .allow(RegExp(
-                                                                    '[0-9]'))
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  buildTextFieldFromFirestore(
+                                                      _model
+                                                          .proteinsValueController2,
+                                                      '_model.proteinsValueController2',
+                                                      'proteins_goal',
+                                                      _model
+                                                          .proteinsValueController2Validator),
                                                   FlutterFlowIconButton(
                                                     borderColor:
                                                         Colors.transparent,
@@ -2911,6 +2208,9 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                       size: 30.0,
                                                     ),
                                                     onPressed: () {
+                                                      modifyMacroValue(
+                                                          'proteins_goal',
+                                                          amountToModifyOthers);
                                                       print(
                                                           'plusProteins pressed ...');
                                                     },
@@ -3022,119 +2322,20 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                       size: 30.0,
                                                     ),
                                                     onPressed: () {
+                                                      modifyMacroValue(
+                                                          'fats_goal',
+                                                          -amountToModifyOthers);
                                                       print(
                                                           'minusFats pressed ...');
                                                     },
                                                   ),
-                                                  Expanded(
-                                                    child: Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: Container(
-                                                        width: double.infinity,
-                                                        child: TextFormField(
-                                                          controller: _model
-                                                              .fatsValueController2,
-                                                          onChanged: (_) =>
-                                                              EasyDebounce
-                                                                  .debounce(
-                                                            '_model.fatsValueController2',
-                                                            Duration(
-                                                                milliseconds:
-                                                                    2000),
-                                                            () =>
-                                                                setState(() {}),
-                                                          ),
-                                                          obscureText: false,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            hintStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium,
-                                                            enabledBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            focusedBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            errorBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            focusedErrorBorder:
-                                                                OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 1.5,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            contentPadding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0,
-                                                                        10.0),
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          validator: _model
-                                                              .fatsValueController2Validator
-                                                              .asValidator(
-                                                                  context),
-                                                          inputFormatters: [
-                                                            FilteringTextInputFormatter
-                                                                .allow(RegExp(
-                                                                    '[0-9]'))
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  buildTextFieldFromFirestore(
+                                                      _model
+                                                          .fatsValueController2,
+                                                      '_model.fatsValueController2',
+                                                      "fats_goal",
+                                                      _model
+                                                          .fatsValueController2Validator),
                                                   FlutterFlowIconButton(
                                                     borderColor:
                                                         Colors.transparent,
@@ -3150,6 +2351,9 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                       size: 30.0,
                                                     ),
                                                     onPressed: () {
+                                                      modifyMacroValue(
+                                                          'fats_goal',
+                                                          amountToModifyOthers);
                                                       print(
                                                           'plusFats pressed ...');
                                                     },
@@ -4058,46 +3262,84 @@ class _GoalWidgetState extends State<GoalWidget> {
     );
   }
 
-  void getGoalValues(BuildContext context) {
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUserDocument?.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        print('Document data: ${documentSnapshot.data()}');
-      } else {
-        print('Document does not exist on the database');
-      }
-    });
-
-    /*
-    return StreamBuilder<QuerySnapshot>(
-      stream: query.snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
+  Widget buildTextFieldFromFirestore(
+      TextEditingController? controller,
+      String controllerName,
+      String field,
+      String? Function(BuildContext, String?)? controllerValidator) {
+    return StreamBuilder<DocumentSnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          Map<String, dynamic>? data =
+              snapshot.data!.data() as Map<String, dynamic>?;
+          final fieldValue = data?[field] ?? '';
+          controller.text = fieldValue;
         }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        }
-
-        // Get the number of documents in the query result
-        int? count = snapshot.data?.docs.length;
-
-        print("length: $count");
-
-        return Text(
-          '$count',
-          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Outfit',
-                color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: 16.0,
+        return Expanded(
+          child: Align(
+            alignment: AlignmentDirectional(0.0, 0.0),
+            child: Container(
+              width: double.infinity,
+              child: TextFormField(
+                controller: controller,
+                onChanged: (value) => EasyDebounce.debounce(
+                  controllerName,
+                  Duration(milliseconds: 2000),
+                  () {
+                    updateFirestoreValue(field, value);
+                    setState(() {});
+                  },
+                ),
+                obscureText: false,
+                decoration: InputDecoration(
+                  hintStyle: FlutterFlowTheme.of(context).bodyMedium,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primary,
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0x00000000),
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  contentPadding:
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium,
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                validator: controllerValidator.asValidator(context),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                ],
               ),
+            ),
+          ),
         );
       },
     );
-    */
   }
 }
