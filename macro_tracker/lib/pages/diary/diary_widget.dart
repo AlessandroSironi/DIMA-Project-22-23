@@ -233,20 +233,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             startAngle: 0.0,
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'carbs_goal')),
                                                         ],
                                                       ),
                                                       Column(
@@ -299,20 +294,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'proteins_goal')),
                                                         ],
                                                       ),
                                                       Column(
@@ -365,20 +355,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'fats_goal')),
                                                         ],
                                                       ),
                                                     ],
@@ -452,20 +437,16 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                               EdgeInsets.zero,
                                                         ),
                                                         Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      10.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            '0 / 2000 kcal',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                        ),
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        10.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child:
+                                                                buildProgressText(
+                                                                    'kcal_goal')),
                                                       ],
                                                     ),
                                                   ],
@@ -595,20 +576,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             startAngle: 0.0,
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'carbs_goal')),
                                                         ],
                                                       ),
                                                       Column(
@@ -661,20 +637,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'proteins_goal')),
                                                         ],
                                                       ),
                                                       Column(
@@ -727,20 +698,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'fats_goal')),
                                                         ],
                                                       ),
                                                     ],
@@ -811,20 +777,16 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                               EdgeInsets.zero,
                                                         ),
                                                         Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      10.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            '0 / 2000 kcal',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                        ),
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        10.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child:
+                                                                buildProgressText(
+                                                                    'kcal_goal')),
                                                       ],
                                                     ),
                                                   ],
@@ -1464,20 +1426,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             startAngle: 0.0,
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'carbs_goal')),
                                                         ],
                                                       ),
                                                       Column(
@@ -1530,20 +1487,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'proteins_goal')),
                                                         ],
                                                       ),
                                                       Column(
@@ -1596,20 +1548,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'fats_goal')),
                                                         ],
                                                       ),
                                                     ],
@@ -1680,20 +1627,16 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                               EdgeInsets.zero,
                                                         ),
                                                         Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      10.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            '0 / 2000 kcal',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                        ),
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        10.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child:
+                                                                buildProgressText(
+                                                                    'kcal_goal')),
                                                       ],
                                                     ),
                                                   ],
@@ -1828,20 +1771,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             startAngle: 0.0,
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'carbs_goal')),
                                                         ],
                                                       ),
                                                       Column(
@@ -1894,20 +1832,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'proteins_goal')),
                                                         ],
                                                       ),
                                                       Column(
@@ -1960,20 +1893,15 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              '0 / 150 g',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ),
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: buildProgressText(
+                                                                  'fats_goal')),
                                                         ],
                                                       ),
                                                     ],
@@ -2044,20 +1972,16 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                               EdgeInsets.zero,
                                                         ),
                                                         Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      10.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            '0 / 2000 kcal',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                        ),
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        10.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child:
+                                                                buildProgressText(
+                                                                    'kcal_goal')),
                                                       ],
                                                     ),
                                                   ],
@@ -2636,6 +2560,29 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                 fontSize: 16.0,
               ),
         );
+      },
+    );
+  }
+
+  Widget buildProgressText(String macroField) {
+    return StreamBuilder<DocumentSnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
+          String fieldValue = data[macroField];
+
+          return Text(
+            '0 / $fieldValue g',
+            style: FlutterFlowTheme.of(context).bodyMedium,
+          );
+        } else {
+          return CircularProgressIndicator();
+        }
       },
     );
   }
