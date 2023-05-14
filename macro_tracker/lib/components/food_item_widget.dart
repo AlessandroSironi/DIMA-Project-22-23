@@ -8,7 +8,11 @@ import 'food_item_model.dart';
 export 'food_item_model.dart';
 
 class FoodItemWidget extends StatefulWidget {
-  const FoodItemWidget({Key? key}) : super(key: key);
+  final FoodItemModel foodItemModel;
+  const FoodItemWidget({
+    Key? key,
+    required this.foodItemModel,
+  }) : super(key: key);
 
   @override
   _FoodItemWidgetState createState() => _FoodItemWidgetState();
@@ -16,6 +20,8 @@ class FoodItemWidget extends StatefulWidget {
 
 class _FoodItemWidgetState extends State<FoodItemWidget> {
   late FoodItemModel _model;
+
+  int stringCutoff = 24;
 
   @override
   void setState(VoidCallback callback) {
@@ -26,7 +32,8 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => FoodItemModel());
+    _model = widget.foodItemModel;
+    _model.onUpdate();
   }
 
   @override
@@ -62,7 +69,7 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                     child: Text(
-                      '🥐',
+                      getMealIcon(_model.meal),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Outfit',
                             fontSize: 36.0,
@@ -75,12 +82,14 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hello World',
+                        ('${_model.name}'.length <= stringCutoff)
+                            ? '${_model.name}'
+                            : '${'${_model.name}'.substring(0, stringCutoff)}...',
                         textAlign: TextAlign.start,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
                       Text(
-                        '265 Kcal 30C 40P 5F',
+                        '${_model.kcal} Kcal ${_model.carbs}C ${_model.proteins}P ${_model.fats}F',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Outfit',
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -117,5 +126,20 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
         ),
       ),
     );
+  }
+
+  String getMealIcon(String meal) {
+    switch (meal) {
+      case 'Breakfast':
+        return '🥐';
+      case 'Lunch':
+        return '🍜';
+      case 'Dinner':
+        return '🥘';
+      case 'Snack':
+        return '🍎';
+      default:
+        return '';
+    }
   }
 }
