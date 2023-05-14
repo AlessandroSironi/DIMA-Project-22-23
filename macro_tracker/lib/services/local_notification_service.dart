@@ -54,7 +54,7 @@ class LocalNotificationService {
     await _localNotificationService.show(id, title, body, details);
   }
 
-  Future<void> showScheduledNotification ({
+  Future<void> scheduleNotification ({
     required int id, 
     required String title, 
     required String body, 

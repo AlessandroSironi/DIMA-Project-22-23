@@ -11,8 +11,6 @@ import 'package:provider/provider.dart';
 import 'profile_model.dart';
 export 'profile_model.dart';
 
-import 'package:macro_tracker/services/local_notification_service.dart';
-
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({Key? key}) : super(key: key);
 
