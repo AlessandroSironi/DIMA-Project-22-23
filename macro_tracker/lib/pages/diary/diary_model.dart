@@ -21,8 +21,6 @@ class DiaryModel extends FlutterFlowModel {
   DateTimeRange? calendarSelectedDay1;
   // State field(s) for PageView widget.
   PageController? pageViewController1;
-  // Model for foodItem component.
-  late FoodItemModel foodItemModel1;
   // State field(s) for calendar widget.
   DateTimeRange? calendarSelectedDay2;
   // State field(s) for PageView widget.
@@ -39,7 +37,6 @@ class DiaryModel extends FlutterFlowModel {
       start: DateTime.now().startOfDay,
       end: DateTime.now().endOfDay,
     );
-    foodItemModel1 = createModel(context, () => FoodItemModel());
     calendarSelectedDay2 = DateTimeRange(
       start: DateTime.now().startOfDay,
       end: DateTime.now().endOfDay,
@@ -47,10 +44,8 @@ class DiaryModel extends FlutterFlowModel {
   }
 
   void dispose() {
-    foodItemModel1.dispose();
     streamSubscriptions.forEach((s) => s?.cancel());
   }
 
   /// Additional helper methods are added here.
-
 }

@@ -914,110 +914,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          10.0, 10.0, 10.0, 10.0),
-                      child: PagedListView<DocumentSnapshot<Object?>?,
-                          FoodsRecord>(
-                        pagingController: () {
-                          final Query<Object?> Function(Query<Object?>)
-                              queryBuilder = (foodsRecord) => foodsRecord
-                                  .where('datetime',
-                                      isGreaterThanOrEqualTo:
-                                          functions.getTodayInterval()?.start)
-                                  .where('datetime',
-                                      isLessThanOrEqualTo:
-                                          functions.getTodayInterval()?.end);
-                          if (_model.pagingController != null) {
-                            final query =
-                                queryBuilder(FoodsRecord.collection());
-                            if (query != _model.pagingQuery) {
-                              // The query has changed
-                              _model.pagingQuery = query;
-                              _model.streamSubscriptions
-                                  .forEach((s) => s?.cancel());
-                              _model.streamSubscriptions.clear();
-                              _model.pagingController!.refresh();
-                            }
-                            return _model.pagingController!;
-                          }
-
-                          _model.pagingController =
-                              PagingController(firstPageKey: null);
-                          _model.pagingQuery =
-                              queryBuilder(FoodsRecord.collection());
-                          _model.pagingController!
-                              .addPageRequestListener((nextPageMarker) {
-                            queryFoodsRecordPage(
-                              queryBuilder: (foodsRecord) => foodsRecord
-                                  .where('datetime',
-                                      isGreaterThanOrEqualTo:
-                                          functions.getTodayInterval()?.start)
-                                  .where('datetime',
-                                      isLessThanOrEqualTo:
-                                          functions.getTodayInterval()?.end),
-                              nextPageMarker: nextPageMarker,
-                              pageSize: 25,
-                              isStream: true,
-                            ).then((page) {
-                              _model.pagingController!.appendPage(
-                                page.data,
-                                page.nextPageMarker,
-                              );
-                              final streamSubscription =
-                                  page.dataStream?.listen((data) {
-                                data.forEach((item) {
-                                  final itemIndexes = _model
-                                      .pagingController!.itemList!
-                                      .asMap()
-                                      .map((k, v) =>
-                                          MapEntry(v.reference.id, k));
-                                  final index = itemIndexes[item.reference.id];
-                                  final items =
-                                      _model.pagingController!.itemList!;
-                                  if (index != null) {
-                                    items
-                                        .replaceRange(index, index + 1, [item]);
-                                    _model.pagingController!.itemList = {
-                                      for (var item in items)
-                                        item.reference: item
-                                    }.values.toList();
-                                  }
-                                });
-                                setState(() {});
-                              });
-                              _model.streamSubscriptions
-                                  .add(streamSubscription);
-                            });
-                          });
-                          return _model.pagingController!;
-                        }(),
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        reverse: false,
-                        scrollDirection: Axis.vertical,
-                        builderDelegate: PagedChildBuilderDelegate<FoodsRecord>(
-                          // Customize what your widget looks like when it's loading the first page.
-                          firstPageProgressIndicatorBuilder: (_) => Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                color: FlutterFlowTheme.of(context).primary,
-                              ),
-                            ),
-                          ),
-
-                          itemBuilder: (context, _, listViewIndex) {
-                            final listViewFoodsRecord = _model
-                                .pagingController!.itemList![listViewIndex];
-                            return FoodItemWidget(
-                              key: Key(
-                                  'Key7bl_${listViewIndex}_of_${_model.pagingController!.itemList!.length}'),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            10.0, 10.0, 10.0, 10.0),
+                        child: buildListView(mobileWidget)),
                   ],
                 ),
               if (responsiveVisibility(
@@ -1856,110 +1755,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          50.0, 10.0, 50.0, 10.0),
-                      child: PagedListView<DocumentSnapshot<Object?>?,
-                          FoodsRecord>(
-                        pagingController: () {
-                          final Query<Object?> Function(Query<Object?>)
-                              queryBuilder = (foodsRecord) => foodsRecord
-                                  .where('datetime',
-                                      isGreaterThanOrEqualTo:
-                                          functions.getTodayInterval()?.start)
-                                  .where('datetime',
-                                      isLessThanOrEqualTo:
-                                          functions.getTodayInterval()?.end);
-                          if (_model.pagingController != null) {
-                            final query =
-                                queryBuilder(FoodsRecord.collection());
-                            if (query != _model.pagingQuery) {
-                              // The query has changed
-                              _model.pagingQuery = query;
-                              _model.streamSubscriptions
-                                  .forEach((s) => s?.cancel());
-                              _model.streamSubscriptions.clear();
-                              _model.pagingController!.refresh();
-                            }
-                            return _model.pagingController!;
-                          }
-
-                          _model.pagingController =
-                              PagingController(firstPageKey: null);
-                          _model.pagingQuery =
-                              queryBuilder(FoodsRecord.collection());
-                          _model.pagingController!
-                              .addPageRequestListener((nextPageMarker) {
-                            queryFoodsRecordPage(
-                              queryBuilder: (foodsRecord) => foodsRecord
-                                  .where('datetime',
-                                      isGreaterThanOrEqualTo:
-                                          functions.getTodayInterval()?.start)
-                                  .where('datetime',
-                                      isLessThanOrEqualTo:
-                                          functions.getTodayInterval()?.end),
-                              nextPageMarker: nextPageMarker,
-                              pageSize: 25,
-                              isStream: true,
-                            ).then((page) {
-                              _model.pagingController!.appendPage(
-                                page.data,
-                                page.nextPageMarker,
-                              );
-                              final streamSubscription =
-                                  page.dataStream?.listen((data) {
-                                data.forEach((item) {
-                                  final itemIndexes = _model
-                                      .pagingController!.itemList!
-                                      .asMap()
-                                      .map((k, v) =>
-                                          MapEntry(v.reference.id, k));
-                                  final index = itemIndexes[item.reference.id];
-                                  final items =
-                                      _model.pagingController!.itemList!;
-                                  if (index != null) {
-                                    items
-                                        .replaceRange(index, index + 1, [item]);
-                                    _model.pagingController!.itemList = {
-                                      for (var item in items)
-                                        item.reference: item
-                                    }.values.toList();
-                                  }
-                                });
-                                setState(() {});
-                              });
-                              _model.streamSubscriptions
-                                  .add(streamSubscription);
-                            });
-                          });
-                          return _model.pagingController!;
-                        }(),
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        reverse: false,
-                        scrollDirection: Axis.vertical,
-                        builderDelegate: PagedChildBuilderDelegate<FoodsRecord>(
-                          // Customize what your widget looks like when it's loading the first page.
-                          firstPageProgressIndicatorBuilder: (_) => Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                color: FlutterFlowTheme.of(context).primary,
-                              ),
-                            ),
-                          ),
-
-                          itemBuilder: (context, _, listViewIndex) {
-                            final listViewFoodsRecord = _model
-                                .pagingController!.itemList![listViewIndex];
-                            return FoodItemWidget(
-                              key: Key(
-                                  'Key7bl_${listViewIndex}_of_${_model.pagingController!.itemList!.length}'),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            50.0, 10.0, 50.0, 10.0),
+                        child: buildListView(tabletWidget))
                   ],
                 ),
             ],
@@ -2131,7 +1929,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
               return Column(children: [
                 isCircular
                     ? CircularPercentIndicator(
-                        percent: percentage,
+                        percent: percentage > 1 ? 1.0 : percentage,
                         radius: 40.0,
                         lineWidth: 8.0,
                         animation: true,
@@ -2148,7 +1946,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                         startAngle: 0.0,
                       )
                     : LinearPercentIndicator(
-                        percent: percentage,
+                        percent: percentage > 1 ? 1.0 : percentage,
                         width: MediaQuery.of(context).size.width * 0.7,
                         lineHeight: 12.0,
                         animation: true,
@@ -2178,5 +1976,66 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         }
       },
     );
+  }
+
+  Widget buildListView(bool isMobile) {
+    DateTime startOfToday = isMobile
+        ? _model.calendarSelectedDay1!.start
+        : _model.calendarSelectedDay2!.start;
+
+    // Set the end of the day
+    DateTime endOfToday = isMobile
+        ? _model.calendarSelectedDay1!.end
+        : _model.calendarSelectedDay2!.end;
+
+    Query<Map<String, dynamic>> foodsQuery = FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('foods')
+        .where('datetime', isGreaterThanOrEqualTo: startOfToday)
+        .where('datetime', isLessThan: endOfToday);
+
+    return Column(children: [
+      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: foodsQuery.snapshots(),
+        builder: (BuildContext context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+
+          final List<DocumentSnapshot> documents = snapshot.data!.docs;
+
+          if (documents.isEmpty) {
+            print('empty documents');
+            return Text('No foods inserted yet');
+          }
+
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: documents.length,
+            itemBuilder: (BuildContext context, int index) {
+              final foodData = documents[index].data() as Map<String, dynamic>;
+
+              final foodItem = FoodItemModel(
+                carbs: foodData['carbs'],
+                fats: foodData['fats'],
+                kcal: foodData['kcal'],
+                proteins: foodData['proteins'],
+                name: foodData['name'],
+                meal: foodData['meal'],
+                datetime: (foodData['datetime'] as Timestamp).toDate(),
+              );
+
+              return FoodItemWidget(foodItemModel: foodItem);
+            },
+          );
+        },
+      )
+    ]);
   }
 }
