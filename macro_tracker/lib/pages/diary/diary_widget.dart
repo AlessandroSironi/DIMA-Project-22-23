@@ -25,6 +25,12 @@ class DiaryWidget extends StatefulWidget {
 
 class _DiaryWidgetState extends State<DiaryWidget> {
   late DiaryModel _model;
+  final bool consumedWidget = true;
+  final bool remainingWidget = false;
+  final bool mobileWidget = true;
+  final bool tabletWidget = false;
+  final bool isCircular = true;
+  final bool isLinear = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int get pageViewCurrentIndex1 => _model.pageViewController1 != null &&
@@ -204,44 +210,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.01,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                            startAngle: 0.0,
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'carbs_goal')),
+                                                          buildProgressWidgets(
+                                                              'carbs_goal',
+                                                              mobileWidget,
+                                                              consumedWidget,
+                                                              isCircular),
                                                         ],
                                                       ),
                                                       Column(
@@ -266,43 +239,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.5,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'proteins_goal')),
+                                                          buildProgressWidgets(
+                                                              'proteins_goal',
+                                                              mobileWidget,
+                                                              consumedWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                       Column(
@@ -327,43 +268,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.5,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'fats_goal')),
+                                                          buildProgressWidgets(
+                                                              'fats_goal',
+                                                              mobileWidget,
+                                                              consumedWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                     ],
@@ -413,40 +322,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                 .bodyMedium,
                                                           ),
                                                         ),
-                                                        LinearPercentIndicator(
-                                                          percent: 0.7,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.7,
-                                                          lineHeight: 12.0,
-                                                          animation: true,
-                                                          progressColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                          backgroundColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .accent3,
-                                                          barRadius:
-                                                              Radius.circular(
-                                                                  15.0),
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                        ),
-                                                        Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child:
-                                                                buildProgressText(
-                                                                    'kcal_goal')),
+                                                        buildProgressWidgets(
+                                                            'kcal_goal',
+                                                            mobileWidget,
+                                                            consumedWidget,
+                                                            isLinear)
                                                       ],
                                                     ),
                                                   ],
@@ -547,44 +427,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.01,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                            startAngle: 0.0,
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'carbs_goal')),
+                                                          buildProgressWidgets(
+                                                              'carbs_goal',
+                                                              mobileWidget,
+                                                              remainingWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                       Column(
@@ -609,43 +456,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.5,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'proteins_goal')),
+                                                          buildProgressWidgets(
+                                                              'proteins_goal',
+                                                              mobileWidget,
+                                                              remainingWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                       Column(
@@ -670,43 +485,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.5,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'fats_goal')),
+                                                          buildProgressWidgets(
+                                                              'fats_goal',
+                                                              mobileWidget,
+                                                              remainingWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                     ],
@@ -753,40 +536,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                 .bodyMedium,
                                                           ),
                                                         ),
-                                                        LinearPercentIndicator(
-                                                          percent: 0.7,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.7,
-                                                          lineHeight: 12.0,
-                                                          animation: true,
-                                                          progressColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                          backgroundColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .accent3,
-                                                          barRadius:
-                                                              Radius.circular(
-                                                                  15.0),
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                        ),
-                                                        Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child:
-                                                                buildProgressText(
-                                                                    'kcal_goal')),
+                                                        buildProgressWidgets(
+                                                            'kcal_goal',
+                                                            mobileWidget,
+                                                            remainingWidget,
+                                                            isLinear)
                                                       ],
                                                     ),
                                                   ],
@@ -1397,44 +1151,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.01,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                            startAngle: 0.0,
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'carbs_goal')),
+                                                          buildProgressWidgets(
+                                                              'carbs_goal',
+                                                              tabletWidget,
+                                                              consumedWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                       Column(
@@ -1459,43 +1180,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.5,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'proteins_goal')),
+                                                          buildProgressWidgets(
+                                                              'proteins_goal',
+                                                              tabletWidget,
+                                                              consumedWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                       Column(
@@ -1520,43 +1209,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.5,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'fats_goal')),
+                                                          buildProgressWidgets(
+                                                              'fats_goal',
+                                                              tabletWidget,
+                                                              consumedWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                     ],
@@ -1603,40 +1260,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                 .bodyMedium,
                                                           ),
                                                         ),
-                                                        LinearPercentIndicator(
-                                                          percent: 0.7,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.5,
-                                                          lineHeight: 12.0,
-                                                          animation: true,
-                                                          progressColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                          backgroundColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .accent3,
-                                                          barRadius:
-                                                              Radius.circular(
-                                                                  15.0),
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                        ),
-                                                        Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child:
-                                                                buildProgressText(
-                                                                    'kcal_goal')),
+                                                        buildProgressWidgets(
+                                                            'kcal_goal',
+                                                            tabletWidget,
+                                                            consumedWidget,
+                                                            isLinear)
                                                       ],
                                                     ),
                                                   ],
@@ -1742,44 +1370,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.01,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                            startAngle: 0.0,
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'carbs_goal')),
+                                                          buildProgressWidgets(
+                                                              'carbs_goal',
+                                                              tabletWidget,
+                                                              remainingWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                       Column(
@@ -1804,43 +1399,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.5,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'proteins_goal')),
+                                                          buildProgressWidgets(
+                                                              'proteins_goal',
+                                                              tabletWidget,
+                                                              remainingWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                       Column(
@@ -1865,43 +1428,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                   .bodyMedium,
                                                             ),
                                                           ),
-                                                          CircularPercentIndicator(
-                                                            percent: 0.5,
-                                                            radius: 40.0,
-                                                            lineWidth: 8.0,
-                                                            animation: true,
-                                                            progressColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            center: Text(
-                                                              '50%',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: buildProgressText(
-                                                                  'fats_goal')),
+                                                          buildProgressWidgets(
+                                                              'fats_goal',
+                                                              tabletWidget,
+                                                              remainingWidget,
+                                                              isCircular)
                                                         ],
                                                       ),
                                                     ],
@@ -1948,40 +1479,11 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                                                                 .bodyMedium,
                                                           ),
                                                         ),
-                                                        LinearPercentIndicator(
-                                                          percent: 0.7,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.5,
-                                                          lineHeight: 12.0,
-                                                          animation: true,
-                                                          progressColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                          backgroundColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .accent3,
-                                                          barRadius:
-                                                              Radius.circular(
-                                                                  15.0),
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                        ),
-                                                        Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child:
-                                                                buildProgressText(
-                                                                    'kcal_goal')),
+                                                        buildProgressWidgets(
+                                                            'kcal_goal',
+                                                            tabletWidget,
+                                                            remainingWidget,
+                                                            isLinear)
                                                       ],
                                                     ),
                                                   ],
@@ -2533,7 +2035,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         ? _model.calendarSelectedDay1!.end
         : _model.calendarSelectedDay2!.end;
 
-    // Create a query for documents with a timestamp between startOfToday and endOfToday
+    // Create a query for documents with a timestamp between startOfToday and
+    // endOfToday
     Query query = collection
         .where('date', isGreaterThanOrEqualTo: startOfToday)
         .where('date', isLessThan: endOfToday);
@@ -2546,7 +2049,13 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return SizedBox(
+            width: 10.0,
+            height: 10.0,
+            child: CircularProgressIndicator(
+              strokeWidth: 2.0,
+            ),
+          );
         }
 
         // Get the number of documents in the query result
@@ -2564,7 +2073,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
     );
   }
 
-  Widget buildProgressText(String macroField) {
+  Widget buildProgressWidgets(
+      String macroField, bool isMobile, bool isMacroConsumed, isCircular) {
     return StreamBuilder<DocumentSnapshot>(
       stream: FirebaseFirestore.instance
           .collection('users')
@@ -2576,12 +2086,95 @@ class _DiaryWidgetState extends State<DiaryWidget> {
               snapshot.data!.data() as Map<String, dynamic>;
           String fieldValue = data[macroField];
 
-          return Text(
-            '0 / $fieldValue g',
-            style: FlutterFlowTheme.of(context).bodyMedium,
+          DateTime startOfToday = isMobile
+              ? _model.calendarSelectedDay1!.start
+              : _model.calendarSelectedDay2!.start;
+
+          // Set the end of the day
+          DateTime endOfToday = isMobile
+              ? _model.calendarSelectedDay1!.end
+              : _model.calendarSelectedDay2!.end;
+
+          Query<Map<String, dynamic>> foodsQuery = FirebaseFirestore.instance
+              .collection('users')
+              .doc(currentUserDocument?.uid)
+              .collection('foods')
+              .where('datetime', isGreaterThanOrEqualTo: startOfToday)
+              .where('datetime', isLessThan: endOfToday);
+
+          int totalSum = 0;
+
+          return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: foodsQuery.snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<DocumentSnapshot> documents = snapshot.data!.docs;
+
+                totalSum = 0;
+                for (var doc in documents) {
+                  Map<String, dynamic> data =
+                      doc.data() as Map<String, dynamic>;
+
+                  int fieldValue =
+                      int.tryParse(data[macroField.split('_')[0]]) ?? 0;
+                  totalSum += fieldValue;
+                }
+              }
+
+              int sumToDisplay =
+                  isMacroConsumed ? totalSum : int.parse(fieldValue) - totalSum;
+
+              double percentage = sumToDisplay / int.parse(fieldValue);
+
+              String percentageToPrint = (percentage * 100).floor().toString();
+
+              return Column(children: [
+                isCircular
+                    ? CircularPercentIndicator(
+                        percent: percentage,
+                        radius: 40.0,
+                        lineWidth: 8.0,
+                        animation: true,
+                        progressColor: FlutterFlowTheme.of(context).primary,
+                        backgroundColor: FlutterFlowTheme.of(context).accent3,
+                        center: Text(
+                          '$percentageToPrint%',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Outfit',
+                                    color: FlutterFlowTheme.of(context).primary,
+                                  ),
+                        ),
+                        startAngle: 0.0,
+                      )
+                    : LinearPercentIndicator(
+                        percent: percentage,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        lineHeight: 12.0,
+                        animation: true,
+                        progressColor: FlutterFlowTheme.of(context).primary,
+                        backgroundColor: FlutterFlowTheme.of(context).accent3,
+                        barRadius: Radius.circular(15.0),
+                        padding: EdgeInsets.zero,
+                      ),
+                Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                    child: Text(
+                      '$sumToDisplay / $fieldValue g',
+                      style: FlutterFlowTheme.of(context).bodyMedium,
+                    ))
+              ]);
+            },
           );
         } else {
-          return CircularProgressIndicator();
+          return SizedBox(
+            width: 10.0,
+            height: 10.0,
+            child: CircularProgressIndicator(
+              strokeWidth: 2.0,
+            ),
+          );
         }
       },
     );
