@@ -1919,8 +1919,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                 }
               }
 
-              int sumToDisplay =
-                  isMacroConsumed ? totalSum : int.parse(fieldValue) - totalSum;
+              int sumToDisplay = isMacroConsumed
+                  ? totalSum
+                  : max(int.parse(fieldValue) - totalSum, 0);
 
               double percentage = sumToDisplay / int.parse(fieldValue);
 
