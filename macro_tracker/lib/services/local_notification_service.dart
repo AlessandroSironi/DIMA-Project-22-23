@@ -81,4 +81,46 @@ class LocalNotificationService {
   void onSelectNotification(String? payload) {
     print('payload $payload');
   }
+
+  Future<void> scheduleDailyNotification() async {
+  var androidSettings = AndroidInitializationSettings('app_icon');
+  var iosSettings = DarwinInitializationSettings();
+  var initializationSettings =
+      InitializationSettings(android: androidSettings, iOS: iosSettings);
+
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+  var androidDetails = AndroidNotificationDetails(
+      'channel_id', 'channel_name',
+      importance: Importance.high);
+  var iosDetails = DarwinNotificationDetails();
+  var generalNotificationDetails =
+      NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+  await flutterLocalNotificationsPlugin.zonedSchedule(
+    0,
+    'Have you logged today?',
+    'Remember to log your diet today.',
+    _nextInstanceOf7PM(),
+    generalNotificationDetails,
+    androidAllowWhileIdle: true,
+    uiLocalNotificationDateInterpretation:
+        UILocalNotificationDateInterpretation.absoluteTime,
+  );
+
+  print("Notification Scheduled.");
 }
+
+  tz.TZDateTime _nextInstanceOf7PM() {
+    tz.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation('Europe/Rome'));
+    final now = tz.TZDateTime.now(tz.local);
+    var scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, 19);
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+    return scheduledDate;
+  }
+}
+

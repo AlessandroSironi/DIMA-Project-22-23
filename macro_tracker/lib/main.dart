@@ -17,6 +17,7 @@ import 'index.dart';
 
 import 'package:macro_tracker/services/local_notification_service.dart';
 
+LocalNotificationService notificationService = LocalNotificationService();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -26,7 +27,7 @@ void main() async {
   await initFirebase();
 
   await FlutterFlowTheme.initialize();
-
+  notificationService.scheduleDailyNotification();
   runApp(MyApp());
 }
 
