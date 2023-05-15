@@ -14,6 +14,11 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'diary_model.dart';
 export 'diary_model.dart';
 
+import 'package:workmanager/workmanager.dart';
+import 'package:macro_tracker/services/local_notification_service.dart';
+
+LocalNotificationService notificationService = LocalNotificationService();
+
 class DiaryWidget extends StatefulWidget {
   const DiaryWidget({
     Key? key,
@@ -48,6 +53,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DiaryModel());
+    notificationService.initialize();
+    notificationService.scheduleDailyNotification();
   }
 
   @override

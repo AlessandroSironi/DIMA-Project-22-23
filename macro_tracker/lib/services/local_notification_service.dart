@@ -7,6 +7,8 @@ import 'package:timezone/data/latest.dart' as tz;
 //https://youtu.be/Yrq2llD2Ldw
 //https://pub.dev/packages/flutter_local_notifications
 
+
+
 class LocalNotificationService {
   LocalNotificationService();
 
@@ -108,7 +110,6 @@ class LocalNotificationService {
     uiLocalNotificationDateInterpretation:
         UILocalNotificationDateInterpretation.absoluteTime,
   );
-
   print("Notification Scheduled.");
 }
 

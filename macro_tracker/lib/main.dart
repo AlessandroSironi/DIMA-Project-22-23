@@ -27,7 +27,6 @@ void main() async {
   await initFirebase();
 
   await FlutterFlowTheme.initialize();
-  notificationService.scheduleDailyNotification();
   runApp(MyApp());
 }
 
