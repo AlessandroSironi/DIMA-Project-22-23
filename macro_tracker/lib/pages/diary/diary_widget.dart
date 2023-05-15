@@ -73,7 +73,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
         title: Text(
-          'Dashboard',
+          'Diary',
           style: FlutterFlowTheme.of(context).displaySmall.override(
                 fontFamily: 'Outfit',
                 color: FlutterFlowTheme.of(context).white,
@@ -1879,7 +1879,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
   }
 
   Widget buildProgressWidgets(
-      String macroField, bool isMobile, bool isMacroConsumed, isCircular) {
+      String macroField, bool isMobile, bool isMacroConsumed, bool isCircular) {
     return StreamBuilder<DocumentSnapshot>(
       stream: FirebaseFirestore.instance
           .collection('users')
@@ -2036,6 +2036,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                 proteins: foodData['proteins'],
                 name: foodData['name'],
                 meal: foodData['meal'],
+                quantity: foodData['quantity'],
                 datetime: (foodData['datetime'] as Timestamp).toDate(),
               );
 

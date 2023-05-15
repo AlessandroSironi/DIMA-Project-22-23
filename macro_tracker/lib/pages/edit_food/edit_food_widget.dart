@@ -698,7 +698,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed('Diet');
+                                context.pushNamed('Diary');
                               },
                               text: 'Cancel',
                               options: FFButtonOptions(

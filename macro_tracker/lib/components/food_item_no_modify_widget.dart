@@ -1,3 +1,5 @@
+import 'package:macro_tracker/components/food_item_model.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -8,7 +10,9 @@ import 'food_item_no_modify_model.dart';
 export 'food_item_no_modify_model.dart';
 
 class FoodItemNoModifyWidget extends StatefulWidget {
-  const FoodItemNoModifyWidget({Key? key}) : super(key: key);
+  final FoodItemNoModifyModel foodItemNoModifyModel;
+  const FoodItemNoModifyWidget({Key? key, required this.foodItemNoModifyModel})
+      : super(key: key);
 
   @override
   _FoodItemNoModifyWidgetState createState() => _FoodItemNoModifyWidgetState();
@@ -16,6 +20,8 @@ class FoodItemNoModifyWidget extends StatefulWidget {
 
 class _FoodItemNoModifyWidgetState extends State<FoodItemNoModifyWidget> {
   late FoodItemNoModifyModel _model;
+
+  int stringCutoff = 24;
 
   @override
   void setState(VoidCallback callback) {
@@ -26,7 +32,8 @@ class _FoodItemNoModifyWidgetState extends State<FoodItemNoModifyWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => FoodItemNoModifyModel());
+    _model = widget.foodItemNoModifyModel;
+    _model.onUpdate();
   }
 
   @override
@@ -61,7 +68,7 @@ class _FoodItemNoModifyWidgetState extends State<FoodItemNoModifyWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                     child: Text(
-                      '🥐',
+                      getMealIcon(_model.meal),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Outfit',
                             fontSize: 36.0,
@@ -74,12 +81,14 @@ class _FoodItemNoModifyWidgetState extends State<FoodItemNoModifyWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hello World',
+                        ('${_model.name}'.length <= stringCutoff)
+                            ? '${_model.name}'
+                            : '${'${_model.name}'.substring(0, stringCutoff)}...',
                         textAlign: TextAlign.start,
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
                       Text(
-                        '265 Kcal 30C 40P 5F',
+                        '${_model.kcal} Kcal ${_model.carbs}C ${_model.proteins}P ${_model.fats}F',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Outfit',
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -116,5 +125,20 @@ class _FoodItemNoModifyWidgetState extends State<FoodItemNoModifyWidget> {
         ),
       ),
     );
+  }
+
+  String getMealIcon(String meal) {
+    switch (meal) {
+      case 'Breakfast':
+        return '🥐';
+      case 'Lunch':
+        return '🍜';
+      case 'Dinner':
+        return '🥘';
+      case 'Snack':
+        return '🍎';
+      default:
+        return '';
+    }
   }
 }

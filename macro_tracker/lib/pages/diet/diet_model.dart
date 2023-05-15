@@ -24,16 +24,9 @@ class DietModel extends FlutterFlowModel {
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {
-    dietFoodItemModel1 = createModel(context, () => DietFoodItemModel());
-    dietFoodItemModel2 = createModel(context, () => DietFoodItemModel());
-  }
+  void initState(BuildContext context) {}
 
-  void dispose() {
-    dietFoodItemModel1.dispose();
-    dietFoodItemModel2.dispose();
-  }
+  void dispose() {}
 
   /// Additional helper methods are added here.
-
 }

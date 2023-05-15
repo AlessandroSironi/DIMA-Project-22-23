@@ -12,25 +12,12 @@ class AddModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   var scannedBarcode = '';
-  // Model for foodItemNoModify component.
-  late FoodItemNoModifyModel foodItemNoModifyModel1;
-  // Model for foodItemNoModify component.
-  late FoodItemNoModifyModel foodItemNoModifyModel2;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {
-    foodItemNoModifyModel1 =
-        createModel(context, () => FoodItemNoModifyModel());
-    foodItemNoModifyModel2 =
-        createModel(context, () => FoodItemNoModifyModel());
-  }
+  void initState(BuildContext context) {}
 
-  void dispose() {
-    foodItemNoModifyModel1.dispose();
-    foodItemNoModifyModel2.dispose();
-  }
+  void dispose() {}
 
   /// Additional helper methods are added here.
-
 }
