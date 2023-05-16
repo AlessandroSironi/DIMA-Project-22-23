@@ -2019,8 +2019,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
           final List<DocumentSnapshot> documents = snapshot.data!.docs;
 
           if (documents.isEmpty) {
-            print('empty documents');
-            return Text('No foods inserted yet');
+            return Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(50.0, 10.0, 50.0, 10.0),
+                child: Text('No foods inserted yet'));
           }
 
           return ListView.builder(

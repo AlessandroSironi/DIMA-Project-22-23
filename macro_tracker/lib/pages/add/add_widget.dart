@@ -109,12 +109,14 @@ class _AddWidgetState extends State<AddWidget> {
                               );
 
                               setState(() {});
-                              //DO OPENFOODAPI 
-                              ProductQueryConfiguration config = ProductQueryConfiguration(
-                                _model.scannedBarcode,
-                                version: ProductQueryVersion.v3);
-                                ProductResultV3 product = await OpenFoodAPIClient.getProductV3(config);
-                                //DO STUFF WITH product.product?.productName...
+                              //DO OPENFOODAPI
+                              ProductQueryConfiguration config =
+                                  ProductQueryConfiguration(
+                                      _model.scannedBarcode,
+                                      version: ProductQueryVersion.v3);
+                              ProductResultV3 product =
+                                  await OpenFoodAPIClient.getProductV3(config);
+                              //DO STUFF WITH product.product?.productName...
                             },
                             text: 'Barcode Scanner',
                             icon: FaIcon(
@@ -469,8 +471,9 @@ class _AddWidgetState extends State<AddWidget> {
           final List<DocumentSnapshot> documents = snapshot.data!.docs;
 
           if (documents.isEmpty) {
-            print('empty documents');
-            return Text('No foods inserted yesterday');
+            Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(50.0, 10.0, 50.0, 10.0),
+                child: Text('No foods inserted yesterday'));
           }
 
           return ListView.builder(

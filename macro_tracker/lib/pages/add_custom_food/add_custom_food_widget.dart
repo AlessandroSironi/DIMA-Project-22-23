@@ -1,3 +1,4 @@
+import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -17,6 +18,9 @@ class AddCustomFoodWidget extends StatefulWidget {
 
 class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
   late AddCustomFoodModel _model;
+
+  final bool mobileWidget = true;
+  final bool tabletWidget = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -86,13 +90,6 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    /* Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                      ),
-                    ), */
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(70.0, 20.0, 70.0, 0.0),
@@ -239,7 +236,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              '/ 100 g',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -328,7 +325,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              '/ 100 g',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -417,7 +414,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              '/ 100 g',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -506,7 +503,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              '/ 100 g',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -520,7 +517,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          70.0, 20.0, 135.0, 0.0),
+                          70.0, 20.0, 105.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -579,7 +576,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontFamily: 'Outfit',
                                     fontSize: 20.0,
                                   ),
-                              textAlign: TextAlign.start,
+                              textAlign: TextAlign.end,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
                                       signed: true, decimal: true),
@@ -589,6 +586,19 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                 FilteringTextInputFormatter.allow(
                                     RegExp('[0-9]'))
                               ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                10.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              'g',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    fontSize: 16.0,
+                                  ),
                             ),
                           ),
                         ],
@@ -678,7 +688,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           ),
                           FFButtonWidget(
                             onPressed: () async {
-                              context.goNamed('Diary');
+                              textFieldsAlert(mobileWidget);
+                              logFoodToDiary(mobileWidget);
+                              //context.goNamed('Diary');
                             },
                             text: 'Log food',
                             options: FFButtonOptions(
@@ -884,7 +896,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 gr',
+                                '/ 100 g',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -975,7 +987,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 gr',
+                                '/ 100 g',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -1066,7 +1078,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 gr',
+                                '/ 100 g',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -1157,7 +1169,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 gr',
+                                '/ 100 g',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -1171,7 +1183,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            70.0, 20.0, 135.0, 0.0),
+                            70.0, 20.0, 115.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -1334,7 +1346,8 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
-                                context.goNamed('Diary');
+                                textFieldsAlert(tabletWidget);
+                                //context.goNamed('Diary');
                               },
                               text: 'Log food',
                               options: FFButtonOptions(
@@ -1377,5 +1390,109 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         ),
       ),
     );
+  }
+
+  void addFoodToDiet() {}
+
+  void logFoodToDiary(isMobile) async {
+    DateTime now = DateTime.now();
+    String documentId = now.microsecondsSinceEpoch.toString();
+
+    final firestore = FirebaseFirestore.instance;
+    if (isMobile) {
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('diet_foods')
+          .doc(documentId)
+          .set({
+        'name': _model.foodNameController1.text,
+        'kcal': _model.kcalController1.text,
+        'carbs': _model.carbsController1.text,
+        'proteins': _model.proteinsController1.text,
+        'fats': _model.fatsController1.text,
+        'meal': _model.mealChoiceChipsValue1?.split(' ')[1],
+        'quantity': _model.foodQuantityController1.text,
+        'datetime': now,
+      });
+    } else {
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('diet_foods')
+          .doc(documentId)
+          .set({
+        'name': _model.foodNameController2.text,
+        'kcal': _model.kcalController2.text,
+        'carbs': _model.carbsController2.text,
+        'proteins': _model.proteinsController2.text,
+        'fats': _model.fatsController2.text,
+        'meal': _model.mealChoiceChipsValue2?.split(' ')[1],
+        'quantity': _model.foodQuantityController2.text,
+        'datetime': now,
+      });
+    }
+  }
+
+  void textFieldsAlert(bool isMobile) {
+    if (isMobile) {
+      if (_model.foodNameController1.text == "" ||
+          _model.kcalController1.text == "" ||
+          _model.carbsController1.text == "" ||
+          _model.proteinsController1.text == "" ||
+          _model.fatsController1.text == "" ||
+          _model.foodQuantityController1.text == "" ||
+          _model.mealChoiceChipsValue1 == null) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Alert'),
+                content: Text('Please complete all the forms.'),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                      'OK',
+                      style: TextStyle(
+                          color: FlutterFlowTheme.of(context).primary),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+      }
+    } else {
+      if (_model.foodNameController2.text == "" ||
+          _model.kcalController2.text == "" ||
+          _model.carbsController2.text == "" ||
+          _model.proteinsController2.text == "" ||
+          _model.fatsController2.text == "" ||
+          _model.foodQuantityController2.text == "" ||
+          _model.mealChoiceChipsValue2 == null) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Alert'),
+                content: Text('Please complete all the forms.'),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                      'OK',
+                      style: TextStyle(
+                          color: FlutterFlowTheme.of(context).primary),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+      }
+    }
   }
 }
