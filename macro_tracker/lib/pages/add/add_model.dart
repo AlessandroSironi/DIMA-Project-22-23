@@ -18,10 +18,6 @@ class AddModel extends FlutterFlowModel {
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    foodItemNoModifyModel1 =
-        createModel(context, () => FoodItemNoModifyModel());
-    foodItemNoModifyModel2 =
-        createModel(context, () => FoodItemNoModifyModel());
 
     OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'Macro Tracker', url: 'https://www.polimi.it');
     OpenFoodAPIConfiguration.globalLanguages = <OpenFoodFactsLanguage>[
