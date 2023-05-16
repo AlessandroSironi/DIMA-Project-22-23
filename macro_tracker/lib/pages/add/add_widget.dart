@@ -1,3 +1,9 @@
+import 'package:macro_tracker/flutter_flow/flutter_flow_calendar.dart';
+
+import '../../auth/firebase_auth/auth_util.dart';
+import '../../backend/backend.dart';
+import '../../components/food_item_model.dart';
+import '../../components/food_item_widget.dart';
 import '/components/food_item_no_modify_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -21,6 +27,8 @@ class AddWidget extends StatefulWidget {
 
 class _AddWidgetState extends State<AddWidget> {
   late AddModel _model;
+  final mobileWidget = true;
+  final tabletWidget = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -235,21 +243,9 @@ class _AddWidgetState extends State<AddWidget> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          10.0, 10.0, 10.0, 10.0),
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          wrapWithModel(
-                            model: _model.foodItemNoModifyModel1,
-                            updateCallback: () => setState(() {}),
-                            child: FoodItemNoModifyWidget(),
-                          ),
-                        ],
-                      ),
-                    ),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            10.0, 10.0, 10.0, 10.0),
+                        child: buildListView(mobileWidget)),
                   ],
                 ),
               if (responsiveVisibility(
@@ -435,18 +431,7 @@ class _AddWidgetState extends State<AddWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             50.0, 10.0, 50.0, 10.0),
-                        child: ListView(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            wrapWithModel(
-                              model: _model.foodItemNoModifyModel2,
-                              updateCallback: () => setState(() {}),
-                              child: FoodItemNoModifyWidget(),
-                            ),
-                          ],
-                        ),
+                        child: buildListView(tabletWidget),
                       ),
                     ],
                   ),
@@ -456,5 +441,60 @@ class _AddWidgetState extends State<AddWidget> {
         ),
       ),
     );
+  }
+
+  Widget buildListView(bool isMobile) {
+    DateTime yesterday = DateTime.now().subtract(Duration(days: 1));
+
+    Query<Map<String, dynamic>> foodsQuery = FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('foods')
+        .where('datetime', isGreaterThanOrEqualTo: yesterday.startOfDay)
+        .where('datetime', isLessThan: yesterday.endOfDay);
+
+    return Column(children: [
+      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: foodsQuery.snapshots(),
+        builder: (BuildContext context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+
+          final List<DocumentSnapshot> documents = snapshot.data!.docs;
+
+          if (documents.isEmpty) {
+            print('empty documents');
+            return Text('No foods inserted yesterday');
+          }
+
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: documents.length,
+            itemBuilder: (BuildContext context, int index) {
+              final foodData = documents[index].data() as Map<String, dynamic>;
+
+              final foodItem = FoodItemNoModifyModel(
+                carbs: foodData['carbs'],
+                fats: foodData['fats'],
+                kcal: foodData['kcal'],
+                proteins: foodData['proteins'],
+                name: foodData['name'],
+                meal: foodData['meal'],
+                quantity: foodData['quantity'],
+                datetime: (foodData['datetime'] as Timestamp).toDate(),
+              );
+
+              return FoodItemNoModifyWidget(foodItemNoModifyModel: foodItem);
+            },
+          );
+        },
+      )
+    ]);
   }
 }

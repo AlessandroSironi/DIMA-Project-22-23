@@ -15,6 +15,7 @@ class FoodItemModel extends FlutterFlowModel {
   String kcal = "";
   String name = "";
   String meal = "";
+  String quantity = "";
   DateTime datetime = DateTime.now();
 
   FoodItemModel(
@@ -24,6 +25,7 @@ class FoodItemModel extends FlutterFlowModel {
       required kcal,
       required name,
       required meal,
+      required quantity,
       required datetime}) {
     this.carbs = carbs;
     this.fats = fats;
@@ -31,6 +33,7 @@ class FoodItemModel extends FlutterFlowModel {
     this.kcal = kcal;
     this.name = name;
     this.meal = meal;
+    this.quantity = quantity;
     this.datetime = datetime;
   }
 

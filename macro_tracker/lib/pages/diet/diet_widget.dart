@@ -1,3 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../auth/firebase_auth/auth_util.dart';
+import '../../components/food_item_model.dart';
+import '../../components/food_item_widget.dart';
 import '/components/diet_food_item_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -17,6 +22,8 @@ class DietWidget extends StatefulWidget {
 
 class _DietWidgetState extends State<DietWidget> {
   late DietModel _model;
+  final mobileWidget = true;
+  final tabletWidget = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -157,18 +164,8 @@ class _DietWidgetState extends State<DietWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 10.0),
-                          child: ListView(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              wrapWithModel(
-                                model: _model.dietFoodItemModel1,
-                                updateCallback: () => setState(() {}),
-                                child: DietFoodItemWidget(),
-                              ),
-                            ],
-                          ),
+                          child: buildListView(mobileWidget,
+                              _model.mealChoiceFilterValue1?.split(' ')[1]),
                         ),
                       ],
                     ),
@@ -242,21 +239,10 @@ class _DietWidgetState extends State<DietWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              50.0, 10.0, 50.0, 10.0),
-                          child: ListView(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              wrapWithModel(
-                                model: _model.dietFoodItemModel2,
-                                updateCallback: () => setState(() {}),
-                                child: DietFoodItemWidget(),
-                              ),
-                            ],
-                          ),
-                        ),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                50.0, 10.0, 50.0, 10.0),
+                            child: buildListView(tabletWidget,
+                                _model.mealChoiceFilterValue2?.split(' ')[1])),
                       ],
                     ),
                   ),
@@ -266,5 +252,58 @@ class _DietWidgetState extends State<DietWidget> {
         ),
       ),
     );
+  }
+
+  Widget buildListView(bool isMobile, String? meal) {
+    Query<Map<String, dynamic>> foodsQuery = FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('diet_foods')
+        .where("meal", isEqualTo: meal);
+
+    return Column(children: [
+      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: foodsQuery.snapshots(),
+        builder: (BuildContext context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+
+          final List<DocumentSnapshot> documents = snapshot.data!.docs;
+
+          if (documents.isEmpty) {
+            return Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(50.0, 10.0, 50.0, 10.0),
+                child: Text('No foods inserted yet in your diet'));
+          }
+
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: documents.length,
+            itemBuilder: (BuildContext context, int index) {
+              final foodData = documents[index].data() as Map<String, dynamic>;
+
+              final foodItem = DietFoodItemModel(
+                carbs: foodData['carbs'],
+                fats: foodData['fats'],
+                kcal: foodData['kcal'],
+                proteins: foodData['proteins'],
+                name: foodData['name'],
+                meal: foodData['meal'],
+                quantity: foodData['quantity'],
+                datetime: (foodData['datetime'] as Timestamp).toDate(),
+              );
+
+              return DietFoodItemWidget(dietFoodItemModel: foodItem);
+            },
+          );
+        },
+      )
+    ]);
   }
 }

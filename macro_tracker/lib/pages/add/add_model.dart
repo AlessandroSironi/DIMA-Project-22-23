@@ -14,10 +14,6 @@ class AddModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   var scannedBarcode = '';
-  // Model for foodItemNoModify component.
-  late FoodItemNoModifyModel foodItemNoModifyModel1;
-  // Model for foodItemNoModify component.
-  late FoodItemNoModifyModel foodItemNoModifyModel2;
 
   /// Initialization and disposal methods.
 
@@ -35,11 +31,7 @@ class AddModel extends FlutterFlowModel {
     OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.ITALY;
   }
 
-  void dispose() {
-    foodItemNoModifyModel1.dispose();
-    foodItemNoModifyModel2.dispose();
-  }
+  void dispose() {}
 
   /// Additional helper methods are added here.
-
 }

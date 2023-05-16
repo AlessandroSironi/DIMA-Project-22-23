@@ -21,8 +21,8 @@ LocalNotificationService notificationService = LocalNotificationService();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+    DeviceOrientation.portraitUp,
+  ]);
 
   await initFirebase();
 
@@ -42,7 +42,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
-  
+
   late Stream<BaseAuthUser> userStream;
 
   late AppStateNotifier _appStateNotifier;
@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
     );
     notificationService.initialize();
     //if () {
-      //notificationService.scheduleNotification(id: 0, title: "Don't forget to log today!", body: "Open MacroTracker to log your diet intake.", seconds: 1);
+    //notificationService.scheduleNotification(id: 0, title: "Don't forget to log today!", body: "Open MacroTracker to log your diet intake.", seconds: 1);
     //}
   }
 

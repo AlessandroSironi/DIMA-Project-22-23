@@ -6,12 +6,37 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class FoodItemNoModifyModel extends FlutterFlowModel {
-  /// Initialization and disposal methods.
+  String carbs = "";
+  String fats = "";
+  String proteins = "";
+  String kcal = "";
+  String name = "";
+  String meal = "";
+  String quantity = "";
+  DateTime datetime = DateTime.now();
+
+  FoodItemNoModifyModel(
+      {required carbs,
+      required fats,
+      required proteins,
+      required kcal,
+      required name,
+      required meal,
+      required quantity,
+      required datetime}) {
+    this.carbs = carbs;
+    this.fats = fats;
+    this.proteins = proteins;
+    this.kcal = kcal;
+    this.name = name;
+    this.meal = meal;
+    this.quantity = quantity;
+    this.datetime = datetime;
+  }
 
   void initState(BuildContext context) {}
 
   void dispose() {}
 
   /// Additional helper methods are added here.
-
 }
