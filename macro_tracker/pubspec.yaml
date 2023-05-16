@@ -89,6 +89,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   workmanager: ^0.5.1
+  openfoodfacts: ^2.5.0
 
 dev_dependencies:
   analyzer: 5.10.0

@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import 'add_model.dart';
 export 'add_model.dart';
 
+import 'package:openfoodfacts/openfoodfacts.dart';
+
 class AddWidget extends StatefulWidget {
   const AddWidget({Key? key}) : super(key: key);
 
@@ -99,6 +101,12 @@ class _AddWidgetState extends State<AddWidget> {
                               );
 
                               setState(() {});
+                              //DO OPENFOODAPI 
+                              ProductQueryConfiguration config = ProductQueryConfiguration(
+                                _model.scannedBarcode,
+                                version: ProductQueryVersion.v3);
+                                ProductResultV3 product = await OpenFoodAPIClient.getProductV3(config);
+                                //DO STUFF WITH product.product?.productName...
                             },
                             text: 'Barcode Scanner',
                             icon: FaIcon(

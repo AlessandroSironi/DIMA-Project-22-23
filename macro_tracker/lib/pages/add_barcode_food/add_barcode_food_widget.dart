@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import 'add_barcode_food_model.dart';
 export 'add_barcode_food_model.dart';
 
+import 'package:openfoodfacts/openfoodfacts.dart';
+
 class AddBarcodeFoodWidget extends StatefulWidget {
   const AddBarcodeFoodWidget({
     Key? key,
@@ -695,6 +697,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                           FFButtonWidget(
                             onPressed: () async {
                               context.pushNamed('Diary');
+                              //SAVE...
                             },
                             text: 'Log food',
                             options: FFButtonOptions(
