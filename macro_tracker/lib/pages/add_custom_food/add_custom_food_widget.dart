@@ -659,7 +659,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
-                              context.goNamed('Diary');
+                              if (textFieldsAlert(mobileWidget)) {}
                             },
                             text: 'Add to diet',
                             options: FFButtonOptions(
@@ -688,9 +688,10 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           ),
                           FFButtonWidget(
                             onPressed: () async {
-                              textFieldsAlert(mobileWidget);
-                              logFoodToDiary(mobileWidget);
-                              //context.goNamed('Diary');
+                              if (textFieldsAlert(mobileWidget)) {
+                                logFoodToDiary(mobileWidget);
+                                //context.goNamed('Diary');
+                              }
                             },
                             text: 'Log food',
                             options: FFButtonOptions(
@@ -1317,7 +1318,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                context.goNamed('Diary');
+                                if (textFieldsAlert(mobileWidget)) {
+                                  logFoodToDiary(mobileWidget);
+                                }
                               },
                               text: 'Add to diet',
                               options: FFButtonOptions(
@@ -1346,8 +1349,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
-                                textFieldsAlert(tabletWidget);
-                                //context.goNamed('Diary');
+                                if (textFieldsAlert(tabletWidget)) {
+                                  //context.goNamed('Diary');
+                                }
                               },
                               text: 'Log food',
                               options: FFButtonOptions(
@@ -1434,7 +1438,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
     }
   }
 
-  void textFieldsAlert(bool isMobile) {
+  bool textFieldsAlert(bool isMobile) {
     if (isMobile) {
       if (_model.foodNameController1.text == "" ||
           _model.kcalController1.text == "" ||
@@ -1463,6 +1467,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                 ],
               );
             });
+        return false;
       }
     } else {
       if (_model.foodNameController2.text == "" ||
@@ -1492,7 +1497,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                 ],
               );
             });
+        return false;
       }
     }
+    return true;
   }
 }
