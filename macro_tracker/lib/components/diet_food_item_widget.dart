@@ -108,7 +108,7 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
                     borderColor: Colors.transparent,
                     borderRadius: 30.0,
                     borderWidth: 1.0,
-                    buttonSize: 50.0,
+                    buttonSize: 46.0,
                     icon: Icon(
                       Icons.mode_edit,
                       color: FlutterFlowTheme.of(context).primaryText,
@@ -122,7 +122,7 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
                     borderColor: Colors.transparent,
                     borderRadius: 30.0,
                     borderWidth: 1.0,
-                    buttonSize: 50.0,
+                    buttonSize: 46.0,
                     icon: Icon(
                       Icons.add_circle_outline_rounded,
                       color: FlutterFlowTheme.of(context).primaryText,
