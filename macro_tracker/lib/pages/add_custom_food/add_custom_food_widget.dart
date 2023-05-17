@@ -20,7 +20,7 @@ class AddCustomFoodWidget extends StatefulWidget {
   _AddCustomFoodWidgetState createState() => _AddCustomFoodWidgetState();
 }
 
- Future addToHealth(double amount, HealthDataType type) async {
+ void addToHealth(double amount, HealthDataType type) async {
   HealthFactory health = HealthFactory();
 
     var types = [
@@ -34,9 +34,11 @@ class AddCustomFoodWidget extends StatefulWidget {
 
     var now = DateTime.now();
 
-    bool success = await health.writeHealthData(amount, type, now, now);
-
-    return success;
+    try {
+      await health.writeHealthData(amount, type, now, now);
+    } catch (e) {
+      print("Error inserting Health Data: $e.");
+    }
 }
 
 class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
@@ -1444,6 +1446,10 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'quantity': _model.foodQuantityController1.text,
         'datetime': now,
       });
+      addToHealth(double.parse(_model.kcalController1.text), HealthDataType.DIETARY_ENERGY_CONSUMED);
+      addToHealth(double.parse(_model.carbsController1.text), HealthDataType.DIETARY_CARBS_CONSUMED);
+      addToHealth(double.parse(_model.proteinsController1.text), HealthDataType.DIETARY_PROTEIN_CONSUMED);
+      addToHealth(double.parse(_model.fatsController1.text), HealthDataType.DIETARY_FATS_CONSUMED);
     } else {
       await firestore
           .collection('users')

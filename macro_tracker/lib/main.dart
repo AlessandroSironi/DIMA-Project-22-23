@@ -29,16 +29,25 @@ void main() async {
 
   await FlutterFlowTheme.initialize();
 
-    HealthFactory health = HealthFactory();
+  HealthFactory health = HealthFactory();
 
   // define the types to get
   var types = [
-    HealthDataType.STEPS,
-    HealthDataType.BLOOD_GLUCOSE,
+    HealthDataType.DIETARY_ENERGY_CONSUMED,
+    HealthDataType.DIETARY_CARBS_CONSUMED,
+    HealthDataType.DIETARY_PROTEIN_CONSUMED,
+    HealthDataType.DIETARY_FATS_CONSUMED,
+  ];
+
+  var permissions = [
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
   ];
 
   // requesting access to the data types before reading them
-  bool requested = await health.requestAuthorization(types);
+  bool requested = await health.requestAuthorization(types, permissions: permissions);
   runApp(MyApp());
 }
 
