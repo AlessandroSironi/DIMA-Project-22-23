@@ -1784,7 +1784,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         ? _model.calendarSelectedDay1!.start
         : _model.calendarSelectedDay2!.start;
 
-    String documentId = date.microsecondsSinceEpoch.toString();
+    String documentId = date.millisecondsSinceEpoch.toString();
 
     collection.doc(documentId).set({'date': date}).catchError(
         (error) => print("Failed to add item: $error"));
@@ -2045,6 +2045,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                 meal: foodData['meal'],
                 quantity: foodData['quantity'],
                 datetime: (foodData['datetime'] as Timestamp).toDate(),
+                id: foodData['id'],
               );
 
               return FoodItemWidget(foodItemModel: foodItem);

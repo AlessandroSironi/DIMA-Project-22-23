@@ -1,3 +1,6 @@
+import 'package:macro_tracker/backend/backend.dart';
+
+import '../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -114,6 +117,8 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
                       size: 28.0,
                     ),
                     onPressed: () async {
+                      //removeFoodFromFoods();
+                      addFoodToTemp();
                       context.pushNamed('editFood');
                     },
                   ),
@@ -139,5 +144,45 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
       default:
         return '';
     }
+  }
+
+  void addFoodToTemp() async {
+    final firestore = FirebaseFirestore.instance;
+    //documentId is equal to the timestamp of the food
+    int documentId = _model.datetime.millisecondsSinceEpoch;
+
+    await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .doc(documentId.toString())
+        .set({
+      'name': _model.name,
+      'kcal': _model.kcal,
+      'carbs': _model.carbs,
+      'proteins': _model.proteins,
+      'fats': _model.fats,
+      'meal': _model.meal,
+      'quantity': _model.quantity,
+      'datetime': _model.datetime,
+      'id': _model.id,
+    });
+  }
+
+  void removeFoodFromFoods() async {
+    final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('foods')
+        .where("id", isEqualTo: _model.id)
+        .limit(1)
+        .get();
+
+    DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+    DocumentReference documentReference = documentSnapshot.reference;
+
+    await documentReference.delete();
   }
 }

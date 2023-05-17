@@ -1403,7 +1403,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
 
   void addFoodToDiet(bool isMobile) async {
     DateTime now = DateTime.now();
-    String documentId = now.microsecondsSinceEpoch.toString();
+    int documentId = now.millisecondsSinceEpoch;
 
     final firestore = FirebaseFirestore.instance;
     if (isMobile) {
@@ -1411,7 +1411,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
           .collection('users')
           .doc(currentUserDocument?.uid)
           .collection('diet_foods')
-          .doc(documentId)
+          .doc(documentId.toString())
           .set({
         'name': capitalizeFirstLetter(_model.foodNameController1.text),
         'kcal': _model.kcalController1.text,
@@ -1427,7 +1427,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
           .collection('users')
           .doc(currentUserDocument?.uid)
           .collection('diet_foods')
-          .doc(documentId)
+          .doc(documentId.toString())
           .set({
         'name': capitalizeFirstLetter(_model.foodNameController2.text),
         'kcal': _model.kcalController2.text,
@@ -1443,7 +1443,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
 
   void logFoodToDiary(bool isMobile) async {
     DateTime now = DateTime.now();
-    String documentId = now.microsecondsSinceEpoch.toString();
+    int documentId = now.millisecondsSinceEpoch;
 
     final firestore = FirebaseFirestore.instance;
     if (isMobile) {
@@ -1451,7 +1451,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
           .collection('users')
           .doc(currentUserDocument?.uid)
           .collection('foods')
-          .doc(documentId)
+          .doc(documentId.toString())
           .set({
         'name': capitalizeFirstLetter(_model.foodNameController1.text),
         'kcal': _model.kcalController1.text,
@@ -1461,13 +1461,14 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'meal': _model.mealChoiceChipsValue1?.split(' ')[1],
         'quantity': _model.foodQuantityController1.text,
         'datetime': now,
+        'id': documentId,
       });
     } else {
       await firestore
           .collection('users')
           .doc(currentUserDocument?.uid)
           .collection('foods')
-          .doc(documentId)
+          .doc(documentId.toString())
           .set({
         'name': capitalizeFirstLetter(_model.foodNameController2.text),
         'kcal': _model.kcalController2.text,
@@ -1477,6 +1478,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'meal': _model.mealChoiceChipsValue2?.split(' ')[1],
         'quantity': _model.foodQuantityController2.text,
         'datetime': now,
+        'id': documentId,
       });
     }
   }
