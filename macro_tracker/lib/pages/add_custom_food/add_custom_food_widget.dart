@@ -1442,8 +1442,6 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
   }
 
   void logFoodToDiary(bool isMobile) async {
-    addFoodToDiet(isMobile);
-
     DateTime now = DateTime.now();
     String documentId = now.microsecondsSinceEpoch.toString();
 
