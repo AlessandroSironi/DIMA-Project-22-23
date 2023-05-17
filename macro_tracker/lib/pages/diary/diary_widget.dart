@@ -1924,7 +1924,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
 
                   int fieldValue =
                       int.tryParse(data[macroField.split('_')[0]]) ?? 0;
-                  totalSum += fieldValue;
+                  int quantity = int.tryParse(data['quantity']) ?? 0;
+                  totalSum += fieldValue * quantity ~/ 100;
                 }
               }
 
