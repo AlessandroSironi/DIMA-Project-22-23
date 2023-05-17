@@ -1784,7 +1784,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         ? _model.calendarSelectedDay1!.start
         : _model.calendarSelectedDay2!.start;
 
-    collection.add({'date': date}).catchError(
+    String documentId = date.microsecondsSinceEpoch.toString();
+
+    collection.doc(documentId).set({'date': date}).catchError(
         (error) => print("Failed to add item: $error"));
   }
 
@@ -2003,7 +2005,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         .where('datetime', isGreaterThanOrEqualTo: startOfToday)
         .where('datetime', isLessThan: endOfToday);
 
-    return Column(children: [
+    return Expanded(
+        child: SingleChildScrollView(
+            child: Column(children: [
       StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: foodsQuery.snapshots(),
         builder: (BuildContext context,
@@ -2026,6 +2030,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
 
           return ListView.builder(
             shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             itemCount: documents.length,
             itemBuilder: (BuildContext context, int index) {
               final foodData = documents[index].data() as Map<String, dynamic>;
@@ -2046,6 +2051,6 @@ class _DiaryWidgetState extends State<DiaryWidget> {
           );
         },
       )
-    ]);
+    ])));
   }
 }

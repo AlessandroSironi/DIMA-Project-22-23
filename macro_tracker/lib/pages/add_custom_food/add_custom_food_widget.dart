@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -659,7 +661,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
-                              if (textFieldsAlert(mobileWidget)) {}
+                              if (textFieldsAlert(mobileWidget)) {
+                                addFoodToDiet(mobileWidget);
+                              }
                             },
                             text: 'Add to diet',
                             options: FFButtonOptions(
@@ -1318,8 +1322,8 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                if (textFieldsAlert(mobileWidget)) {
-                                  logFoodToDiary(mobileWidget);
+                                if (textFieldsAlert(tabletWidget)) {
+                                  addFoodToDiet(tabletWidget);
                                 }
                               },
                               text: 'Add to diet',
@@ -1350,6 +1354,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             FFButtonWidget(
                               onPressed: () async {
                                 if (textFieldsAlert(tabletWidget)) {
+                                  logFoodToDiary(tabletWidget);
                                   //context.goNamed('Diary');
                                 }
                               },
@@ -1396,9 +1401,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
     );
   }
 
-  void addFoodToDiet() {}
-
-  void logFoodToDiary(isMobile) async {
+  void addFoodToDiet(bool isMobile) async {
     DateTime now = DateTime.now();
     String documentId = now.microsecondsSinceEpoch.toString();
 
@@ -1410,7 +1413,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
           .collection('diet_foods')
           .doc(documentId)
           .set({
-        'name': _model.foodNameController1.text,
+        'name': capitalizeFirstLetter(_model.foodNameController1.text),
         'kcal': _model.kcalController1.text,
         'carbs': _model.carbsController1.text,
         'proteins': _model.proteinsController1.text,
@@ -1426,7 +1429,49 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
           .collection('diet_foods')
           .doc(documentId)
           .set({
-        'name': _model.foodNameController2.text,
+        'name': capitalizeFirstLetter(_model.foodNameController2.text),
+        'kcal': _model.kcalController2.text,
+        'carbs': _model.carbsController2.text,
+        'proteins': _model.proteinsController2.text,
+        'fats': _model.fatsController2.text,
+        'meal': _model.mealChoiceChipsValue2?.split(' ')[1],
+        'quantity': _model.foodQuantityController2.text,
+        'datetime': now,
+      });
+    }
+  }
+
+  void logFoodToDiary(bool isMobile) async {
+    addFoodToDiet(isMobile);
+
+    DateTime now = DateTime.now();
+    String documentId = now.microsecondsSinceEpoch.toString();
+
+    final firestore = FirebaseFirestore.instance;
+    if (isMobile) {
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('foods')
+          .doc(documentId)
+          .set({
+        'name': capitalizeFirstLetter(_model.foodNameController1.text),
+        'kcal': _model.kcalController1.text,
+        'carbs': _model.carbsController1.text,
+        'proteins': _model.proteinsController1.text,
+        'fats': _model.fatsController1.text,
+        'meal': _model.mealChoiceChipsValue1?.split(' ')[1],
+        'quantity': _model.foodQuantityController1.text,
+        'datetime': now,
+      });
+    } else {
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('foods')
+          .doc(documentId)
+          .set({
+        'name': capitalizeFirstLetter(_model.foodNameController2.text),
         'kcal': _model.kcalController2.text,
         'carbs': _model.carbsController2.text,
         'proteins': _model.proteinsController2.text,
@@ -1450,23 +1495,26 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Alert'),
+              return CupertinoAlertDialog(
+                title: const Text('Alert'),
                 content: Text('Please complete all the forms.'),
-                actions: <Widget>[
-                  TextButton(
+                actions: <CupertinoDialogAction>[
+                  CupertinoDialogAction(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: Text(
                       'OK',
                       style: TextStyle(
-                          color: FlutterFlowTheme.of(context).primary),
+                        color: FlutterFlowTheme.of(context).primary,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
                   ),
                 ],
               );
             });
+
         return false;
       }
     } else {
@@ -1483,6 +1531,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
               return AlertDialog(
                 title: Text('Alert'),
                 content: Text('Please complete all the forms.'),
+                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
                 actions: <Widget>[
                   TextButton(
                     child: Text(
@@ -1501,5 +1550,10 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
       }
     }
     return true;
+  }
+
+  String capitalizeFirstLetter(String s) {
+    String temp = s[0].toUpperCase();
+    return temp + s.substring(1, s.length);
   }
 }
