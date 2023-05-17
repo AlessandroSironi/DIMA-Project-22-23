@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:health/health.dart';
+
 import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -14,6 +18,25 @@ class AddCustomFoodWidget extends StatefulWidget {
 
   @override
   _AddCustomFoodWidgetState createState() => _AddCustomFoodWidgetState();
+}
+
+ Future addToHealth(double amount, HealthDataType type) async {
+  HealthFactory health = HealthFactory();
+
+    var types = [
+      HealthDataType.DIETARY_ENERGY_CONSUMED,
+      HealthDataType.DIETARY_CARBS_CONSUMED,
+      HealthDataType.DIETARY_PROTEIN_CONSUMED,
+      HealthDataType.DIETARY_FATS_CONSUMED,
+    ];
+
+    //bool requested = await health.requestAuthorization(types);
+
+    var now = DateTime.now();
+
+    bool success = await health.writeHealthData(amount, type, now, now);
+
+    return success;
 }
 
 class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
@@ -41,6 +64,8 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
     _model.proteinsController2 ??= TextEditingController();
     _model.fatsController2 ??= TextEditingController();
     _model.foodQuantityController2 ??= TextEditingController();
+
+    addToHealth(30, HealthDataType.DIETARY_ENERGY_CONSUMED);
   }
 
   @override

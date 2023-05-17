@@ -25,6 +25,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var hasContainerTriggered1 = false;
   var hasContainerTriggered2 = false;
+  var hasContainerTriggered3 = false;
   final animationsMap = {
     'containerOnActionTriggerAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onActionTrigger,
@@ -259,6 +260,77 @@ class _ProfileWidgetState extends State<ProfileWidget>
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
+                                /*
+                                //Enable Daily Reminder
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    //Do query
+                                    if (animationsMap['containerOnActionTriggerAnimation3'] != null) {
+                                      setState(() => hasContainerTriggered3 = true);
+                                      SchedulerBinding.instance.addPostFrameCallback((_) async =>
+                                          await animationsMap['containerOnActionTriggerAnimation3']!
+                                              .controller
+                                              .forward(from: 0.0));
+                                    }
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Daily Reminder Notification',
+                                            style: FlutterFlowTheme.of(context).bodyMedium,
+                                          ),
+                                          Container(
+                                            width: 80,
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                              borderRadius: BorderRadius.circular(20),
+                                            ),
+                                            child: Stack(
+                                              alignment: AlignmentDirectional(0, 0),
+                                              children: [
+                                                Align(
+                                                  alignment: AlignmentDirectional(-0.85, 0),
+                                                  child: Container(
+                                                    width: 36,
+                                                    height: 36,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          blurRadius: 4,
+                                                          color: Color(0x430B0D0F),
+                                                          offset: Offset(0, 2),
+                                                        )
+                                                      ],
+                                                      borderRadius: BorderRadius.circular(30),
+                                                      shape: BoxShape.rectangle,
+                                                    ),
+                                                  ).animateOnActionTrigger(
+                                                      animationsMap['containerOnActionTriggerAnimation1']!,
+                                                      hasBeenTriggered: hasContainerTriggered1),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),*/
                                 if (!(Theme.of(context).brightness ==
                                     Brightness.dark))
                                   InkWell(
@@ -508,8 +580,6 @@ class _ProfileWidgetState extends State<ProfileWidget>
                         ],
                       ),
                     ),
-                    //Enable Daily Reminder
-                    
                     Expanded(
                       child: Padding(
                         padding:
