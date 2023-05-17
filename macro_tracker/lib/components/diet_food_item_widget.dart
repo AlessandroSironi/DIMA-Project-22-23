@@ -88,7 +88,7 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
                       Text(
-                        '${_model.kcal} Kcal ${_model.carbs}C ${_model.proteins}P ${_model.fats}F',
+                        '${_model.kcal}Kcal ${_model.carbs}C ${_model.proteins}P ${_model.fats}F',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Outfit',
                               color: FlutterFlowTheme.of(context).secondaryText,
