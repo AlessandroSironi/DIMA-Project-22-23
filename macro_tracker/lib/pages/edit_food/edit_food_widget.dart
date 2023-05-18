@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:health/health.dart';
 import 'package:macro_tracker/pages/add_custom_food/add_custom_food_widget.dart';
 
@@ -1629,10 +1630,13 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
         'datetime': datetime,
         'id': documentId,
       });
-      await removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
-      await removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
-      await removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
-      await removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+
+      DateTime startTime = datetime.subtract(const Duration(milliseconds: 5));
+      DateTime stopTime = datetime.add(const Duration(milliseconds: 5));
+      await removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, startTime, stopTime);
+      await removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, startTime, stopTime);
+      await removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, startTime, stopTime);
+      await removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, startTime, stopTime);
 
       await addToHealth(double.parse(_model.kcalController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
       await addToHealth(double.parse(_model.carbsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
@@ -1676,18 +1680,22 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
 
     Map<String, dynamic>? data = documentSnapshot.data() as Map<String, dynamic>?;
     datetime = (data?["datetime"] as Timestamp).toDate();
+    print("DateTime: $datetime");
+
+    DateTime startTime = datetime.subtract(const Duration(milliseconds: 5));
+    DateTime stopTime = datetime.add(const Duration(milliseconds: 5));
 
     await documentReference.delete();
     if (isMobile) {
-      await removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
-      await removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
-      await removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
-      await removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+      await removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, startTime, stopTime);
+      await removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, startTime, stopTime);
+      await removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, startTime, stopTime);
+      await removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, startTime, stopTime);
     }
   }
 
 
-  Future removeFromHealth(HealthDataType type, DateTime datetime) async {
+  Future removeFromHealth(HealthDataType type, DateTime startTime, DateTime stopTime) async {
     HealthFactory health = HealthFactory();
 
     var types = [
@@ -1709,7 +1717,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
     print("Request for Health value $requested");
     if (!requested) return false;
 
-    return health.delete(type, datetime, datetime);
+    return health.delete(type, startTime, stopTime);
 }
 
   String capitalizeFirstLetter(String s) {
