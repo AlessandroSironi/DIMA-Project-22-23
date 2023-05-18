@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:health/health.dart';
+import 'package:macro_tracker/services/health_service.dart';
 import 'package:macro_tracker/pages/add_custom_food/add_custom_food_widget.dart';
 
 import '../../auth/firebase_auth/auth_util.dart';
@@ -32,6 +33,8 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
   String initialMealChoice = "";
   int documentId = -1;
   late DateTime datetime;
+
+  final HealthService healthService = HealthService();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -1631,17 +1634,15 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
         'id': documentId,
       });
 
-      DateTime startTime = datetime.subtract(const Duration(milliseconds: 5));
-      DateTime stopTime = datetime.add(const Duration(milliseconds: 5));
-      await removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, startTime, stopTime);
-      await removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, startTime, stopTime);
-      await removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, startTime, stopTime);
-      await removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, startTime, stopTime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, datetime);
 
-      await addToHealth(double.parse(_model.kcalController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
-      await addToHealth(double.parse(_model.carbsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
-      await addToHealth(double.parse(_model.proteinsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
-      await addToHealth(double.parse(_model.fatsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+      await healthService.addToHealth(double.parse(_model.kcalController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await healthService.addToHealth(double.parse(_model.carbsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await healthService.addToHealth(double.parse(_model.proteinsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await healthService.addToHealth(double.parse(_model.fatsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_FATS_CONSUMED, datetime);
     } else {
       await firestore
           .collection('users')
@@ -1680,45 +1681,15 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
 
     Map<String, dynamic>? data = documentSnapshot.data() as Map<String, dynamic>?;
     datetime = (data?["datetime"] as Timestamp).toDate();
-    print("DateTime: $datetime");
-
-    DateTime startTime = datetime.subtract(const Duration(milliseconds: 5));
-    DateTime stopTime = datetime.add(const Duration(milliseconds: 5));
 
     await documentReference.delete();
     if (isMobile) {
-      await removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, startTime, stopTime);
-      await removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, startTime, stopTime);
-      await removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, startTime, stopTime);
-      await removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, startTime, stopTime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, datetime);
     }
   }
-
-
-  Future removeFromHealth(HealthDataType type, DateTime startTime, DateTime stopTime) async {
-    HealthFactory health = HealthFactory();
-
-    var types = [
-      HealthDataType.DIETARY_ENERGY_CONSUMED,
-      HealthDataType.DIETARY_CARBS_CONSUMED,
-      HealthDataType.DIETARY_PROTEIN_CONSUMED,
-      HealthDataType.DIETARY_FATS_CONSUMED,
-    ];
-
-    var permissions = [
-    HealthDataAccess.READ_WRITE,
-    HealthDataAccess.READ_WRITE,
-    HealthDataAccess.READ_WRITE,
-    HealthDataAccess.READ_WRITE,
-    ];
-
-    // requesting access to the data types before reading them
-    bool requested = await health.requestAuthorization(types, permissions: permissions);
-    print("Request for Health value $requested");
-    if (!requested) return false;
-
-    return health.delete(type, startTime, stopTime);
-}
 
   String capitalizeFirstLetter(String s) {
     String temp = s[0].toUpperCase();
