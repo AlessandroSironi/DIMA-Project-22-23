@@ -1970,7 +1970,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                     child: Text(
-                      '$sumToDisplay / $fieldValue g',
+                      '$sumToDisplay / $fieldValue kcal',
                       style: FlutterFlowTheme.of(context).bodyMedium,
                     ))
               ]);

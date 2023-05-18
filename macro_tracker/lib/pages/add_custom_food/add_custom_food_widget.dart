@@ -1,5 +1,6 @@
+import 'dart:ffi';
+import 'package:health/health.dart';
 import 'package:flutter/cupertino.dart';
-
 import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -16,6 +17,27 @@ class AddCustomFoodWidget extends StatefulWidget {
 
   @override
   _AddCustomFoodWidgetState createState() => _AddCustomFoodWidgetState();
+}
+
+ void addToHealth(double amount, HealthDataType type) async {
+  HealthFactory health = HealthFactory();
+
+    var types = [
+      HealthDataType.DIETARY_ENERGY_CONSUMED,
+      HealthDataType.DIETARY_CARBS_CONSUMED,
+      HealthDataType.DIETARY_PROTEIN_CONSUMED,
+      HealthDataType.DIETARY_FATS_CONSUMED,
+    ];
+
+    //bool requested = await health.requestAuthorization(types);
+
+    var now = DateTime.now();
+
+    try {
+      await health.writeHealthData(amount, type, now, now);
+    } catch (e) {
+      print("Error inserting Health Data: $e.");
+    }
 }
 
 class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
@@ -43,6 +65,8 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
     _model.proteinsController2 ??= TextEditingController();
     _model.fatsController2 ??= TextEditingController();
     _model.foodQuantityController2 ??= TextEditingController();
+
+    addToHealth(30, HealthDataType.DIETARY_ENERGY_CONSUMED);
   }
 
   @override
@@ -1422,6 +1446,10 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'quantity': _model.foodQuantityController1.text,
         'datetime': now,
       });
+      addToHealth(double.parse(_model.kcalController1.text), HealthDataType.DIETARY_ENERGY_CONSUMED);
+      addToHealth(double.parse(_model.carbsController1.text), HealthDataType.DIETARY_CARBS_CONSUMED);
+      addToHealth(double.parse(_model.proteinsController1.text), HealthDataType.DIETARY_PROTEIN_CONSUMED);
+      addToHealth(double.parse(_model.fatsController1.text), HealthDataType.DIETARY_FATS_CONSUMED);
     } else {
       await firestore
           .collection('users')

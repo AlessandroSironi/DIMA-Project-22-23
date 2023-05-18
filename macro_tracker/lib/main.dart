@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:health/health.dart';
 import 'auth/firebase_auth/firebase_user_provider.dart';
 import 'auth/firebase_auth/auth_util.dart';
 
@@ -27,6 +28,26 @@ void main() async {
   await initFirebase();
 
   await FlutterFlowTheme.initialize();
+
+  HealthFactory health = HealthFactory();
+
+  // define the types to get
+  var types = [
+    HealthDataType.DIETARY_ENERGY_CONSUMED,
+    HealthDataType.DIETARY_CARBS_CONSUMED,
+    HealthDataType.DIETARY_PROTEIN_CONSUMED,
+    HealthDataType.DIETARY_FATS_CONSUMED,
+  ];
+
+  var permissions = [
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+  ];
+
+  // requesting access to the data types before reading them
+  bool requested = await health.requestAuthorization(types, permissions: permissions);
   runApp(MyApp());
 }
 

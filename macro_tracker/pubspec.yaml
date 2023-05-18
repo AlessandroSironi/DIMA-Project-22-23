@@ -90,6 +90,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   workmanager: ^0.5.1
   openfoodfacts: ^2.5.0
+  health: ^6.0.0
 
 dev_dependencies:
   analyzer: 5.10.0
