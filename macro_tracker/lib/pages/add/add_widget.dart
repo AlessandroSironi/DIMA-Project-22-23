@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:macro_tracker/flutter_flow/flutter_flow_calendar.dart';
 
 import '../../auth/firebase_auth/auth_util.dart';
@@ -31,6 +33,8 @@ class _AddWidgetState extends State<AddWidget> {
   final tabletWidget = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  int documentId = -1;
 
   @override
   void initState() {
@@ -100,13 +104,18 @@ class _AddWidgetState extends State<AddWidget> {
                               20.0, 20.0, 20.0, 20.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              _model.scannedBarcode =
+                              var result = scanBarcode();
+                              if (await result)
+                                context.pushNamed('AddBarcodeFood');
+                              /* _model.scannedBarcode =
                                   await FlutterBarcodeScanner.scanBarcode(
-                                '#C62828', // scanning line color
+                                '#DD2556', // scanning line color
                                 'Cancel', // cancel button text
                                 true, // whether to show the flash icon
                                 ScanMode.BARCODE,
                               );
+
+
 
                               setState(() {});
                               //DO OPENFOODAPI
@@ -116,7 +125,7 @@ class _AddWidgetState extends State<AddWidget> {
                                       version: ProductQueryVersion.v3);
                               ProductResultV3 product =
                                   await OpenFoodAPIClient.getProductV3(config);
-                              //DO STUFF WITH product.product?.productName...
+                              //DO STUFF WITH product.product?.productName... */
                             },
                             text: 'Barcode Scanner',
                             icon: FaIcon(
@@ -284,7 +293,8 @@ class _AddWidgetState extends State<AddWidget> {
                                   20.0, 20.0, 20.0, 20.0),
                               child: FFButtonWidget(
                                 onPressed: () {
-                                  print('barcodeButton pressed ...');
+                                 scanBarcode();
+                                 context.pushNamed('AddBarcodeFood');
                                 },
                                 text: 'Barcode Scanner',
                                 icon: FaIcon(
@@ -503,4 +513,42 @@ class _AddWidgetState extends State<AddWidget> {
       )
     ])));
   }
+
+  Future<bool> scanBarcode() async {
+    final firestore = FirebaseFirestore.instance;
+    String scannedBarcode = await FlutterBarcodeScanner.scanBarcode (
+      '#DD2556', // scanning line color
+      'Cancel', // cancel button text
+      true, // whether to show the flash icon
+      ScanMode.BARCODE,
+    );
+    //OpenFoodFacts
+    ProductQueryConfiguration config = ProductQueryConfiguration(scannedBarcode, version: ProductQueryVersion.v3);
+    ProductResultV3 product = await OpenFoodAPIClient.getProductV3(config);
+
+    double? name = product.product?.nutriments?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams);
+    double? kcal = product.product?.nutriments?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams);
+    double? carbs =  product.product?.nutriments?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams);
+    double? proteins = product.product?.nutriments?.getValue(Nutrient.proteins, PerSize.oneHundredGrams);
+    double? fats = product.product?.nutriments?.getValue(Nutrient.fat, PerSize.oneHundredGrams);
+
+    await firestore
+      .collection('users')
+      .doc(currentUserDocument?.uid)
+      .collection('temp')
+      .doc(documentId.toString())
+      .set({
+        'name': name,
+        'kcal': kcal,
+        'carbs': carbs,
+        'proteins': proteins,
+        'fats': fats,
+        'id': documentId,
+      });
+
+
+    print("Scanned: $scannedBarcode, name: $name, kcal: $kcal, carbs: $carbs, proteins: $proteins, fats: $fats");
+    return true;
+  }
 }
+

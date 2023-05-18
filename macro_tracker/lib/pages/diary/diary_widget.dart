@@ -37,6 +37,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
   final bool isCircular = true;
   final bool isLinear = false;
 
+  int documentId = -1;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int get pageViewCurrentIndex1 => _model.pageViewController1 != null &&
           _model.pageViewController1!.hasClients &&
@@ -55,6 +57,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
     _model = createModel(context, () => DiaryModel());
     notificationService.initialize();
     notificationService.scheduleDailyNotification();
+
+    removeFoodFromTemp();
   }
 
   @override
@@ -63,6 +67,25 @@ class _DiaryWidgetState extends State<DiaryWidget> {
 
     super.dispose();
   }
+
+   void removeFoodFromTemp() async {
+    final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .where("id", isEqualTo: documentId)
+        .limit(1)
+        .get();
+    
+    if (querySnapshot.docs.length != 0) {
+      DocumentSnapshot documentSnapshot1 = querySnapshot.docs.first;
+      DocumentReference documentReference = documentSnapshot1.reference;
+      await documentReference.delete();
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {

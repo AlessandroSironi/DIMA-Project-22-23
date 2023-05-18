@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -11,6 +14,9 @@ import 'add_barcode_food_model.dart';
 export 'add_barcode_food_model.dart';
 
 import 'package:openfoodfacts/openfoodfacts.dart';
+
+import 'package:health/health.dart';
+import 'package:macro_tracker/services/health_service.dart';
 
 class AddBarcodeFoodWidget extends StatefulWidget {
   const AddBarcodeFoodWidget({
@@ -26,6 +32,8 @@ class AddBarcodeFoodWidget extends StatefulWidget {
 
 class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
   late AddBarcodeFoodModel _model;
+  int documentId = -1;
+  HealthService healthService = HealthService();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -46,6 +54,8 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
     _model.proteinsController2 ??= TextEditingController();
     _model.fatsController2 ??= TextEditingController();
     _model.foodQuantityController2 ??= TextEditingController();
+
+    initTextFieldsFromDB();
   }
 
   @override
@@ -53,6 +63,32 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> initTextFieldsFromDB() async {
+    final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .limit(1)
+        .get();
+
+    Map<String, dynamic> tempData =
+        querySnapshot.docs.first.data() as Map<String, dynamic>;
+
+    _model.foodNameController1.text = tempData['name'];
+    _model.kcalController1.text = tempData['kcal'];
+    _model.carbsController1.text = tempData['carbs'];
+    _model.proteinsController1.text = tempData['proteins'];
+    _model.fatsController1.text = tempData['fats'];
+
+    _model.foodNameController2.text = tempData['name'];
+    _model.kcalController2.text = tempData['kcal'];
+    _model.carbsController2.text = tempData['carbs'];
+    _model.proteinsController2.text = tempData['proteins'];
+    _model.fatsController2.text = tempData['fats'];
   }
 
   @override
@@ -115,7 +151,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.foodNameController1,
-                              readOnly: true,
+                              readOnly: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Name',
@@ -185,7 +221,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.kcalController1,
-                              readOnly: true,
+                              readOnly: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: '🔥 Kcal',
@@ -275,7 +311,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.carbsController1,
-                              readOnly: true,
+                              readOnly: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: '🍞 Carbs',
@@ -365,7 +401,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.proteinsController1,
-                              readOnly: true,
+                              readOnly: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: '🥩 Proteins',
@@ -455,7 +491,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.fatsController1,
-                              readOnly: true,
+                              readOnly: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: '🥑 Fats ',
@@ -667,6 +703,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
+                              addFoodToDiet(true);
                               context.pushNamed('Diary');
                             },
                             text: 'Add to diet',
@@ -696,8 +733,8 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                           ),
                           FFButtonWidget(
                             onPressed: () async {
+                              logFoodToDiary(true);
                               context.pushNamed('Diary');
-                              //SAVE...
                             },
                             text: 'Log food',
                             options: FFButtonOptions(
@@ -762,7 +799,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.foodNameController2,
-                                readOnly: true,
+                                readOnly: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Name',
@@ -833,7 +870,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.kcalController2,
-                                readOnly: true,
+                                readOnly: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🔥 Kcal',
@@ -924,7 +961,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.carbsController2,
-                                readOnly: true,
+                                readOnly: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🍞 Carbs',
@@ -1015,7 +1052,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.proteinsController2,
-                                readOnly: true,
+                                readOnly: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🥩 Proteins',
@@ -1106,7 +1143,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.fatsController2,
-                                readOnly: true,
+                                readOnly: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🥑 Fats ',
@@ -1324,6 +1361,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
+                                addFoodToDiet(false);
                                 context.pushNamed('Diary');
                               },
                               text: 'Add to diet',
@@ -1353,6 +1391,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
+                                logFoodToDiary(false);
                                 context.pushNamed('Diary');
                               },
                               text: 'Log food',
@@ -1397,4 +1436,122 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
       ),
     );
   }
+
+  void logFoodToDiary(isMobile) async {
+   final firestore = FirebaseFirestore.instance;
+   DateTime datetime = DateTime.now();
+
+    if (isMobile) {
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('foods')
+          .doc(documentId.toString())
+          .set({
+        'name': capitalizeFirstLetter(_model.foodNameController1.text),
+        'kcal': _model.kcalController1.text,
+        'carbs': _model.carbsController1.text,
+        'proteins': _model.proteinsController1.text,
+        'fats': _model.fatsController1.text,
+        'meal': _model.mealChoiceChipsValue1?.split(' ')[1],
+        'quantity': _model.foodQuantityController1.text,
+        'datetime': datetime,
+        'id': datetime,
+      });
+
+      await healthService.removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await healthService.removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+
+      await healthService.addToHealth(double.parse(_model.kcalController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await healthService.addToHealth(double.parse(_model.carbsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await healthService.addToHealth(double.parse(_model.proteinsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await healthService.addToHealth(double.parse(_model.fatsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+    } else {
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('foods')
+          .doc(documentId.toString())
+          .set({
+        'name': capitalizeFirstLetter(_model.foodNameController2.text),
+        'kcal': _model.kcalController2.text,
+        'carbs': _model.carbsController2.text,
+        'proteins': _model.proteinsController2.text,
+        'fats': _model.fatsController2.text,
+        'meal': _model.mealChoiceChipsValue2?.split(' ')[1],
+        'quantity': _model.foodQuantityController2.text,
+        'datetime': datetime,
+        'id': datetime,
+      });
+    }
+
+    removeFoodFromTemp();
+  }
+
+  String capitalizeFirstLetter(String s) {
+    String temp = s[0].toUpperCase();
+    return temp + s.substring(1, s.length);
+  }
+
+  void removeFoodFromTemp() async {
+    final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .where("id", isEqualTo: documentId)
+        .limit(1)
+        .get();
+
+    DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+    DocumentReference documentReference = documentSnapshot.reference;
+
+    await documentReference.delete();
+  }
+
+  void addFoodToDiet(bool isMobile) async {
+    DateTime now = DateTime.now();
+    int documentId = now.millisecondsSinceEpoch;
+
+    final firestore = FirebaseFirestore.instance;
+    if (isMobile) {
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('diet_foods')
+          .doc(documentId.toString())
+          .set({
+        'name': capitalizeFirstLetter(_model.foodNameController1.text),
+        'kcal': _model.kcalController1.text,
+        'carbs': _model.carbsController1.text,
+        'proteins': _model.proteinsController1.text,
+        'fats': _model.fatsController1.text,
+        'meal': _model.mealChoiceChipsValue1?.split(' ')[1],
+        'quantity': _model.foodQuantityController1.text,
+        'datetime': now,
+      });
+    } else {
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('diet_foods')
+          .doc(documentId.toString())
+          .set({
+        'name': capitalizeFirstLetter(_model.foodNameController2.text),
+        'kcal': _model.kcalController2.text,
+        'carbs': _model.carbsController2.text,
+        'proteins': _model.proteinsController2.text,
+        'fats': _model.fatsController2.text,
+        'meal': _model.mealChoiceChipsValue2?.split(' ')[1],
+        'quantity': _model.foodQuantityController2.text,
+        'datetime': now,
+      });
+    }
+    removeFoodFromTemp();
+  }
 }
+
+
