@@ -1784,7 +1784,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         ? _model.calendarSelectedDay1!.start
         : _model.calendarSelectedDay2!.start;
 
-    collection.add({'date': date}).catchError(
+    String documentId = date.millisecondsSinceEpoch.toString();
+
+    collection.doc(documentId).set({'date': date}).catchError(
         (error) => print("Failed to add item: $error"));
   }
 
@@ -1922,7 +1924,8 @@ class _DiaryWidgetState extends State<DiaryWidget> {
 
                   int fieldValue =
                       int.tryParse(data[macroField.split('_')[0]]) ?? 0;
-                  totalSum += fieldValue;
+                  int quantity = int.tryParse(data['quantity']) ?? 0;
+                  totalSum += fieldValue * quantity ~/ 100;
                 }
               }
 
@@ -2003,7 +2006,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         .where('datetime', isGreaterThanOrEqualTo: startOfToday)
         .where('datetime', isLessThan: endOfToday);
 
-    return Column(children: [
+    return Expanded(
+        child: SingleChildScrollView(
+            child: Column(children: [
       StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: foodsQuery.snapshots(),
         builder: (BuildContext context,
@@ -2026,6 +2031,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
 
           return ListView.builder(
             shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             itemCount: documents.length,
             itemBuilder: (BuildContext context, int index) {
               final foodData = documents[index].data() as Map<String, dynamic>;
@@ -2039,6 +2045,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                 meal: foodData['meal'],
                 quantity: foodData['quantity'],
                 datetime: (foodData['datetime'] as Timestamp).toDate(),
+                id: foodData['id'],
               );
 
               return FoodItemWidget(foodItemModel: foodItem);
@@ -2046,6 +2053,6 @@ class _DiaryWidgetState extends State<DiaryWidget> {
           );
         },
       )
-    ]);
+    ])));
   }
 }

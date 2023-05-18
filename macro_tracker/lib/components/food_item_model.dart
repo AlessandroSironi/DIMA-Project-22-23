@@ -1,12 +1,5 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:macro_tracker/backend/backend.dart';
-
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class FoodItemModel extends FlutterFlowModel {
   String carbs = "";
@@ -17,6 +10,7 @@ class FoodItemModel extends FlutterFlowModel {
   String meal = "";
   String quantity = "";
   DateTime datetime = DateTime.now();
+  int id = 0;
 
   FoodItemModel(
       {required carbs,
@@ -26,7 +20,8 @@ class FoodItemModel extends FlutterFlowModel {
       required name,
       required meal,
       required quantity,
-      required datetime}) {
+      required datetime,
+      required id}) {
     this.carbs = carbs;
     this.fats = fats;
     this.proteins = proteins;
@@ -35,6 +30,7 @@ class FoodItemModel extends FlutterFlowModel {
     this.meal = meal;
     this.quantity = quantity;
     this.datetime = datetime;
+    this.id = id;
   }
 
   /// Initialization and disposal methods.

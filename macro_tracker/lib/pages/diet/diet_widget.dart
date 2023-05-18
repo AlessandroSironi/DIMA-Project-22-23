@@ -261,49 +261,58 @@ class _DietWidgetState extends State<DietWidget> {
         .collection('diet_foods')
         .where("meal", isEqualTo: meal);
 
-    return Column(children: [
-      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: foodsQuery.snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          }
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: foodsQuery.snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                }
 
-          final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                final List<DocumentSnapshot> documents = snapshot.data!.docs;
 
-          if (documents.isEmpty) {
-            return Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(50.0, 10.0, 50.0, 10.0),
-                child: Text('No foods inserted yet in your diet'));
-          }
+                if (documents.isEmpty) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text('No foods inserted yet in your diet'),
+                  );
+                }
 
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: documents.length,
-            itemBuilder: (BuildContext context, int index) {
-              final foodData = documents[index].data() as Map<String, dynamic>;
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: documents.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final foodData =
+                        documents[index].data() as Map<String, dynamic>;
 
-              final foodItem = DietFoodItemModel(
-                carbs: foodData['carbs'],
-                fats: foodData['fats'],
-                kcal: foodData['kcal'],
-                proteins: foodData['proteins'],
-                name: foodData['name'],
-                meal: foodData['meal'],
-                quantity: foodData['quantity'],
-                datetime: (foodData['datetime'] as Timestamp).toDate(),
-              );
+                    final foodItem = DietFoodItemModel(
+                      carbs: foodData['carbs'],
+                      fats: foodData['fats'],
+                      kcal: foodData['kcal'],
+                      proteins: foodData['proteins'],
+                      name: foodData['name'],
+                      meal: foodData['meal'],
+                      quantity: foodData['quantity'],
+                      datetime: (foodData['datetime'] as Timestamp).toDate(),
+                    );
 
-              return DietFoodItemWidget(dietFoodItemModel: foodItem);
-            },
-          );
-        },
-      )
-    ]);
+                    return DietFoodItemWidget(dietFoodItemModel: foodItem);
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
