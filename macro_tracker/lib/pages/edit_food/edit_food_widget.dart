@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:health/health.dart';
+import 'package:macro_tracker/pages/add_custom_food/add_custom_food_widget.dart';
 
 import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -156,7 +158,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 onPressed: () {
                                   context.goNamed('Diary');
                                   removeFoodFromTemp();
-                                  removeFood();
+                                  removeFood(mobileWidget);
                                 },
                                 child: Text('Yes'),
                               ),
@@ -1627,6 +1629,15 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
         'datetime': datetime,
         'id': documentId,
       });
+      await removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+
+      await addToHealth(double.parse(_model.kcalController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await addToHealth(double.parse(_model.carbsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await addToHealth(double.parse(_model.proteinsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await addToHealth(double.parse(_model.fatsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_FATS_CONSUMED, datetime);
     } else {
       await firestore
           .collection('users')
@@ -1649,9 +1660,9 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
     removeFoodFromTemp();
   }
 
-  void removeFood() async {
+  void removeFood(isMobile) async {
     final firestore = FirebaseFirestore.instance;
-
+    DateTime datetime; 
     QuerySnapshot querySnapshot = await firestore
         .collection('users')
         .doc(currentUserDocument?.uid)
@@ -1663,8 +1674,43 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
     DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
     DocumentReference documentReference = documentSnapshot.reference;
 
+    Map<String, dynamic>? data = documentSnapshot.data() as Map<String, dynamic>?;
+    datetime = (data?["datetime"] as Timestamp).toDate();
+
     await documentReference.delete();
+    if (isMobile) {
+      await removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+    }
   }
+
+
+  Future removeFromHealth(HealthDataType type, DateTime datetime) async {
+    HealthFactory health = HealthFactory();
+
+    var types = [
+      HealthDataType.DIETARY_ENERGY_CONSUMED,
+      HealthDataType.DIETARY_CARBS_CONSUMED,
+      HealthDataType.DIETARY_PROTEIN_CONSUMED,
+      HealthDataType.DIETARY_FATS_CONSUMED,
+    ];
+
+    var permissions = [
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+    ];
+
+    // requesting access to the data types before reading them
+    bool requested = await health.requestAuthorization(types, permissions: permissions);
+    print("Request for Health value $requested");
+    if (!requested) return false;
+
+    return health.delete(type, datetime, datetime);
+}
 
   String capitalizeFirstLetter(String s) {
     String temp = s[0].toUpperCase();
@@ -1740,3 +1786,5 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
     return true;
   }
 }
+
+
