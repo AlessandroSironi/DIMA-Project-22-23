@@ -56,6 +56,10 @@
 	<key>NSCameraUsageDescription</key>
     <string>In order to scan for barcodes and QR codes, this app requires permission to access the camera.</string>
 
+	<key>NSHealthShareUsageDescription</key>
+	<string>We will sync your nutrition data with the Apple Health app to give you better insights.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>We will sync your nutrition data with the Apple Health app to give you better insights.</string>
 
 
 	<key>UILaunchStoryboardName</key>
@@ -82,5 +86,6 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
 </dict>
 </plist>
