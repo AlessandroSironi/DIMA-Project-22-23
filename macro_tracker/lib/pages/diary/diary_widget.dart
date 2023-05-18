@@ -68,7 +68,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
     super.dispose();
   }
 
-   void removeFoodFromTemp() async {
+  void removeFoodFromTemp() async {
     final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
@@ -78,14 +78,13 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         .where("id", isEqualTo: documentId)
         .limit(1)
         .get();
-    
+
     if (querySnapshot.docs.length != 0) {
       DocumentSnapshot documentSnapshot1 = querySnapshot.docs.first;
       DocumentReference documentReference = documentSnapshot1.reference;
       await documentReference.delete();
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -1806,11 +1805,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
     DateTime date = isMobile
         ? _model.calendarSelectedDay1!.start
         : _model.calendarSelectedDay2!.start;
-
     String documentId = date.millisecondsSinceEpoch.toString();
 
-    collection.doc(documentId).set({'date': date}).catchError(
-        (error) => print("Failed to add item: $error"));
+    collection.add({'date': date});
   }
 
   void removeAssumptionItem(String targetCollection, bool isMobile) async {
@@ -1843,7 +1840,6 @@ class _DiaryWidgetState extends State<DiaryWidget> {
 
       // Delete the latest document
       await documentReference.delete();
-      print("Deleting...");
     }
   }
 
