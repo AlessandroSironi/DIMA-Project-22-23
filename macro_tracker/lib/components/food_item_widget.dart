@@ -21,6 +21,11 @@ class FoodItemWidget extends StatefulWidget {
 
 class _FoodItemWidgetState extends State<FoodItemWidget> {
   late FoodItemModel _model;
+  int quantity = 0;
+  int kcal = 0;
+  int carbs = 0;
+  int proteins = 0;
+  int fats = 0;
 
   int stringCutoff = 24;
 
@@ -35,6 +40,12 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
     super.initState();
     _model = widget.foodItemModel;
     _model.onUpdate();
+
+    quantity = int.parse(_model.quantity);
+    kcal = int.parse(_model.kcal) * quantity ~/ 100;
+    carbs = int.parse(_model.carbs) * quantity ~/ 100;
+    proteins = int.parse(_model.proteins) * quantity ~/ 100;
+    fats = int.parse(_model.fats) * quantity ~/ 100;
   }
 
   @override
@@ -90,7 +101,7 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
                       Text(
-                        '${_model.kcal} Kcal ${_model.carbs}C ${_model.proteins}P ${_model.fats}F',
+                        '$kcal Kcal ${carbs}C ${proteins}P ${fats}F',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Outfit',
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -117,7 +128,6 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
                       size: 28.0,
                     ),
                     onPressed: () async {
-                      //removeFoodFromFoods();
                       addFoodToTemp();
                       context.pushNamed('editFood');
                     },

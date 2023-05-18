@@ -67,16 +67,14 @@ class _GoalWidgetState extends State<GoalWidget> {
         Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
 
         // Update the TextEditingController values
-        setState(() {
-          _model.kcalValueController1?.text = data['kcal_goal'];
-          _model.carbsValueController1?.text = data['carbs_goal'];
-          _model.proteinsValueController1?.text = data['proteins_goal'];
-          _model.fatsValueController1?.text = data['fats_goal'];
-          _model.kcalValueController2?.text = data['kcal_goal'];
-          _model.carbsValueController2?.text = data['carbs_goal'];
-          _model.proteinsValueController2?.text = data['proteins_goal'];
-          _model.fatsValueController2?.text = data['fats_goal'];
-        });
+        _model.kcalValueController1?.text = data['kcal_goal'];
+        _model.carbsValueController1?.text = data['carbs_goal'];
+        _model.proteinsValueController1?.text = data['proteins_goal'];
+        _model.fatsValueController1?.text = data['fats_goal'];
+        _model.kcalValueController2?.text = data['kcal_goal'];
+        _model.carbsValueController2?.text = data['carbs_goal'];
+        _model.proteinsValueController2?.text = data['proteins_goal'];
+        _model.fatsValueController2?.text = data['fats_goal'];
       }
     });
   }
