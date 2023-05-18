@@ -27,7 +27,7 @@ class LoginModel extends FlutterFlowModel {
   String? Function(BuildContext, String?)? passwordControllerValidator;
   String? _passwordControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return 'That password doesn\'t match.';
+      return 'Password field is empty.';
     }
 
     return null;
