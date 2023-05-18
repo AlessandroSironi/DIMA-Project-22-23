@@ -131,17 +131,6 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 1.0,
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          decoration: BoxDecoration(),
-                        ),
-                      ],
-                    ),
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(70.0, 20.0, 70.0, 0.0),
@@ -1438,8 +1427,8 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
   }
 
   void logFoodToDiary(isMobile) async {
-   final firestore = FirebaseFirestore.instance;
-   DateTime datetime = DateTime.now();
+    final firestore = FirebaseFirestore.instance;
+    DateTime datetime = DateTime.now();
 
     if (isMobile) {
       await firestore
@@ -1459,15 +1448,35 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
         'id': datetime,
       });
 
-      await healthService.removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
-      await healthService.removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
-      await healthService.removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
-      await healthService.removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_FATS_CONSUMED, datetime);
 
-      await healthService.addToHealth(double.parse(_model.kcalController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
-      await healthService.addToHealth(double.parse(_model.carbsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
-      await healthService.addToHealth(double.parse(_model.proteinsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
-      await healthService.addToHealth(double.parse(_model.fatsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+      await healthService.addToHealth(
+          double.parse(_model.kcalController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_ENERGY_CONSUMED,
+          datetime);
+      await healthService.addToHealth(
+          double.parse(_model.carbsController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_CARBS_CONSUMED,
+          datetime);
+      await healthService.addToHealth(
+          double.parse(_model.proteinsController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_PROTEIN_CONSUMED,
+          datetime);
+      await healthService.addToHealth(
+          double.parse(_model.fatsController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_FATS_CONSUMED,
+          datetime);
     } else {
       await firestore
           .collection('users')
@@ -1553,5 +1562,3 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
     removeFoodFromTemp();
   }
 }
-
-

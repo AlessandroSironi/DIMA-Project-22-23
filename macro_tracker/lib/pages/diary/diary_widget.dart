@@ -1805,7 +1805,6 @@ class _DiaryWidgetState extends State<DiaryWidget> {
     DateTime date = isMobile
         ? _model.calendarSelectedDay1!.start
         : _model.calendarSelectedDay2!.start;
-    String documentId = date.millisecondsSinceEpoch.toString();
 
     collection.add({'date': date});
   }

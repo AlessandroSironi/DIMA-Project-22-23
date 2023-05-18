@@ -14,14 +14,12 @@ import 'package:flutter/services.dart';
 import 'add_custom_food_model.dart';
 export 'add_custom_food_model.dart';
 
-
 class AddCustomFoodWidget extends StatefulWidget {
   const AddCustomFoodWidget({Key? key}) : super(key: key);
 
   @override
   _AddCustomFoodWidgetState createState() => _AddCustomFoodWidgetState();
 }
-
 
 class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
   late AddCustomFoodModel _model;
@@ -230,9 +228,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontSize: 20.0,
                                   ),
                               textAlign: TextAlign.end,
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: true, decimal: true),
+                              keyboardType: TextInputType.number,
                               validator: _model.kcalController1Validator
                                   .asValidator(context),
                               inputFormatters: [
@@ -319,9 +315,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontSize: 20.0,
                                   ),
                               textAlign: TextAlign.end,
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: true, decimal: true),
+                              keyboardType: TextInputType.number,
                               validator: _model.carbsController1Validator
                                   .asValidator(context),
                               inputFormatters: [
@@ -408,9 +402,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontSize: 20.0,
                                   ),
                               textAlign: TextAlign.end,
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: true, decimal: true),
+                              keyboardType: TextInputType.number,
                               validator: _model.proteinsController1Validator
                                   .asValidator(context),
                               inputFormatters: [
@@ -497,9 +489,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontSize: 20.0,
                                   ),
                               textAlign: TextAlign.end,
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: true, decimal: true),
+                              keyboardType: TextInputType.number,
                               validator: _model.fatsController1Validator
                                   .asValidator(context),
                               inputFormatters: [
@@ -586,9 +576,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontSize: 20.0,
                                   ),
                               textAlign: TextAlign.end,
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: true, decimal: true),
+                              keyboardType: TextInputType.number,
                               validator: _model.foodQuantityController1Validator
                                   .asValidator(context),
                               inputFormatters: [
@@ -767,7 +755,6 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.foodNameController2,
-                                readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Name',
@@ -838,7 +825,6 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.kcalController2,
-                                readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🔥 Kcal',
@@ -893,9 +879,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontSize: 20.0,
                                     ),
                                 textAlign: TextAlign.end,
-                                keyboardType:
-                                    const TextInputType.numberWithOptions(
-                                        signed: true, decimal: true),
+                                keyboardType: TextInputType.number,
                                 validator: _model.kcalController2Validator
                                     .asValidator(context),
                                 inputFormatters: [
@@ -929,7 +913,6 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.carbsController2,
-                                readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🍞 Carbs',
@@ -984,9 +967,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontSize: 20.0,
                                     ),
                                 textAlign: TextAlign.end,
-                                keyboardType:
-                                    const TextInputType.numberWithOptions(
-                                        signed: true, decimal: true),
+                                keyboardType: TextInputType.number,
                                 validator: _model.carbsController2Validator
                                     .asValidator(context),
                                 inputFormatters: [
@@ -1020,7 +1001,6 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.proteinsController2,
-                                readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🥩 Proteins',
@@ -1075,9 +1055,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontSize: 20.0,
                                     ),
                                 textAlign: TextAlign.end,
-                                keyboardType:
-                                    const TextInputType.numberWithOptions(
-                                        signed: true, decimal: true),
+                                keyboardType: TextInputType.number,
                                 validator: _model.proteinsController2Validator
                                     .asValidator(context),
                                 inputFormatters: [
@@ -1111,7 +1089,6 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.fatsController2,
-                                readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🥑 Fats ',
@@ -1166,9 +1143,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontSize: 20.0,
                                     ),
                                 textAlign: TextAlign.end,
-                                keyboardType:
-                                    const TextInputType.numberWithOptions(
-                                        signed: true, decimal: true),
+                                keyboardType: TextInputType.number,
                                 validator: _model.fatsController2Validator
                                     .asValidator(context),
                                 inputFormatters: [
@@ -1195,7 +1170,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            70.0, 20.0, 115.0, 0.0),
+                            70.0, 20.0, 110.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -1256,9 +1231,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontSize: 20.0,
                                     ),
                                 textAlign: TextAlign.end,
-                                keyboardType:
-                                    const TextInputType.numberWithOptions(
-                                        signed: true, decimal: true),
+                                keyboardType: TextInputType.number,
                                 validator: _model
                                     .foodQuantityController2Validator
                                     .asValidator(context),
@@ -1266,6 +1239,19 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                   FilteringTextInputFormatter.allow(
                                       RegExp('[0-9]'))
                                 ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                'g',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      fontSize: 16.0,
+                                    ),
                               ),
                             ),
                           ],
@@ -1428,6 +1414,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'meal': _model.mealChoiceChipsValue1?.split(' ')[1],
         'quantity': _model.foodQuantityController1.text,
         'datetime': now,
+        'id': documentId,
       });
     } else {
       await firestore
@@ -1444,6 +1431,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'meal': _model.mealChoiceChipsValue2?.split(' ')[1],
         'quantity': _model.foodQuantityController2.text,
         'datetime': now,
+        'id': documentId,
       });
     }
   }
@@ -1470,10 +1458,26 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'datetime': now,
         'id': documentId,
       });
-      await healthService.addToHealth(double.parse(_model.kcalController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_ENERGY_CONSUMED, now);
-      await healthService.addToHealth(double.parse(_model.carbsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_CARBS_CONSUMED, now);
-      await healthService.addToHealth(double.parse(_model.proteinsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_PROTEIN_CONSUMED, now);
-      await healthService.addToHealth(double.parse(_model.fatsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_FATS_CONSUMED, now);
+      await healthService.addToHealth(
+          double.parse(_model.kcalController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_ENERGY_CONSUMED,
+          now);
+      await healthService.addToHealth(
+          double.parse(_model.carbsController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_CARBS_CONSUMED,
+          now);
+      await healthService.addToHealth(
+          double.parse(_model.proteinsController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_PROTEIN_CONSUMED,
+          now);
+      await healthService.addToHealth(
+          double.parse(_model.fatsController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_FATS_CONSUMED,
+          now);
     } else {
       await firestore
           .collection('users')

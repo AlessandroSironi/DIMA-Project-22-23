@@ -176,8 +176,7 @@ class _DietWidgetState extends State<DietWidget> {
                 phone: false,
               ))
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(50.0, 20.0, 50.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(50, 20, 50, 0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -185,8 +184,8 @@ class _DietWidgetState extends State<DietWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 25.0, 10.0, 0.0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 25, 10, 0),
                           child: FlutterFlowChoiceChips(
                             options: [
                               ChipData('🥐 Breakfast'),
@@ -205,12 +204,12 @@ class _DietWidgetState extends State<DietWidget> {
                                     fontFamily: 'Outfit',
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
-                                    fontSize: 18.0,
+                                    fontSize: 18,
                                   ),
                               iconColor:
                                   FlutterFlowTheme.of(context).primaryText,
-                              iconSize: 24.0,
-                              elevation: 4.0,
+                              iconSize: 24,
+                              elevation: 4,
                             ),
                             unselectedChipStyle: ChipStyle(
                               backgroundColor:
@@ -221,14 +220,14 @@ class _DietWidgetState extends State<DietWidget> {
                                     fontFamily: 'Outfit',
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
-                                    fontSize: 16.0,
+                                    fontSize: 16,
                                   ),
                               iconColor:
                                   FlutterFlowTheme.of(context).primaryText,
-                              iconSize: 24.0,
-                              elevation: 4.0,
+                              iconSize: 24,
+                              elevation: 4,
                             ),
-                            chipSpacing: 30.0,
+                            chipSpacing: 30,
                             multiselect: false,
                             alignment: WrapAlignment.start,
                             controller:
@@ -239,10 +238,11 @@ class _DietWidgetState extends State<DietWidget> {
                           ),
                         ),
                         Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                50.0, 10.0, 50.0, 10.0),
-                            child: buildListView(tabletWidget,
-                                _model.mealChoiceFilterValue2?.split(' ')[1])),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              50.0, 10.0, 50.0, 10.0),
+                          child: buildListView(
+                              tabletWidget, _model.mealChoiceFilterValue2),
+                        ),
                       ],
                     ),
                   ),
@@ -263,54 +263,59 @@ class _DietWidgetState extends State<DietWidget> {
 
     return Expanded(
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: foodsQuery.snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                }
+        child: Center(
+          child: Column(
+            children: [
+              StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                stream: foodsQuery.snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                        snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }
 
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  }
 
-                final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                  final List<DocumentSnapshot> documents = snapshot.data!.docs;
 
-                if (documents.isEmpty) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text('No foods inserted yet in your diet'),
-                  );
-                }
-
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: documents.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final foodData =
-                        documents[index].data() as Map<String, dynamic>;
-
-                    final foodItem = DietFoodItemModel(
-                      carbs: foodData['carbs'],
-                      fats: foodData['fats'],
-                      kcal: foodData['kcal'],
-                      proteins: foodData['proteins'],
-                      name: foodData['name'],
-                      meal: foodData['meal'],
-                      quantity: foodData['quantity'],
-                      datetime: (foodData['datetime'] as Timestamp).toDate(),
+                  if (documents.isEmpty) {
+                    return Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          50.0, 10.0, 50.0, 10.0),
+                      child: Text('No foods inserted yet in your diet'),
                     );
+                  }
 
-                    return DietFoodItemWidget(dietFoodItemModel: foodItem);
-                  },
-                );
-              },
-            ),
-          ],
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: documents.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final foodData =
+                          documents[index].data() as Map<String, dynamic>;
+
+                      final foodItem = DietFoodItemModel(
+                        carbs: foodData['carbs'],
+                        fats: foodData['fats'],
+                        kcal: foodData['kcal'],
+                        proteins: foodData['proteins'],
+                        name: foodData['name'],
+                        meal: foodData['meal'],
+                        quantity: foodData['quantity'],
+                        datetime: (foodData['datetime'] as Timestamp).toDate(),
+                        id: foodData['id'],
+                      );
+
+                      return DietFoodItemWidget(dietFoodItemModel: foodItem);
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

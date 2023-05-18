@@ -1321,7 +1321,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 115.0, 0.0),
+                                  70.0, 20.0, 110.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -1398,6 +1398,19 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                         FilteringTextInputFormatter.allow(
                                             RegExp('[0-9]'))
                                       ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 0.0, 0.0),
+                                    child: Text(
+                                      'g',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Outfit',
+                                            fontSize: 16.0,
+                                          ),
                                     ),
                                   ),
                                 ],
@@ -1634,15 +1647,35 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
         'id': documentId,
       });
 
-      await healthService.removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
-      await healthService.removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
-      await healthService.removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
-      await healthService.removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_FATS_CONSUMED, datetime);
 
-      await healthService.addToHealth(double.parse(_model.kcalController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
-      await healthService.addToHealth(double.parse(_model.carbsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
-      await healthService.addToHealth(double.parse(_model.proteinsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
-      await healthService.addToHealth(double.parse(_model.fatsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+      await healthService.addToHealth(
+          double.parse(_model.kcalController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_ENERGY_CONSUMED,
+          datetime);
+      await healthService.addToHealth(
+          double.parse(_model.carbsController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_CARBS_CONSUMED,
+          datetime);
+      await healthService.addToHealth(
+          double.parse(_model.proteinsController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_PROTEIN_CONSUMED,
+          datetime);
+      await healthService.addToHealth(
+          double.parse(_model.fatsController1.text) *
+              (double.parse(_model.foodQuantityController1.text) / 100),
+          HealthDataType.DIETARY_FATS_CONSUMED,
+          datetime);
     } else {
       await firestore
           .collection('users')
@@ -1667,7 +1700,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
 
   void removeFood(isMobile) async {
     final firestore = FirebaseFirestore.instance;
-    DateTime datetime; 
+    DateTime datetime;
     QuerySnapshot querySnapshot = await firestore
         .collection('users')
         .doc(currentUserDocument?.uid)
@@ -1679,15 +1712,20 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
     DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
     DocumentReference documentReference = documentSnapshot.reference;
 
-    Map<String, dynamic>? data = documentSnapshot.data() as Map<String, dynamic>?;
+    Map<String, dynamic>? data =
+        documentSnapshot.data() as Map<String, dynamic>?;
     datetime = (data?["datetime"] as Timestamp).toDate();
 
     await documentReference.delete();
     if (isMobile) {
-      await healthService.removeFromHealth(HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
-      await healthService.removeFromHealth(HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
-      await healthService.removeFromHealth(HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
-      await healthService.removeFromHealth(HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_FATS_CONSUMED, datetime);
     }
   }
 
@@ -1765,5 +1803,3 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
     return true;
   }
 }
-
-

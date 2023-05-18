@@ -115,7 +115,7 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
                       size: 28.0,
                     ),
                     onPressed: () async {
-                      context.pushNamed('editFood');
+                      //context.pushNamed('editFood');
                     },
                   ),
                   FlutterFlowIconButton(
@@ -129,7 +129,7 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
                       size: 28.0,
                     ),
                     onPressed: () async {
-                      context.goNamed('Diary');
+                      //context.goNamed('Diary');
                     },
                   ),
                 ],
