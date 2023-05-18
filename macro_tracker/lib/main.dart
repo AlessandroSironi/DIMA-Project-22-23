@@ -29,7 +29,7 @@ void main() async {
 
   await FlutterFlowTheme.initialize();
 
-  HealthFactory health = HealthFactory();
+/*   HealthFactory health = HealthFactory();
 
   // define the types to get
   var types = [
@@ -47,7 +47,7 @@ void main() async {
   ];
 
   // requesting access to the data types before reading them
-  bool requested = await health.requestAuthorization(types, permissions: permissions);
+  bool requested = await health.requestAuthorization(types, permissions: permissions); */
   runApp(MyApp());
 }
 

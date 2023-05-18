@@ -19,7 +19,7 @@ class AddCustomFoodWidget extends StatefulWidget {
   _AddCustomFoodWidgetState createState() => _AddCustomFoodWidgetState();
 }
 
- void addToHealth(double amount, HealthDataType type) async {
+ Future addToHealth(double amount, HealthDataType type, DateTime datetime) async {
   HealthFactory health = HealthFactory();
 
     var types = [
@@ -29,15 +29,28 @@ class AddCustomFoodWidget extends StatefulWidget {
       HealthDataType.DIETARY_FATS_CONSUMED,
     ];
 
+  var permissions = [
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+    HealthDataAccess.READ_WRITE,
+  ];
+
+    // requesting access to the data types before reading them
+    bool requested = await health.requestAuthorization(types, permissions: permissions);
+    print("Request for Health value $requested");
+    if (!requested) return false;
     //bool requested = await health.requestAuthorization(types);
 
-    var now = DateTime.now();
-
+    //var now = DateTime.now();
+    bool success = false;
     try {
-      await health.writeHealthData(amount, type, now, now);
+      success = await health.writeHealthData(amount, type, datetime, datetime);
+      print("Inserting $amount $type in health = $success");
     } catch (e) {
       print("Error inserting Health Data: $e.");
     }
+    return success;
 }
 
 class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
@@ -65,8 +78,6 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
     _model.proteinsController2 ??= TextEditingController();
     _model.fatsController2 ??= TextEditingController();
     _model.foodQuantityController2 ??= TextEditingController();
-
-    addToHealth(30, HealthDataType.DIETARY_ENERGY_CONSUMED);
   }
 
   @override
@@ -1446,10 +1457,6 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'quantity': _model.foodQuantityController1.text,
         'datetime': now,
       });
-      addToHealth(double.parse(_model.kcalController1.text), HealthDataType.DIETARY_ENERGY_CONSUMED);
-      addToHealth(double.parse(_model.carbsController1.text), HealthDataType.DIETARY_CARBS_CONSUMED);
-      addToHealth(double.parse(_model.proteinsController1.text), HealthDataType.DIETARY_PROTEIN_CONSUMED);
-      addToHealth(double.parse(_model.fatsController1.text), HealthDataType.DIETARY_FATS_CONSUMED);
     } else {
       await firestore
           .collection('users')
@@ -1491,6 +1498,10 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'datetime': now,
         'id': documentId,
       });
+      addToHealth(double.parse(_model.kcalController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_ENERGY_CONSUMED, now);
+      addToHealth(double.parse(_model.carbsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_CARBS_CONSUMED, now);
+      addToHealth(double.parse(_model.proteinsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_PROTEIN_CONSUMED, now);
+      addToHealth(double.parse(_model.fatsController1.text)*(double.parse(_model.foodQuantityController1.text)/100), HealthDataType.DIETARY_FATS_CONSUMED, now);
     } else {
       await firestore
           .collection('users')
