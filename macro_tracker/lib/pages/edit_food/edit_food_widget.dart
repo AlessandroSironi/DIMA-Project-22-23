@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:health/health.dart';
@@ -202,72 +203,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller: _model.foodNameController1,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'Name',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.start,
-                                      validator: _model
-                                          .foodNameController1Validator
-                                          .asValidator(context),
-                                    ),
-                                  ),
+                                      child: buildTextFieldFromFirestore(
+                                          _model.foodNameController1,
+                                          "_model.foodNameController1",
+                                          'name',
+                                          _model.foodNameController1Validator)),
                                 ],
                               ),
                             ),
@@ -278,77 +218,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller: _model.kcalController1,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: '🔥 Kcal',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: true),
-                                      validator: _model.kcalController1Validator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.kcalController1,
+                                        "_model.kcalController1",
+                                        "kcal",
+                                        _model.kcalController1Validator),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -373,78 +247,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller: _model.carbsController1,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: '🍞 Carbs',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: true),
-                                      validator: _model
-                                          .carbsController1Validator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.carbsController1,
+                                        "_model.carbsController1",
+                                        "carbs",
+                                        _model.carbsController1Validator),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -469,78 +276,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller: _model.proteinsController1,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: '🥩 Proteins',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: true),
-                                      validator: _model
-                                          .proteinsController1Validator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.proteinsController1,
+                                        "_model.proteinsController1",
+                                        "proteins",
+                                        _model.proteinsController1Validator),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -565,77 +305,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller: _model.fatsController1,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: '🥑 Fats ',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: true),
-                                      validator: _model.fatsController1Validator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.fatsController1,
+                                        "_model.fatsController1",
+                                        "fats",
+                                        _model.fatsController1Validator),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -660,79 +334,12 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller:
-                                          _model.foodQuantityController1,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'Quantity',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: true),
-                                      validator: _model
-                                          .foodQuantityController1Validator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.foodQuantityController1,
+                                        "_model.foodQuantityController1",
+                                        "quantity",
+                                        _model
+                                            .foodQuantityController1Validator),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -798,8 +405,8 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                   FFButtonWidget(
                                     onPressed: () async {
                                       if (textFieldsAlert(mobileWidget)) {
-                                        updateFood(mobileWidget);
                                         context.goNamed('Diary');
+                                        updateFood(mobileWidget);
                                       }
                                     },
                                     text: 'Confirm',
@@ -868,71 +475,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller: _model.foodNameController2,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'Name',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      validator: _model
-                                          .foodNameController2Validator
-                                          .asValidator(context),
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.foodNameController2,
+                                        "_model.foodNameController2",
+                                        "name",
+                                        _model.foodNameController2Validator),
                                   ),
                                 ],
                               ),
@@ -944,77 +491,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller: _model.kcalController2,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: '🔥 Kcal',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: true),
-                                      validator: _model.kcalController2Validator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.kcalController2,
+                                        "_model.kcalController2",
+                                        "kcal",
+                                        _model.kcalController2Validator),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1039,78 +520,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller: _model.carbsController2,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: '🍞 Carbs',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: true),
-                                      validator: _model
-                                          .carbsController2Validator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.carbsController2,
+                                        "_model.carbsController2",
+                                        "carbs",
+                                        _model.carbsController2Validator),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1135,78 +549,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller: _model.proteinsController2,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: '🥩 Proteins',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: true),
-                                      validator: _model
-                                          .proteinsController2Validator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.proteinsController2,
+                                        "_model.proteinsController2",
+                                        "proteins",
+                                        _model.proteinsController2Validator),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1231,77 +578,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller: _model.fatsController2,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: '🥑 Fats ',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: true),
-                                      validator: _model.fatsController2Validator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.fatsController2,
+                                        "_model.fatsController2",
+                                        "fats",
+                                        _model.fatsController2Validator),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1326,79 +607,12 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: TextFormField(
-                                      controller:
-                                          _model.foodQuantityController2,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'Quantity',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              fontSize: 20.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 20.0,
-                                          ),
-                                      textAlign: TextAlign.end,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              signed: true, decimal: true),
-                                      validator: _model
-                                          .foodQuantityController2Validator
-                                          .asValidator(context),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[0-9]'))
-                                      ],
-                                    ),
+                                    child: buildTextFieldFromFirestore(
+                                        _model.foodQuantityController2,
+                                        "_model.quantityController2",
+                                        "quantity",
+                                        _model
+                                            .foodQuantityController2Validator),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1464,8 +678,8 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                   FFButtonWidget(
                                     onPressed: () async {
                                       if (textFieldsAlert(tabletWidget)) {
-                                        updateFood(tabletWidget);
                                         context.goNamed('Diary');
+                                        updateFood(tabletWidget);
                                       }
                                     },
                                     text: 'Confirm',
@@ -1602,11 +816,158 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
           alignment: WrapAlignment.start,
           controller: _model.mealChoiceChipsValueController2 ??=
               FormFieldController<List<String>>(
-            [],
+            [initialMealChoice],
           ),
         );
       }
     }
+  }
+
+  Widget buildTextFieldFromFirestore(
+    TextEditingController? controller,
+    String controllerName,
+    String field,
+    String? Function(BuildContext, String?)? controllerValidator,
+  ) {
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('temp')
+          .limit(1)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          QuerySnapshot<Map<String, dynamic>> querySnapshot = snapshot.data!;
+          if (querySnapshot.size > 0) {
+            Map<String, dynamic> data = querySnapshot.docs.first.data();
+            final fieldValue = data[field] ?? '';
+            if (controller!.text != fieldValue) {
+              // Only update the controller's text if it's different from the fieldValue
+              final currentText = controller.text;
+              final newText = fieldValue.replaceFirst(currentText, '');
+              controller.value = controller.value.copyWith(
+                text: fieldValue,
+                selection: TextSelection.collapsed(offset: fieldValue.length),
+                composing: TextRange.empty,
+              );
+              if (newText.isNotEmpty) {
+                // Insert the new text at the end of the existing text
+                final selection = controller.selection;
+                final updatedText = controller.text + newText;
+                final updatedSelection = TextSelection(
+                  baseOffset: (selection.baseOffset + newText.length).toInt(),
+                  extentOffset:
+                      (selection.extentOffset + newText.length).toInt(),
+                  affinity: selection.affinity,
+                  isDirectional: selection.isDirectional,
+                );
+                controller.value = controller.value.copyWith(
+                  text: updatedText,
+                  selection: updatedSelection,
+                  composing: TextRange.empty,
+                );
+              }
+            }
+          }
+        }
+
+        if (controller!.text.isEmpty) {
+          return buildTextFormField(
+              controller, controllerName, field, controllerValidator);
+        } else {
+          return buildTextFormField(
+              controller, controllerName, field, controllerValidator);
+        }
+      },
+    );
+  }
+
+  Widget buildTextFormField(
+    TextEditingController? controller,
+    String controllerName,
+    String field,
+    String? Function(BuildContext, String?)? controllerValidator,
+  ) {
+    return TextFormField(
+      controller: controller,
+      onChanged: (value) => EasyDebounce.debounce(
+        controllerName,
+        Duration(milliseconds: 2000),
+        () {
+          updateFirestoreValue(field, value);
+          setState(() {});
+        },
+      ),
+      obscureText: false,
+      decoration: InputDecoration(
+        labelText: capitalizeFirstLetter(field),
+        labelStyle: FlutterFlowTheme.of(context).titleSmall.override(
+              fontFamily: 'Outfit',
+              color: FlutterFlowTheme.of(context).primary,
+              fontSize: 20.0,
+            ),
+        hintStyle: FlutterFlowTheme.of(context).titleSmall,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: FlutterFlowTheme.of(context).primary,
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: FlutterFlowTheme.of(context).secondary,
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0x00000000),
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0x00000000),
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        filled: true,
+        fillColor: FlutterFlowTheme.of(context).primaryBackground,
+      ),
+      style: FlutterFlowTheme.of(context).bodyMedium.override(
+            fontFamily: 'Outfit',
+            fontSize: 20.0,
+          ),
+      textAlign: field == 'name' ? TextAlign.start : TextAlign.end,
+      validator: controllerValidator.asValidator(context),
+      inputFormatters: field == 'name'
+          ? []
+          : [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
+      keyboardType: field == 'name' ? TextInputType.text : TextInputType.number,
+    );
+  }
+
+  void updateFirestoreValue(String field, String value) async {
+    final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .limit(1)
+        .get();
+
+    DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+    DocumentReference documentReference = documentSnapshot.reference;
+
+    Map<String, dynamic> updateData = {field: value};
+
+    documentReference.update(updateData);
   }
 
   void removeFoodFromTemp() async {
@@ -1616,7 +977,6 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
         .collection('users')
         .doc(currentUserDocument?.uid)
         .collection('temp')
-        .where("id", isEqualTo: documentId)
         .limit(1)
         .get();
 

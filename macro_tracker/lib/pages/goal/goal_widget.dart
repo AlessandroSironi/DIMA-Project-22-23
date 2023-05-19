@@ -86,11 +86,7 @@ class _GoalWidgetState extends State<GoalWidget> {
 
     Map<String, dynamic> updateData = {field: value};
 
-    userDocument.update(updateData).then((_) {
-      print('Value updated successfully');
-    }).catchError((error) {
-      print('Failed to update value: $error');
-    });
+    userDocument.update(updateData);
   }
 
   void modifyMacroValue(String field, int amount) {
