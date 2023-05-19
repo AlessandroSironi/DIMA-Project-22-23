@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
@@ -34,6 +35,9 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
   late AddBarcodeFoodModel _model;
   int documentId = -1;
   HealthService healthService = HealthService();
+
+  final bool mobileWidget = true;
+  final bool tabletWidget = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -75,20 +79,19 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
         .limit(1)
         .get();
 
-    Map<String, dynamic> tempData =
-        querySnapshot.docs.first.data() as Map<String, dynamic>;
+    Map<String, dynamic> tempData = querySnapshot.docs.first.data() as Map<String, dynamic>;
 
-    _model.foodNameController1.text = tempData['name'];
-    _model.kcalController1.text = tempData['kcal'];
-    _model.carbsController1.text = tempData['carbs'];
-    _model.proteinsController1.text = tempData['proteins'];
-    _model.fatsController1.text = tempData['fats'];
+    _model.foodNameController1.text = tempData['name'].toString();
+    _model.kcalController1.text = tempData['kcal'].toString();
+    _model.carbsController1.text = tempData['carbs'].toString();
+    _model.proteinsController1.text = tempData['proteins'].toString();
+    _model.fatsController1.text = tempData['fats'].toString();
 
-    _model.foodNameController2.text = tempData['name'];
-    _model.kcalController2.text = tempData['kcal'];
-    _model.carbsController2.text = tempData['carbs'];
-    _model.proteinsController2.text = tempData['proteins'];
-    _model.fatsController2.text = tempData['fats'];
+    _model.foodNameController2.text = tempData['name'].toString();
+    _model.kcalController2.text = tempData['kcal'].toString();
+    _model.carbsController2.text = tempData['carbs'].toString();
+    _model.proteinsController2.text = tempData['proteins'].toString();
+    _model.fatsController2.text = tempData['fats'].toString();
   }
 
   @override
@@ -692,8 +695,10 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
-                              addFoodToDiet(true);
-                              context.pushNamed('Diary');
+                              if (textFieldsAlert(mobileWidget)) {
+                                addFoodToDiet(mobileWidget);
+                                context.pushNamed('Diary');
+                              }
                             },
                             text: 'Add to diet',
                             options: FFButtonOptions(
@@ -722,8 +727,10 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                           ),
                           FFButtonWidget(
                             onPressed: () async {
-                              logFoodToDiary(true);
-                              context.pushNamed('Diary');
+                              if (textFieldsAlert(mobileWidget)) {
+                               logFoodToDiary(mobileWidget);
+                               context.pushNamed('Diary');
+                              }
                             },
                             text: 'Log food',
                             options: FFButtonOptions(
@@ -1350,8 +1357,10 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                addFoodToDiet(false);
-                                context.pushNamed('Diary');
+                                if (textFieldsAlert(tabletWidget)) {
+                                  addFoodToDiet(tabletWidget);
+                                  context.pushNamed('Diary');
+                                }
                               },
                               text: 'Add to diet',
                               options: FFButtonOptions(
@@ -1380,8 +1389,10 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
-                                logFoodToDiary(false);
-                                context.pushNamed('Diary');
+                                if (textFieldsAlert(tabletWidget)) {
+                                 logFoodToDiary(tabletWidget);
+                                 context.pushNamed('Diary');
+                                }
                               },
                               text: 'Log food',
                               options: FFButtonOptions(
@@ -1428,7 +1439,8 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
 
   void logFoodToDiary(isMobile) async {
     final firestore = FirebaseFirestore.instance;
-    DateTime datetime = DateTime.now();
+    DateTime now = DateTime.now();
+    int documentId = now.millisecondsSinceEpoch;
 
     if (isMobile) {
       await firestore
@@ -1444,39 +1456,39 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
         'fats': _model.fatsController1.text,
         'meal': _model.mealChoiceChipsValue1?.split(' ')[1],
         'quantity': _model.foodQuantityController1.text,
-        'datetime': datetime,
-        'id': datetime,
+        'datetime': now,
+        'id': documentId,
       });
 
-      await healthService.removeFromHealth(
+      /* await healthService.removeFromHealth(
           HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
       await healthService.removeFromHealth(
           HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
       await healthService.removeFromHealth(
           HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
       await healthService.removeFromHealth(
-          HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+          HealthDataType.DIETARY_FATS_CONSUMED, datetime); */
 
       await healthService.addToHealth(
           double.parse(_model.kcalController1.text) *
               (double.parse(_model.foodQuantityController1.text) / 100),
           HealthDataType.DIETARY_ENERGY_CONSUMED,
-          datetime);
+          now);
       await healthService.addToHealth(
           double.parse(_model.carbsController1.text) *
               (double.parse(_model.foodQuantityController1.text) / 100),
           HealthDataType.DIETARY_CARBS_CONSUMED,
-          datetime);
+          now);
       await healthService.addToHealth(
           double.parse(_model.proteinsController1.text) *
               (double.parse(_model.foodQuantityController1.text) / 100),
           HealthDataType.DIETARY_PROTEIN_CONSUMED,
-          datetime);
+          now);
       await healthService.addToHealth(
           double.parse(_model.fatsController1.text) *
               (double.parse(_model.foodQuantityController1.text) / 100),
           HealthDataType.DIETARY_FATS_CONSUMED,
-          datetime);
+          now);
     } else {
       await firestore
           .collection('users')
@@ -1491,8 +1503,8 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
         'fats': _model.fatsController2.text,
         'meal': _model.mealChoiceChipsValue2?.split(' ')[1],
         'quantity': _model.foodQuantityController2.text,
-        'datetime': datetime,
-        'id': datetime,
+        'datetime': now,
+        'id': documentId,
       });
     }
 
@@ -1560,5 +1572,74 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
       });
     }
     removeFoodFromTemp();
+  }
+
+  bool textFieldsAlert(bool isMobile) {
+    if (isMobile) {
+      if (_model.foodNameController1.text == "" ||
+          _model.kcalController1.text == "" ||
+          _model.carbsController1.text == "" ||
+          _model.proteinsController1.text == "" ||
+          _model.fatsController1.text == "" ||
+          _model.foodQuantityController1.text == "" ||
+          _model.mealChoiceChipsValue1 == null) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CupertinoAlertDialog(
+                title: const Text('Alert'),
+                content: Text('Please complete all the forms.'),
+                actions: <CupertinoDialogAction>[
+                  CupertinoDialogAction(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'OK',
+                      style: TextStyle(
+                        color: FlutterFlowTheme.of(context).primary,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            });
+
+        return false;
+      }
+    } else {
+      if (_model.foodNameController2.text == "" ||
+          _model.kcalController2.text == "" ||
+          _model.carbsController2.text == "" ||
+          _model.proteinsController2.text == "" ||
+          _model.fatsController2.text == "" ||
+          _model.foodQuantityController2.text == "" ||
+          _model.mealChoiceChipsValue2 == null) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Alert'),
+                content: Text('Please complete all the forms.'),
+                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                      'OK',
+                      style: TextStyle(
+                          color: FlutterFlowTheme.of(context).primary),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+        return false;
+      }
+    }
+    return true;
   }
 }

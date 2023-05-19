@@ -513,7 +513,7 @@ class _AddWidgetState extends State<AddWidget> {
       )
     ])));
   }
-
+  
   Future<bool> scanBarcode() async {
     final firestore = FirebaseFirestore.instance;
     String scannedBarcode = await FlutterBarcodeScanner.scanBarcode (
@@ -526,11 +526,11 @@ class _AddWidgetState extends State<AddWidget> {
     ProductQueryConfiguration config = ProductQueryConfiguration(scannedBarcode, version: ProductQueryVersion.v3);
     ProductResultV3 product = await OpenFoodAPIClient.getProductV3(config);
 
-    double? name = product.product?.nutriments?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams);
-    double? kcal = product.product?.nutriments?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams);
-    double? carbs =  product.product?.nutriments?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams);
-    double? proteins = product.product?.nutriments?.getValue(Nutrient.proteins, PerSize.oneHundredGrams);
-    double? fats = product.product?.nutriments?.getValue(Nutrient.fat, PerSize.oneHundredGrams);
+    String? name = product.product?.productName;
+    int? kcal = product.product?.nutriments?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams)?.toInt();
+    int? carbs =  product.product?.nutriments?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams)?.toInt();
+    int? proteins = product.product?.nutriments?.getValue(Nutrient.proteins, PerSize.oneHundredGrams)?.toInt();
+    int? fats = product.product?.nutriments?.getValue(Nutrient.fat, PerSize.oneHundredGrams)?.toInt();
 
     await firestore
       .collection('users')
