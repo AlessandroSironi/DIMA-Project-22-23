@@ -98,6 +98,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             TextFormField(
                               controller: _model.emailController,
                               obscureText: false,
+                              textCapitalization: TextCapitalization.none,
                               decoration: InputDecoration(
                                 labelText: 'Email Address',
                                 labelStyle:
