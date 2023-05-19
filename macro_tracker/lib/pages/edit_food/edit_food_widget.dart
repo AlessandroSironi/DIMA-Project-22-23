@@ -743,8 +743,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
             ChipData('🥘 Dinner'),
             ChipData('🍎 Snack'),
           ],
-          onChanged: (val) =>
-              setState(() => _model.mealChoiceChipsValue1 = val?.first),
+          onChanged: (val) {
+            setState(() => _model.mealChoiceChipsValue1 = val?.first);
+            updateFirestoreValue(
+                'meal', _model.mealChoiceChipsValue1!.split(" ")[1]);
+          },
           selectedChipStyle: ChipStyle(
             backgroundColor: FlutterFlowTheme.of(context).secondary,
             textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -787,8 +790,11 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
             ChipData('🥘 Dinner'),
             ChipData('🍎 Snack')
           ],
-          onChanged: (val) =>
-              setState(() => _model.mealChoiceChipsValue2 = val?.first),
+          onChanged: (val) {
+            setState(() => _model.mealChoiceChipsValue2 = val?.first);
+            updateFirestoreValue(
+                'meal', _model.mealChoiceChipsValue2!.split(" ")[1]);
+          },
           selectedChipStyle: ChipStyle(
             backgroundColor: FlutterFlowTheme.of(context).secondary,
             textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
