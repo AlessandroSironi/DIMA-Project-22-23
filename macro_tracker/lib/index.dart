@@ -13,4 +13,5 @@ export '/pages/add_custom_food/add_custom_food_widget.dart'
     show AddCustomFoodWidget;
 export '/pages/add_barcode_food/add_barcode_food_widget.dart'
     show AddBarcodeFoodWidget;
-export '/pages/edit_food/edit_food_widget.dart' show EditFoodWidget;
+export 'pages/edit_diary_food/edit_diary_food_widget.dart'
+    show EditDiaryFoodWidget;

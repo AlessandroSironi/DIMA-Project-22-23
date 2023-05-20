@@ -3,6 +3,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:health/health.dart';
+import 'package:macro_tracker/components/food_item_widget.dart';
 import 'package:macro_tracker/services/health_service.dart';
 import 'package:macro_tracker/pages/add_custom_food/add_custom_food_widget.dart';
 
@@ -15,22 +16,22 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'edit_food_model.dart';
-export 'edit_food_model.dart';
+import 'edit_diary_food_model.dart';
 
-class EditFoodWidget extends StatefulWidget {
-  const EditFoodWidget({Key? key}) : super(key: key);
+class EditDiaryFoodWidget extends StatefulWidget {
+  const EditDiaryFoodWidget({Key? key}) : super(key: key);
 
   @override
-  _EditFoodWidgetState createState() => _EditFoodWidgetState();
+  _EditDiaryFoodWidgetState createState() => _EditDiaryFoodWidgetState();
 }
 
-class _EditFoodWidgetState extends State<EditFoodWidget> {
-  late EditFoodModel _model;
+class _EditDiaryFoodWidgetState extends State<EditDiaryFoodWidget> {
+  late EditDiaryFoodModel _model;
 
   bool mobileWidget = true;
   bool tabletWidget = false;
 
+  late FoodItemModel initialValues;
   String initialMealChoice = "";
   int documentId = -1;
   late DateTime datetime;
@@ -42,7 +43,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => EditFoodModel());
+    _model = createModel(context, () => EditDiaryFoodModel());
 
     _model.foodNameController1 ??= TextEditingController();
     _model.kcalController1 ??= TextEditingController();
@@ -58,6 +59,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
     _model.foodQuantityController2 ??= TextEditingController();
 
     initTextFieldsFromDB();
+    initializeDBValues();
   }
 
   Future<void> initTextFieldsFromDB() async {
@@ -92,6 +94,32 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
     datetime = (tempData['datetime'] as Timestamp).toDate();
   }
 
+  void initializeDBValues() async {
+    final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .limit(1)
+        .get();
+
+    Map<String, dynamic> tempData =
+        querySnapshot.docs.first.data() as Map<String, dynamic>;
+
+    initialValues = FoodItemModel(
+      carbs: tempData["carbs"],
+      fats: tempData['fats'],
+      proteins: tempData['proteins'],
+      kcal: tempData['kcal'],
+      name: tempData['name'],
+      meal: tempData['meal'],
+      quantity: tempData['quantity'],
+      datetime: (tempData['datetime'] as Timestamp).toDate(),
+      id: tempData['id'],
+    );
+  }
+
   String getChipValueFromMeal(String meal) {
     switch (meal) {
       case 'Breakfast':
@@ -124,7 +152,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             appBar: AppBar(
               backgroundColor: FlutterFlowTheme.of(context).primary,
-              automaticallyImplyLeading: true,
+              automaticallyImplyLeading: false,
               title: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -161,9 +189,8 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  context.goNamed('Diary');
                                   removeFoodFromTemp();
-                                  removeFood(mobileWidget);
+                                  context.goNamed('Diary');
                                 },
                                 child: Text('Yes'),
                               ),
@@ -373,6 +400,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                   FFButtonWidget(
                                     onPressed: () async {
                                       removeFoodFromTemp();
+                                      addToFoodsWithoutChanges();
                                       context.goNamed('Diary');
                                     },
                                     text: 'Cancel',
@@ -646,6 +674,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
                                   FFButtonWidget(
                                     onPressed: () async {
                                       removeFoodFromTemp();
+                                      addToFoodsWithoutChanges();
                                       context.goNamed('Diary');
                                     },
                                     text: 'Cancel',
@@ -992,6 +1021,55 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
     await documentReference.delete();
   }
 
+  void addToFoodsWithoutChanges() async {
+    final firestore = FirebaseFirestore.instance;
+
+    await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('foods')
+        .doc(initialValues.id.toString())
+        .set({
+      'name': initialValues.name,
+      'kcal': initialValues.kcal,
+      'carbs': initialValues.carbs,
+      'proteins': initialValues.proteins,
+      'fats': initialValues.fats,
+      'meal': initialValues.meal,
+      'quantity': initialValues.quantity,
+      'datetime': initialValues.datetime,
+      'id': initialValues.id,
+    });
+
+    await healthService.removeFromHealth(
+        HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+    await healthService.removeFromHealth(
+        HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+    await healthService.removeFromHealth(
+        HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+    await healthService.removeFromHealth(
+        HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+
+    double quantity = double.parse(initialValues.quantity);
+
+    await healthService.addToHealth(
+        double.parse(initialValues.kcal) * (quantity / 100),
+        HealthDataType.DIETARY_ENERGY_CONSUMED,
+        datetime);
+    await healthService.addToHealth(
+        double.parse(initialValues.carbs) * (quantity / 100),
+        HealthDataType.DIETARY_CARBS_CONSUMED,
+        datetime);
+    await healthService.addToHealth(
+        double.parse(initialValues.proteins) * (quantity / 100),
+        HealthDataType.DIETARY_PROTEIN_CONSUMED,
+        datetime);
+    await healthService.addToHealth(
+        double.parse(initialValues.fats) * (quantity / 100),
+        HealthDataType.DIETARY_FATS_CONSUMED,
+        datetime);
+  }
+
   void updateFood(isMobile) async {
     final firestore = FirebaseFirestore.instance;
 
@@ -1059,31 +1137,7 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
         'datetime': datetime,
         'id': documentId,
       });
-    }
 
-    removeFoodFromTemp();
-  }
-
-  void removeFood(isMobile) async {
-    final firestore = FirebaseFirestore.instance;
-    DateTime datetime;
-    QuerySnapshot querySnapshot = await firestore
-        .collection('users')
-        .doc(currentUserDocument?.uid)
-        .collection('foods')
-        .where("id", isEqualTo: documentId)
-        .limit(1)
-        .get();
-
-    DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
-    DocumentReference documentReference = documentSnapshot.reference;
-
-    Map<String, dynamic>? data =
-        documentSnapshot.data() as Map<String, dynamic>?;
-    datetime = (data?["datetime"] as Timestamp).toDate();
-
-    await documentReference.delete();
-    if (isMobile) {
       await healthService.removeFromHealth(
           HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
       await healthService.removeFromHealth(
@@ -1092,7 +1146,30 @@ class _EditFoodWidgetState extends State<EditFoodWidget> {
           HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
       await healthService.removeFromHealth(
           HealthDataType.DIETARY_FATS_CONSUMED, datetime);
+
+      await healthService.addToHealth(
+          double.parse(_model.kcalController2.text) *
+              (double.parse(_model.foodQuantityController2.text) / 100),
+          HealthDataType.DIETARY_ENERGY_CONSUMED,
+          datetime);
+      await healthService.addToHealth(
+          double.parse(_model.carbsController2.text) *
+              (double.parse(_model.foodQuantityController2.text) / 100),
+          HealthDataType.DIETARY_CARBS_CONSUMED,
+          datetime);
+      await healthService.addToHealth(
+          double.parse(_model.proteinsController2.text) *
+              (double.parse(_model.foodQuantityController2.text) / 100),
+          HealthDataType.DIETARY_PROTEIN_CONSUMED,
+          datetime);
+      await healthService.addToHealth(
+          double.parse(_model.fatsController2.text) *
+              (double.parse(_model.foodQuantityController2.text) / 100),
+          HealthDataType.DIETARY_FATS_CONSUMED,
+          datetime);
     }
+
+    removeFoodFromTemp();
   }
 
   String capitalizeFirstLetter(String s) {

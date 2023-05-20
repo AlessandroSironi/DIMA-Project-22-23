@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -115,7 +118,9 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
                       size: 28.0,
                     ),
                     onPressed: () async {
-                      //context.pushNamed('editFood');
+                      addFoodToTemp();
+                      removeFoodFromDiet();
+                      context.goNamed('editDietFood');
                     },
                   ),
                   FlutterFlowIconButton(
@@ -129,7 +134,8 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
                       size: 28.0,
                     ),
                     onPressed: () async {
-                      //context.goNamed('Diary');
+                      addFoodToDiary();
+                      context.goNamed('Diary');
                     },
                   ),
                 ],
@@ -139,6 +145,70 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
         ),
       ),
     );
+  }
+
+  void addFoodToTemp() async {
+    final firestore = FirebaseFirestore.instance;
+    //documentId is equal to the timestamp of the food
+    int documentId = _model.datetime.millisecondsSinceEpoch;
+
+    await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .doc(documentId.toString())
+        .set({
+      'name': _model.name,
+      'kcal': _model.kcal,
+      'carbs': _model.carbs,
+      'proteins': _model.proteins,
+      'fats': _model.fats,
+      'meal': _model.meal,
+      'quantity': _model.quantity,
+      'datetime': _model.datetime,
+      'id': _model.id,
+    });
+  }
+
+  void removeFoodFromDiet() async {
+    final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('diet_foods')
+        .where("id", isEqualTo: _model.id)
+        .limit(1)
+        .get();
+
+    DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+    DocumentReference documentReference = documentSnapshot.reference;
+
+    await documentReference.delete();
+  }
+
+  void addFoodToDiary() async {
+    final firestore = FirebaseFirestore.instance;
+    //documentId is equal to the timestamp of the food
+    int documentId = _model.datetime.millisecondsSinceEpoch;
+    DateTime now = DateTime.now();
+
+    await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('foods')
+        .doc(documentId.toString())
+        .set({
+      'name': _model.name,
+      'kcal': _model.kcal,
+      'carbs': _model.carbs,
+      'proteins': _model.proteins,
+      'fats': _model.fats,
+      'meal': _model.meal,
+      'quantity': _model.quantity,
+      'datetime': now,
+      'id': _model.id,
+    });
   }
 
   String getMealIcon(String meal) {

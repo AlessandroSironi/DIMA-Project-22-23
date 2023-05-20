@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class EditFoodModel extends FlutterFlowModel {
+class EditDietFoodModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for foodName widget.
@@ -75,5 +75,4 @@ class EditFoodModel extends FlutterFlowModel {
   }
 
   /// Additional helper methods are added here.
-
 }

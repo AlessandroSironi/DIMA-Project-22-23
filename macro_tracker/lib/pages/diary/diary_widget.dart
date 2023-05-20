@@ -1,3 +1,5 @@
+import 'package:rxdart/rxdart.dart';
+
 import '../../auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/food_item_widget.dart';
@@ -1784,9 +1786,10 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            50.0, 10.0, 50.0, 10.0),
-                        child: buildListView(tabletWidget))
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          50.0, 10.0, 50.0, 10.0),
+                      child: buildListView(tabletWidget),
+                    ),
                   ],
                 ),
             ],
@@ -2024,53 +2027,71 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         .where('datetime', isGreaterThanOrEqualTo: startOfToday)
         .where('datetime', isLessThan: endOfToday);
 
-    return Expanded(
-        child: SingleChildScrollView(
-            child: Column(children: [
-      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: foodsQuery.snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          }
+    Stream<QuerySnapshot<Map<String, dynamic>>> foodsQueryStream =
+        foodsQuery.snapshots();
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          }
+    return Container(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: foodsQueryStream,
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
+              ) {
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
 
-          final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                }
 
-          if (documents.isEmpty) {
-            return Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(50.0, 10.0, 50.0, 10.0),
-                child: Text('No foods inserted yet'));
-          }
+                final List<DocumentSnapshot> documents = snapshot.data!.docs;
 
-          return ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: documents.length,
-            itemBuilder: (BuildContext context, int index) {
-              final foodData = documents[index].data() as Map<String, dynamic>;
+                if (documents.isEmpty) {
+                  return Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(50.0, 10.0, 50.0, 10.0),
+                    child: Text('No foods inserted yet'),
+                  );
+                }
 
-              final foodItem = FoodItemModel(
-                carbs: foodData['carbs'],
-                fats: foodData['fats'],
-                kcal: foodData['kcal'],
-                proteins: foodData['proteins'],
-                name: foodData['name'],
-                meal: foodData['meal'],
-                quantity: foodData['quantity'],
-                datetime: (foodData['datetime'] as Timestamp).toDate(),
-                id: foodData['id'],
-              );
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: documents.length,
+                  itemBuilder: (
+                    BuildContext context,
+                    int index,
+                  ) {
+                    final foodData =
+                        documents[index].data() as Map<String, dynamic>;
 
-              return FoodItemWidget(foodItemModel: foodItem);
-            },
-          );
-        },
-      )
-    ])));
+                    final foodItem = FoodItemModel(
+                      carbs: foodData['carbs'],
+                      fats: foodData['fats'],
+                      kcal: foodData['kcal'],
+                      proteins: foodData['proteins'],
+                      name: foodData['name'],
+                      meal: foodData['meal'],
+                      quantity: foodData['quantity'],
+                      datetime: (foodData['datetime'] as Timestamp).toDate(),
+                      id: foodData['id'],
+                    );
+
+                    return Container(
+                      height: 80,
+                      child: FoodItemWidget(foodItemModel: foodItem),
+                    );
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

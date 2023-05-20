@@ -129,7 +129,8 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
                     ),
                     onPressed: () async {
                       addFoodToTemp();
-                      context.pushNamed('editFood');
+                      removeFoodFromFoods();
+                      context.goNamed('editDiaryFood');
                     },
                   ),
                 ],

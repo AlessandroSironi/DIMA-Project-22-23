@@ -658,6 +658,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             onPressed: () async {
                               if (textFieldsAlert(mobileWidget)) {
                                 addFoodToDiet(mobileWidget);
+                                context.goNamed('Diet');
                               }
                             },
                             text: 'Add to diet',
@@ -808,7 +809,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontFamily: 'Outfit',
                                       fontSize: 20.0,
                                     ),
-                                textAlign: TextAlign.end,
+                                textAlign: TextAlign.start,
                                 validator: _model.foodNameController2Validator
                                     .asValidator(context),
                               ),
@@ -1317,6 +1318,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               onPressed: () async {
                                 if (textFieldsAlert(tabletWidget)) {
                                   addFoodToDiet(tabletWidget);
+                                  context.goNamed('Diet');
                                 }
                               },
                               text: 'Add to diet',

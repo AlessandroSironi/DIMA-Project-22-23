@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../pages/edit_diet_food/edit_diet_food_widget.dart';
 import '../flutter_flow_theme.dart';
 import '../../backend/backend.dart';
 
@@ -85,11 +86,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Diary',
           path: '/diary',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Diary')
-              : DiaryWidget(
-
-                ),
+          builder: (context, params) =>
+              params.isEmpty ? NavBarPage(initialPage: 'Diary') : DiaryWidget(),
         ),
         FFRoute(
           name: 'Register',
@@ -144,9 +142,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'editFood',
-          path: '/editFood',
-          builder: (context, params) => EditFoodWidget(),
+          name: 'editDiaryFood',
+          path: '/editDiaryFood',
+          builder: (context, params) => EditDiaryFoodWidget(),
+        ),
+        FFRoute(
+          name: 'editDietFood',
+          path: '/editDietFood',
+          builder: (context, params) => EditDietFoodWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,

@@ -1,5 +1,6 @@
 import 'package:macro_tracker/components/food_item_model.dart';
 
+import '../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -115,6 +116,7 @@ class _FoodItemNoModifyWidgetState extends State<FoodItemNoModifyWidget> {
                       size: 28.0,
                     ),
                     onPressed: () async {
+                      addFoodToDiary();
                       context.goNamed('Diary');
                     },
                   ),
@@ -125,6 +127,31 @@ class _FoodItemNoModifyWidgetState extends State<FoodItemNoModifyWidget> {
         ),
       ),
     );
+  }
+
+  void addFoodToDiary() async {
+    print("add food to diary");
+    final firestore = FirebaseFirestore.instance;
+    //documentId is equal to the timestamp of the food
+    int documentId = _model.datetime.millisecondsSinceEpoch;
+    DateTime now = DateTime.now();
+
+    await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('foods')
+        .doc(documentId.toString())
+        .set({
+      'name': _model.name,
+      'kcal': _model.kcal,
+      'carbs': _model.carbs,
+      'proteins': _model.proteins,
+      'fats': _model.fats,
+      'meal': _model.meal,
+      'quantity': _model.quantity,
+      'datetime': now,
+      'id': _model.id,
+    });
   }
 
   String getMealIcon(String meal) {

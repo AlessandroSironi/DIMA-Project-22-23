@@ -14,6 +14,7 @@ class FoodItemNoModifyModel extends FlutterFlowModel {
   String meal = "";
   String quantity = "";
   DateTime datetime = DateTime.now();
+  int id = -1;
 
   FoodItemNoModifyModel(
       {required carbs,
@@ -23,7 +24,8 @@ class FoodItemNoModifyModel extends FlutterFlowModel {
       required name,
       required meal,
       required quantity,
-      required datetime}) {
+      required datetime,
+      required id}) {
     this.carbs = carbs;
     this.fats = fats;
     this.proteins = proteins;
@@ -32,6 +34,7 @@ class FoodItemNoModifyModel extends FlutterFlowModel {
     this.meal = meal;
     this.quantity = quantity;
     this.datetime = datetime;
+    this.id = id;
   }
 
   void initState(BuildContext context) {}

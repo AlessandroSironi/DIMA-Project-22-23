@@ -261,7 +261,7 @@ class _DietWidgetState extends State<DietWidget> {
         .collection('diet_foods')
         .where("meal", isEqualTo: meal);
 
-    return Expanded(
+    return Container(
       child: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -309,7 +309,10 @@ class _DietWidgetState extends State<DietWidget> {
                         id: foodData['id'],
                       );
 
-                      return DietFoodItemWidget(dietFoodItemModel: foodItem);
+                      return Container(
+                        height: 80,
+                        child: DietFoodItemWidget(dietFoodItemModel: foodItem),
+                      );
                     },
                   );
                 },
