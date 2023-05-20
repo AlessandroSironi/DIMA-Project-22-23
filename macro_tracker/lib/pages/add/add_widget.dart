@@ -465,7 +465,7 @@ class _AddWidgetState extends State<AddWidget> {
         .where('datetime', isGreaterThanOrEqualTo: yesterday.startOfDay)
         .where('datetime', isLessThan: yesterday.endOfDay);
 
-    return Expanded(
+    return Container(
         child: SingleChildScrollView(
             child: Column(children: [
       StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -507,7 +507,10 @@ class _AddWidgetState extends State<AddWidget> {
                 id: foodData['id'],
               );
 
-              return FoodItemNoModifyWidget(foodItemNoModifyModel: foodItem);
+              return Container(
+                  height: 80,
+                  child:
+                      FoodItemNoModifyWidget(foodItemNoModifyModel: foodItem));
             },
           );
         },
