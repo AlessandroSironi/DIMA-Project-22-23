@@ -1991,7 +1991,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                     child: Text(
-                      '$sumToDisplay / $fieldValue kcal',
+                      '$sumToDisplay / $fieldValue ${macroField == 'kcal_goal' ? 'kcal' : 'g'}',
                       style: FlutterFlowTheme.of(context).bodyMedium,
                     ))
               ]);
