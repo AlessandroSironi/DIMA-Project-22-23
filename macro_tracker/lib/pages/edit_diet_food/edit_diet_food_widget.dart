@@ -177,28 +177,43 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
                     ),
                     onPressed: () {
                       showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: Text('Delete food'),
-                            content: Text(
-                                'You really want to delete the food from your diet?'),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, false),
-                                child: Text('No'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  removeFoodFromTemp();
-                                  context.goNamed('Diet');
-                                },
-                                child: Text('Yes'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CupertinoAlertDialog(
+                              title: const Text('Error'),
+                              content: Text(
+                                  'Do you really want to delete the food from your diet?'),
+                              actions: <CupertinoDialogAction>[
+                                CupertinoDialogAction(
+                                  onPressed: () {
+                                    Navigator.pop(context, false);
+                                  },
+                                  child: Text(
+                                    'No',
+                                    style: TextStyle(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ),
+                                CupertinoDialogAction(
+                                  onPressed: () {
+                                    removeFoodFromTemp();
+                                    context.goNamed('Diet');
+                                  },
+                                  child: Text(
+                                    'Yes',
+                                    style: TextStyle(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          });
                     },
                   ),
                 ],

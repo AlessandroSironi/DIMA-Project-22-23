@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flutter/cupertino.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_calendar.dart';
 
 import '../../auth/firebase_auth/auth_util.dart';
@@ -105,27 +106,36 @@ class _AddWidgetState extends State<AddWidget> {
                           child: FFButtonWidget(
                             onPressed: () async {
                               var result = scanBarcode();
-                              if (await result)
+                              if (await result) {
                                 context.pushNamed('AddBarcodeFood');
-                              /* _model.scannedBarcode =
-                                  await FlutterBarcodeScanner.scanBarcode(
-                                '#DD2556', // scanning line color
-                                'Cancel', // cancel button text
-                                true, // whether to show the flash icon
-                                ScanMode.BARCODE,
-                              );
-
-
-
-                              setState(() {});
-                              //DO OPENFOODAPI
-                              ProductQueryConfiguration config =
-                                  ProductQueryConfiguration(
-                                      _model.scannedBarcode,
-                                      version: ProductQueryVersion.v3);
-                              ProductResultV3 product =
-                                  await OpenFoodAPIClient.getProductV3(config);
-                              //DO STUFF WITH product.product?.productName... */
+                              } else {
+                                context.pushNamed('Add');
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return CupertinoAlertDialog(
+                                        title: const Text('Error'),
+                                        content: Text(
+                                            'Sorry, no food has been found!'),
+                                        actions: <CupertinoDialogAction>[
+                                          CupertinoDialogAction(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                fontWeight: FontWeight.w800,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              }
                             },
                             text: 'Barcode Scanner',
                             icon: FaIcon(
@@ -526,41 +536,50 @@ class _AddWidgetState extends State<AddWidget> {
       true, // whether to show the flash icon
       ScanMode.BARCODE,
     );
+
+    print("scanned barcode: $scannedBarcode");
     //OpenFoodFacts
     ProductQueryConfiguration config = ProductQueryConfiguration(scannedBarcode,
         version: ProductQueryVersion.v3);
     ProductResultV3 product = await OpenFoodAPIClient.getProductV3(config);
 
     String? name = product.product?.productName;
-    int? kcal = product.product?.nutriments
-        ?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams)
-        ?.toInt();
-    int? carbs = product.product?.nutriments
-        ?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams)
-        ?.toInt();
-    int? proteins = product.product?.nutriments
-        ?.getValue(Nutrient.proteins, PerSize.oneHundredGrams)
-        ?.toInt();
-    int? fats = product.product?.nutriments
-        ?.getValue(Nutrient.fat, PerSize.oneHundredGrams)
-        ?.toInt();
+    if (name != null) {
+      int? kcal = product.product?.nutriments
+          ?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams)
+          ?.toInt();
+      int? carbs = product.product?.nutriments
+          ?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams)
+          ?.toInt();
+      int? proteins = product.product?.nutriments
+          ?.getValue(Nutrient.proteins, PerSize.oneHundredGrams)
+          ?.toInt();
+      int? fats = product.product?.nutriments
+          ?.getValue(Nutrient.fat, PerSize.oneHundredGrams)
+          ?.toInt();
 
-    await firestore
-        .collection('users')
-        .doc(currentUserDocument?.uid)
-        .collection('temp')
-        .doc(documentId.toString())
-        .set({
-      'name': name,
-      'kcal': kcal,
-      'carbs': carbs,
-      'proteins': proteins,
-      'fats': fats,
-      'id': documentId,
-    });
+      DateTime now = DateTime.now();
+      documentId = now.millisecondsSinceEpoch;
 
-    print(
-        "Scanned: $scannedBarcode, name: $name, kcal: $kcal, carbs: $carbs, proteins: $proteins, fats: $fats");
-    return true;
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('temp')
+          .doc(documentId.toString())
+          .set({
+        'name': name,
+        'kcal': kcal,
+        'carbs': carbs,
+        'proteins': proteins,
+        'fats': fats,
+        'datetime': now,
+        'id': documentId,
+      });
+
+      print(
+          "Scanned: $scannedBarcode, name: $name, kcal: $kcal, carbs: $carbs, proteins: $proteins, fats: $fats");
+      return true;
+    }
+    return false;
   }
 }

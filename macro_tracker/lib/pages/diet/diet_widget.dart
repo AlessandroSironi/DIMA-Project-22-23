@@ -123,7 +123,7 @@ class _DietWidgetState extends State<DietWidget> {
                             onChanged: (val) {
                               //showClearChoice = true;
                               setState(() =>
-                                _model.mealChoiceFilterValue1 = val?.first);
+                                  _model.mealChoiceFilterValue1 = val?.first);
                             },
                             selectedChipStyle: ChipStyle(
                               backgroundColor:
@@ -196,7 +196,7 @@ class _DietWidgetState extends State<DietWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 10.0),
-                          child: buildListView(mobileWidget,
+                          child: buildListView(
                               _model.mealChoiceFilterValue1?.split(' ')[1]),
                         ),
                       ],
@@ -225,10 +225,10 @@ class _DietWidgetState extends State<DietWidget> {
                               ChipData('🥘 Dinner'),
                               ChipData('🍎 Snack')
                             ],
-                           onChanged: (val) {
+                            onChanged: (val) {
                               //showClearChoice = true;
                               setState(() =>
-                                _model.mealChoiceFilterValue2 = val?.first);
+                                  _model.mealChoiceFilterValue2 = val?.first);
                             },
                             selectedChipStyle: ChipStyle(
                               backgroundColor:
@@ -272,39 +272,11 @@ class _DietWidgetState extends State<DietWidget> {
                             ),
                           ),
                         ),
-                        /* Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
-                          child: Visibility(
-                            visible: showClearChoice,
-                            child: FFButtonWidget(
-                                onPressed: () {
-                                  clearSelection();
-                                },
-                                text: 'Clear Selection',
-                                options: FFButtonOptions(
-                                  height: 40,
-                                  padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                        fontFamily: 'Outfit',
-                                        color: Colors.white,
-                                      ),
-                                  elevation: 3,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              )
-                            ),
-                        ), */
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               50.0, 10.0, 50.0, 10.0),
                           child: buildListView(
-                              tabletWidget, _model.mealChoiceFilterValue2),
+                              _model.mealChoiceFilterValue2?.split(" ")[1]),
                         ),
                       ],
                     ),
@@ -317,7 +289,7 @@ class _DietWidgetState extends State<DietWidget> {
     );
   }
 
-  Widget buildListView(bool isMobile, String? meal) {
+  Widget buildListView(String? meal) {
     Query<Map<String, dynamic>> foodsQuery = FirebaseFirestore.instance
         .collection('users')
         .doc(currentUserDocument?.uid)
@@ -386,8 +358,4 @@ class _DietWidgetState extends State<DietWidget> {
       ),
     );
   }
-
-/*   void clearSelection() {
-    context.pushNamed("Diet");
-  } */
 }
