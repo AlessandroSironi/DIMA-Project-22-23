@@ -24,7 +24,7 @@ class _DietWidgetState extends State<DietWidget> {
   late DietModel _model;
   final mobileWidget = true;
   final tabletWidget = false;
-  bool showClearChoice = false;
+  //bool showClearChoice = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -121,7 +121,7 @@ class _DietWidgetState extends State<DietWidget> {
                               ChipData('🍎 Snack')
                             ],
                             onChanged: (val) {
-                              showClearChoice = true;
+                              //showClearChoice = true;
                               setState(() =>
                                 _model.mealChoiceFilterValue1 = val?.first);
                             },
@@ -165,7 +165,7 @@ class _DietWidgetState extends State<DietWidget> {
                             ),
                           ),
                         ),
-                        Padding(
+                        /* Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
                           child: Visibility(
                             visible: showClearChoice,
@@ -192,7 +192,7 @@ class _DietWidgetState extends State<DietWidget> {
                                 ),
                               )
                             ),
-                        ),
+                        ), */
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 10.0),
@@ -226,7 +226,7 @@ class _DietWidgetState extends State<DietWidget> {
                               ChipData('🍎 Snack')
                             ],
                            onChanged: (val) {
-                              showClearChoice = true;
+                              //showClearChoice = true;
                               setState(() =>
                                 _model.mealChoiceFilterValue2 = val?.first);
                             },
@@ -272,7 +272,7 @@ class _DietWidgetState extends State<DietWidget> {
                             ),
                           ),
                         ),
-                        Padding(
+                        /* Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
                           child: Visibility(
                             visible: showClearChoice,
@@ -299,7 +299,7 @@ class _DietWidgetState extends State<DietWidget> {
                                 ),
                               )
                             ),
-                        ),
+                        ), */
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               50.0, 10.0, 50.0, 10.0),
@@ -387,8 +387,7 @@ class _DietWidgetState extends State<DietWidget> {
     );
   }
 
-  void clearSelection() {
-    print("Clearing selection...");
-    
-  }
+/*   void clearSelection() {
+    context.pushNamed("Diet");
+  } */
 }
