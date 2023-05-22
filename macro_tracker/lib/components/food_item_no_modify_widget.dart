@@ -133,8 +133,8 @@ class _FoodItemNoModifyWidgetState extends State<FoodItemNoModifyWidget> {
     print("add food to diary");
     final firestore = FirebaseFirestore.instance;
     //documentId is equal to the timestamp of the food
-    int documentId = _model.datetime.millisecondsSinceEpoch;
     DateTime now = DateTime.now();
+    int documentId = now.millisecondsSinceEpoch;
 
     await firestore
         .collection('users')
