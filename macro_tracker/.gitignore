@@ -51,3 +51,4 @@ app.*.map.json
 
 #iOS Added manually
 
+coverage/

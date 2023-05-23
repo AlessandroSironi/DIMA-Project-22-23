@@ -1368,7 +1368,7 @@ class _GoalWidgetState extends State<GoalWidget> {
                                                                               TextSpan(
                                                                             children: [
                                                                               TextSpan(
-                                                                                text: 'Choose your macros in the following ranges:\n\nCarbs: 3-6 g/kg body weight\nProteins: 1,6-2,2 g/kg body weight\nFats: 0,6-1,2 g/kg body weight',
+                                                                                text: 'Choose your macros in the following ranges:\n\nCarbs: 3-6 g/kg body weight\nProteins: 1,6-2,2 g/kg body weight\nFats: 0,8-1,5 g/kg body weight',
                                                                                 style: TextStyle(),
                                                                               )
                                                                             ],
