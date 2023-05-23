@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../auth/firebase_auth/auth_util.dart';
-import '../../components/food_item_model.dart';
-import '../../components/food_item_widget.dart';
 import '/components/diet_food_item_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

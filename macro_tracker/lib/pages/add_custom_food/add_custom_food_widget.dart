@@ -1,7 +1,5 @@
-import 'dart:ffi';
 import 'package:health/health.dart';
 import 'package:macro_tracker/services/health_service.dart';
-
 import 'package:flutter/cupertino.dart';
 import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';

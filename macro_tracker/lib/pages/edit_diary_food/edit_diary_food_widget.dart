@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:health/health.dart';
 import 'package:macro_tracker/components/food_item_widget.dart';
 import 'package:macro_tracker/services/health_service.dart';
-import 'package:macro_tracker/pages/add_custom_food/add_custom_food_widget.dart';
-
 import '../../auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';

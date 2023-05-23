@@ -9,12 +9,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'add_barcode_food_model.dart';
 export 'add_barcode_food_model.dart';
-
-import 'package:openfoodfacts/openfoodfacts.dart';
 
 import 'package:health/health.dart';
 import 'package:macro_tracker/services/health_service.dart';
