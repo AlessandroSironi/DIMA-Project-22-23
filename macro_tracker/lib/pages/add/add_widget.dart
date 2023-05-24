@@ -102,7 +102,6 @@ class _AddWidgetState extends State<AddWidget> {
                               if (await result) {
                                 context.pushNamed('AddBarcodeFood');
                               } else {
-                                context.pushNamed('Add');
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -295,9 +294,37 @@ class _AddWidgetState extends State<AddWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   20.0, 20.0, 20.0, 20.0),
                               child: FFButtonWidget(
-                                onPressed: () {
-                                  scanBarcode();
-                                  context.pushNamed('AddBarcodeFood');
+                                onPressed: () async {
+                                  var result = scanBarcode();
+                                  if (await result) {
+                                    context.pushNamed('AddBarcodeFood');
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return CupertinoAlertDialog(
+                                            title: const Text('Error'),
+                                            content: Text(
+                                                'Sorry, no food has been found!'),
+                                            actions: <CupertinoDialogAction>[
+                                              CupertinoDialogAction(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  'OK',
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    fontWeight: FontWeight.w800,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        });
+                                  }
                                 },
                                 text: 'Barcode Scanner',
                                 icon: FaIcon(
