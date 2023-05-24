@@ -9,18 +9,24 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'goal_model.dart';
-export 'goal_model.dart';
+import 'goal_model_mock.dart';
+export 'goal_model_mock.dart';
 
-class GoalWidget extends StatefulWidget {
-  const GoalWidget({Key? key}) : super(key: key);
+class GoalWidgetMock extends StatefulWidget {
+  const GoalWidgetMock({Key? key}) : super(key: key);
 
   @override
-  _GoalWidgetState createState() => _GoalWidgetState();
+  _GoalWidgetMockState createState() => _GoalWidgetMockState();
 }
 
-class _GoalWidgetState extends State<GoalWidget> {
-  late GoalModel _model;
+class _GoalWidgetMockState extends State<GoalWidgetMock> {
+  late GoalModelMock _model;
+  final Map<String, dynamic> data = {
+    "kcal_goal": "2000",
+    "carbs_goal": "200",
+    "proteins_goal": "180",
+    "fats_goal": "70"
+  };
 
   final int amountToModifyKcal = 50;
   final int amountToModifyOthers = 10;
@@ -40,7 +46,7 @@ class _GoalWidgetState extends State<GoalWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => GoalModel());
+    _model = createModel(context, () => GoalModelMock());
 
     _model.kcalValueController1 ??= TextEditingController();
     _model.carbsValueController1 ??= TextEditingController();
@@ -55,64 +61,20 @@ class _GoalWidgetState extends State<GoalWidget> {
   }
 
   void fetchDataAndSetValues() {
-    CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('users');
-    DocumentReference userDocument =
-        usersCollection.doc(currentUserDocument?.uid);
-
-    // Fetch the data from Firestore
-    userDocument.get().then((snapshot) {
-      if (snapshot.exists) {
-        // Extract the data from the snapshot
-        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-
-        // Update the TextEditingController values
-        _model.kcalValueController1?.text = data['kcal_goal'];
-        _model.carbsValueController1?.text = data['carbs_goal'];
-        _model.proteinsValueController1?.text = data['proteins_goal'];
-        _model.fatsValueController1?.text = data['fats_goal'];
-        _model.kcalValueController2?.text = data['kcal_goal'];
-        _model.carbsValueController2?.text = data['carbs_goal'];
-        _model.proteinsValueController2?.text = data['proteins_goal'];
-        _model.fatsValueController2?.text = data['fats_goal'];
-      }
-    });
+    // Update the TextEditingController values
+    _model.kcalValueController1?.text = data['kcal_goal'];
+    _model.carbsValueController1?.text = data['carbs_goal'];
+    _model.proteinsValueController1?.text = data['proteins_goal'];
+    _model.fatsValueController1?.text = data['fats_goal'];
+    _model.kcalValueController2?.text = data['kcal_goal'];
+    _model.carbsValueController2?.text = data['carbs_goal'];
+    _model.proteinsValueController2?.text = data['proteins_goal'];
+    _model.fatsValueController2?.text = data['fats_goal'];
   }
 
-  void updateFirestoreValue(String field, String value) {
-    DocumentReference userDocument = FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUserDocument?.uid);
+  void updateFirestoreValue(String field, String value) {}
 
-    Map<String, dynamic> updateData = {field: value};
-
-    userDocument.update(updateData);
-  }
-
-  void modifyMacroValue(String field, int amount) {
-    DocumentReference userDocument = FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUserDocument?.uid);
-
-    // Get the existing value from the database
-    userDocument.get().then((snapshot) {
-      if (snapshot.exists) {
-        Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
-        String currentValue = data?[field];
-        int parsedValue = int.tryParse(currentValue) ?? 0;
-        int updatedValue = parsedValue + amount;
-
-        // Update the value in Firestore
-        userDocument.update({field: updatedValue.toString()}).then((_) {
-          print('Value updated successfully');
-        }).catchError((error) {
-          print('Failed to update value: $error');
-        });
-      }
-    }).catchError((error) {
-      print('Failed to retrieve current value: $error');
-    });
-  }
+  void modifyMacroValue(String field, int amount) {}
 
   @override
   void dispose() {
@@ -3261,79 +3223,67 @@ class _GoalWidgetState extends State<GoalWidget> {
       String controllerName,
       String field,
       String? Function(BuildContext, String?)? controllerValidator) {
-    return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(currentUserDocument?.uid)
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          Map<String, dynamic>? data =
-              snapshot.data!.data() as Map<String, dynamic>?;
-          final fieldValue = data?[field] ?? '';
-          controller.text = fieldValue;
-        }
-        return Expanded(
-          child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
-            child: Container(
-              width: double.infinity,
-              child: TextFormField(
-                controller: controller,
-                onChanged: (value) => EasyDebounce.debounce(
-                  controllerName,
-                  Duration(milliseconds: 2000),
-                  () {
-                    updateFirestoreValue(field, value);
-                    setState(() {});
-                  },
-                ),
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintStyle: FlutterFlowTheme.of(context).bodyMedium,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).primary,
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  contentPadding:
-                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
-                ),
-                style: FlutterFlowTheme.of(context).bodyMedium,
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.number,
-                validator: controllerValidator.asValidator(context),
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                ],
-              ),
+    final fieldValue = data![field];
+    controller.text = fieldValue;
+    return Expanded(
+      child: Align(
+        alignment: AlignmentDirectional(0.0, 0.0),
+        child: Container(
+          width: double.infinity,
+          child: TextFormField(
+            controller: controller,
+            onChanged: (value) => EasyDebounce.debounce(
+              controllerName,
+              Duration(milliseconds: 2000),
+              () {
+                updateFirestoreValue(field, value);
+                setState(() {});
+              },
             ),
+            obscureText: false,
+            decoration: InputDecoration(
+              hintStyle: FlutterFlowTheme.of(context).bodyMedium,
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.of(context).primary,
+                  width: 1.5,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Color(0x00000000),
+                  width: 1.5,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Color(0x00000000),
+                  width: 1.5,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Color(0x00000000),
+                  width: 1.5,
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              contentPadding:
+                  EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+            ),
+            style: FlutterFlowTheme.of(context).bodyMedium,
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.number,
+            validator: controllerValidator.asValidator(context),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

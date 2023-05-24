@@ -1,7 +1,7 @@
 import '../../../../lib/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
-class GoalModel extends FlutterFlowModel {
+class GoalModelMock extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for kcalValue widget.
