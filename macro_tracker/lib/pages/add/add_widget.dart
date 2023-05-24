@@ -102,7 +102,7 @@ class _AddWidgetState extends State<AddWidget> {
                               if (await result) {
                                 context.pushNamed('AddBarcodeFood');
                               } else {
-                                context.pushNamed('Add');
+                                //context.pushNamed('Add');
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
