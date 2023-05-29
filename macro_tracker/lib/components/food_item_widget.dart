@@ -1,12 +1,12 @@
 import 'package:macro_tracker/backend/backend.dart';
 
-import '../auth/firebase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'food_item_model.dart';
-export 'food_item_model.dart';
+import 'package:macro_tracker/components/food_item_model.dart';
+export 'package:macro_tracker/components/food_item_model.dart';
 
 class FoodItemWidget extends StatefulWidget {
   final FoodItemModel foodItemModel;

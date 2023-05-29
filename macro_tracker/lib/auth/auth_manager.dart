@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'base_auth_user_provider.dart';
+import 'package:macro_tracker/auth/base_auth_user_provider.dart';
 
 abstract class AuthManager {
   Future signOut();

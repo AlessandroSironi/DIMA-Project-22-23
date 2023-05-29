@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
-import '/backend/backend.dart';
-import '../../flutter_flow/place.dart';
-import '../../flutter_flow/uploaded_file.dart';
+import 'package:macro_tracker/backend/backend.dart';
+import 'package:macro_tracker/flutter_flow/place.dart';
+import 'package:macro_tracker/flutter_flow/uploaded_file.dart';
 
 /// SERIALIZATION HELPERS
 

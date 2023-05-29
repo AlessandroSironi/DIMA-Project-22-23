@@ -1,4 +1,4 @@
-import 'lat_lng.dart';
+import 'package:macro_tracker/flutter_flow/lat_lng.dart';
 
 class FFPlace {
   const FFPlace({

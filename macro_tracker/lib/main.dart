@@ -13,7 +13,6 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'flutter_flow/nav/nav.dart';
-import 'index.dart';
 
 import 'package:macro_tracker/services/local_notification_service.dart';
 

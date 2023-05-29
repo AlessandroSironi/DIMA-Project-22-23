@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'serializers.dart';
+import 'package:macro_tracker/backend/schema/serializers.dart';
 import 'package:built_value/built_value.dart';
 
 part 'diet_foods_record.g.dart';

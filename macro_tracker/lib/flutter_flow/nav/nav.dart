@@ -15,13 +15,13 @@ import 'package:macro_tracker/pages/login/login_widget.dart';
 import 'package:macro_tracker/pages/profile/profile_widget.dart';
 import 'package:macro_tracker/pages/register/register_widget.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../pages/edit_diet_food/edit_diet_food_widget.dart';
-import '../flutter_flow_theme.dart';
-import '../../auth/base_auth_user_provider.dart';
-import '../../main.dart';
-import 'serialization_util.dart';
+import 'package:macro_tracker/pages/edit_diet_food/edit_diet_food_widget.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/auth/base_auth_user_provider.dart';
+import 'package:macro_tracker/main.dart';
+import 'package:macro_tracker/flutter_flow/nav/serialization_util.dart';
 export 'package:go_router/go_router.dart';
-export 'serialization_util.dart';
+export 'package:macro_tracker/flutter_flow/nav/serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
 

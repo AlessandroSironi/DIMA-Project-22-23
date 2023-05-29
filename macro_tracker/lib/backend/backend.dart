@@ -1,27 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import '../auth/firebase_auth/auth_util.dart';
+import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
 
-import '../flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
 
-import 'schema/users_record.dart';
-import 'schema/coffee_assumption_record.dart';
-import 'schema/diet_foods_record.dart';
-import 'schema/foods_record.dart';
-import 'schema/water_assumption_record.dart';
-import 'schema/goals_record.dart';
-import 'schema/serializers.dart';
+import 'package:macro_tracker/backend/schema/users_record.dart';
+import 'package:macro_tracker/backend/schema/coffee_assumption_record.dart';
+import 'package:macro_tracker/backend/schema/diet_foods_record.dart';
+import 'package:macro_tracker/backend/schema/foods_record.dart';
+import 'package:macro_tracker/backend/schema/water_assumption_record.dart';
+import 'package:macro_tracker/backend/schema/goals_record.dart';
+import 'package:macro_tracker/backend/schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
-export 'schema/index.dart';
-export 'schema/serializers.dart';
+export 'package:macro_tracker/backend/schema/index.dart';
+export 'package:macro_tracker/backend/schema/serializers.dart';
 
-export 'schema/users_record.dart';
-export 'schema/coffee_assumption_record.dart';
-export 'schema/diet_foods_record.dart';
-export 'schema/foods_record.dart';
-export 'schema/water_assumption_record.dart';
-export 'schema/goals_record.dart';
+export 'package:macro_tracker/backend/schema/users_record.dart';
+export 'package:macro_tracker/backend/schema/coffee_assumption_record.dart';
+export 'package:macro_tracker/backend/schema/diet_foods_record.dart';
+export 'package:macro_tracker/backend/schema/foods_record.dart';
+export 'package:macro_tracker/backend/schema/water_assumption_record.dart';
+export 'package:macro_tracker/backend/schema/goals_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({

@@ -1,16 +1,16 @@
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:from_css_color/from_css_color.dart';
 
-import 'users_record.dart';
-import 'coffee_assumption_record.dart';
-import 'diet_foods_record.dart';
-import 'foods_record.dart';
-import 'water_assumption_record.dart';
-import 'goals_record.dart';
+import 'package:macro_tracker/backend/schema/users_record.dart';
+import 'package:macro_tracker/backend/schema/coffee_assumption_record.dart';
+import 'package:macro_tracker/backend/schema/diet_foods_record.dart';
+import 'package:macro_tracker/backend/schema/foods_record.dart';
+import 'package:macro_tracker/backend/schema/water_assumption_record.dart';
+import 'package:macro_tracker/backend/schema/goals_record.dart';
 
-import 'index.dart';
+import 'package:macro_tracker/backend/schema/index.dart';
 
-export 'index.dart';
+export 'package:macro_tracker/backend/schema/index.dart';
 
 part 'serializers.g.dart';
 

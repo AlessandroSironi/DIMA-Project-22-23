@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../auth_manager.dart';
-import '../../backend/backend.dart';
-import 'email_auth.dart';
-import 'firebase_user_provider.dart';
+import 'package:macro_tracker/auth/auth_manager.dart';
+import 'package:macro_tracker/backend/backend.dart';
+import 'package:macro_tracker/auth/firebase_auth/email_auth.dart';
+import 'package:macro_tracker/auth/firebase_auth/firebase_user_provider.dart';
 
-export '../base_auth_user_provider.dart';
+export 'package:macro_tracker/auth/base_auth_user_provider.dart';
 
 class FirebaseAuthManager extends AuthManager
     with
