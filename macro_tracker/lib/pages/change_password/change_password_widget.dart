@@ -1,11 +1,11 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'change_password_model.dart';
-export 'change_password_model.dart';
+import 'package:macro_tracker/pages/change_password/change_password_model.dart';
+export 'package:macro_tracker/pages/change_password/change_password_model.dart';
 
 class ChangePasswordWidget extends StatefulWidget {
   const ChangePasswordWidget({Key? key}) : super(key: key);

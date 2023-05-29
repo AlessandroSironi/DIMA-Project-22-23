@@ -1,16 +1,16 @@
 import 'package:health/health.dart';
 import 'package:macro_tracker/services/health_service.dart';
 import 'package:flutter/cupertino.dart';
-import '../../auth/firebase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_choice_chips.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
+import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_choice_chips.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
+import 'package:macro_tracker/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'add_custom_food_model.dart';
-export 'add_custom_food_model.dart';
+import 'package:macro_tracker/pages/add_custom_food/add_custom_food_model.dart';
+export 'package:macro_tracker/pages/add_custom_food/add_custom_food_model.dart';
 
 class AddCustomFoodWidget extends StatefulWidget {
   const AddCustomFoodWidget({Key? key}) : super(key: key);

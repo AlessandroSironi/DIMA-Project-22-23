@@ -1,6 +1,6 @@
-import '/components/diet_food_item_widget.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
+import 'package:macro_tracker/components/diet_food_item_widget.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 
 class DietModel extends FlutterFlowModel {

@@ -1,5 +1,5 @@
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 
 class AddCustomFoodModel extends FlutterFlowModel {
@@ -68,5 +68,4 @@ class AddCustomFoodModel extends FlutterFlowModel {
   }
 
   /// Additional helper methods are added here.
-
 }
