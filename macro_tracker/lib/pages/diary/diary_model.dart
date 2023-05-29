@@ -1,6 +1,6 @@
-import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_calendar.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/backend/backend.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_calendar.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 

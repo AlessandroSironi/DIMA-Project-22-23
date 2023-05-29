@@ -1,13 +1,13 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_animations.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'profile_model.dart';
-export 'profile_model.dart';
+import 'package:macro_tracker/pages/profile/profile_model.dart';
+export 'package:macro_tracker/pages/profile/profile_model.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({Key? key}) : super(key: key);

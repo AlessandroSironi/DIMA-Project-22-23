@@ -1,10 +1,10 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'edit_profile_model.dart';
-export 'edit_profile_model.dart';
+import 'package:macro_tracker/pages/edit_profile/edit_profile_model.dart';
+export 'package:macro_tracker/pages/edit_profile/edit_profile_model.dart';
 
 class EditProfileWidget extends StatefulWidget {
   const EditProfileWidget({Key? key}) : super(key: key);

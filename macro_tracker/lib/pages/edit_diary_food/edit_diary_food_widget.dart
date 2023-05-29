@@ -4,16 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:health/health.dart';
 import 'package:macro_tracker/components/food_item_widget.dart';
 import 'package:macro_tracker/services/health_service.dart';
-import '../../auth/firebase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_choice_chips.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
+import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_choice_chips.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
+import 'package:macro_tracker/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'edit_diary_food_model.dart';
+import 'package:macro_tracker/pages/edit_diary_food/edit_diary_food_model.dart';
 
 class EditDiaryFoodWidget extends StatefulWidget {
   const EditDiaryFoodWidget({Key? key}) : super(key: key);

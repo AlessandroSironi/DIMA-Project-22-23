@@ -1,4 +1,4 @@
-import '/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
 import 'package:macro_tracker/services/local_notification_service.dart';
@@ -11,7 +11,6 @@ class ProfileModel extends FlutterFlowModel {
   void dispose() {}
 
   /// Additional helper methods are added here.
-  
-  LocalNotificationService notificationService = LocalNotificationService();
 
+  LocalNotificationService notificationService = LocalNotificationService();
 }

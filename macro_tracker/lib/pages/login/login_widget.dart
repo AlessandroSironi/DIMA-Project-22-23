@@ -1,10 +1,10 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'login_model.dart';
-export 'login_model.dart';
+import 'package:macro_tracker/pages/login/login_model.dart';
+export 'package:macro_tracker/pages/login/login_model.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);

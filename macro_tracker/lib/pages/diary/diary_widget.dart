@@ -1,16 +1,16 @@
 import '../../auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/food_item_widget.dart';
-import '/flutter_flow/flutter_flow_calendar.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_calendar.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'diary_model.dart';
-export 'diary_model.dart';
+import 'package:macro_tracker/pages/diary/diary_model.dart';
+export 'package:macro_tracker/pages/diary/diary_model.dart';
 import 'package:macro_tracker/services/local_notification_service.dart';
 
 LocalNotificationService notificationService = LocalNotificationService();

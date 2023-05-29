@@ -1,4 +1,4 @@
-import '/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
 class RegisterModel extends FlutterFlowModel {
@@ -32,5 +32,4 @@ class RegisterModel extends FlutterFlowModel {
   }
 
   /// Additional helper methods are added here.
-
 }
