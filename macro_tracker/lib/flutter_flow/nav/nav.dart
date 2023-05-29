@@ -2,6 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:macro_tracker/pages/add/add_widget.dart';
+import 'package:macro_tracker/pages/add_barcode_food/add_barcode_food_widget.dart';
+import 'package:macro_tracker/pages/add_custom_food/add_custom_food_widget.dart';
+import 'package:macro_tracker/pages/change_password/change_password_widget.dart';
+import 'package:macro_tracker/pages/diary/diary_widget.dart';
+import 'package:macro_tracker/pages/diet/diet_widget.dart';
+import 'package:macro_tracker/pages/edit_diary_food/edit_diary_food_widget.dart';
+import 'package:macro_tracker/pages/edit_profile/edit_profile_widget.dart';
+import 'package:macro_tracker/pages/goal/goal_widget.dart';
+import 'package:macro_tracker/pages/login/login_widget.dart';
+import 'package:macro_tracker/pages/profile/profile_widget.dart';
+import 'package:macro_tracker/pages/register/register_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../pages/edit_diet_food/edit_diet_food_widget.dart';
 import '../flutter_flow_theme.dart';

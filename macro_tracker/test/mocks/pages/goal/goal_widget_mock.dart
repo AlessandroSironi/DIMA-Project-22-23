@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../../../lib/auth/firebase_auth/auth_util.dart';
-import '../../../../lib/flutter_flow/flutter_flow_icon_button.dart';
+/* import '../../../../lib/flutter_flow/flutter_flow_icon_button.dart';
 import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
 import '../../../../lib/flutter_flow/flutter_flow_util.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
@@ -11,6 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'goal_model_mock.dart';
 export 'goal_model_mock.dart';
+ */
+
+
+import 'package:easy_debounce/easy_debounce.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
+
+import 'goal_model_mock.dart';
 
 class GoalWidgetMock extends StatefulWidget {
   const GoalWidgetMock({Key? key}) : super(key: key);

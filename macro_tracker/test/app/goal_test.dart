@@ -1,38 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:macro_tracker/index.dart';
 import 'package:mockito/mockito.dart';
 
-class MockFirestore extends Mock implements FirebaseFirestore {}
+import '../mocks/pages/goal/goal_widget_mock.dart';
+import '../test_navigator.dart';
 
-class MockCollectionReference extends Mock implements CollectionReference {}
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
-class MockDocumentReference extends Mock implements DocumentReference {}
-
-class MockDocumentSnapshot extends Mock implements DocumentSnapshot {}
+class MockAppNavigator extends Mock implements AppNavigator {}
 
 void main() {
-  MockFirestore instance;
-  MockDocumentSnapshot mockDocumentSnapshot;
-  MockCollectionReference mockCollectionReference;
-  MockDocumentReference mockDocumentReference;
-  final mockUserData = {
-    "kcal_goal": "2000",
-    "carbs_goal": "200",
-    "proteins_goal": "180",
-    "fats_goal": "80"
-  };
+  final appNavigator = MockAppNavigator();
 
   setUp(() {
-    instance = MockFirestore();
-    mockCollectionReference = MockCollectionReference();
-    mockDocumentReference = MockDocumentReference();
-    mockDocumentSnapshot = MockDocumentSnapshot();
+    reset(appNavigator);
   });
 
-  testWidgets("correctly retrieve kcal value", (tester) async {
-    await tester.pumpWidget(const GoalWidget());
+  testWidgets("Display Goals", (WidgetTester tester) async {
+    final mockObserver = MockNavigatorObserver();
 
-    final kcalFinder = find.text("2000");
-  });
+    await tester.pumpWidget(GoalWidgetMock());
+
+    expect(find.byType(Text), findsOneWidget);
+  }
+  );
 }
