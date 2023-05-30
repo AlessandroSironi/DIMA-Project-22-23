@@ -3324,7 +3324,7 @@ class _GoalWidgetState extends State<GoalWidget> {
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium,
                 textAlign: TextAlign.center,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
                 validator: controllerValidator.asValidator(context),
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp('[0-9]'))

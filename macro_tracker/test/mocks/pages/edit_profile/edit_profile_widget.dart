@@ -23,7 +23,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     super.initState();
     _model = createModel(context, () => EditProfileModel());
 
-    _model.fullNameFieldController ??= TextEditingController();
+    _model.nameFieldController ??= TextEditingController();
+    _model.surnameFieldController ??= TextEditingController();
     _model.mailFieldController ??= TextEditingController();
   }
 
@@ -107,12 +108,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 16.0, 16.0, 0.0),
                         child: TextFormField(
-                          controller: _model.fullNameFieldController,
+                          controller: _model.nameFieldController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Full Name',
+                            labelText: 'Name',
                             labelStyle: FlutterFlowTheme.of(context).titleSmall,
-                            hintText: 'Please enter your full name...',
+                            hintText: 'Please enter your name...',
                             hintStyle: FlutterFlowTheme.of(context).titleSmall,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -152,7 +153,60 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             ),
                           ),
                           style: FlutterFlowTheme.of(context).bodyMedium,
-                          validator: _model.fullNameFieldControllerValidator
+                          validator: _model.surnameFieldControllerValidator
+                              .asValidator(context),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 16.0, 16.0, 0.0),
+                        child: TextFormField(
+                          controller: _model.surnameFieldController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Surname',
+                            labelStyle: FlutterFlowTheme.of(context).titleSmall,
+                            hintText: 'Please enter your surname...',
+                            hintStyle: FlutterFlowTheme.of(context).titleSmall,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            filled: true,
+                            fillColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            prefixIcon: Icon(
+                              Icons.person_rounded,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                            ),
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          validator: _model.surnameFieldControllerValidator
                               .asValidator(context),
                         ),
                       ),
@@ -222,7 +276,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   0.0, 0.0, 0.0, 26.0),
                               child: FFButtonWidget(
                                 onPressed: () {
-                                  print('saveButton pressed ...');
+                                  /* authManager.modifyUser(context, _model.mailFieldController.text, _model.nameFieldController.text, _model.surnameFieldController.text);
+                                  context.goNamed("/diary"); */
                                 },
                                 text: 'Save Changes',
                                 options: FFButtonOptions(

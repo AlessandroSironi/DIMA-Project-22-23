@@ -7,6 +7,8 @@ import 'package:macro_tracker/backend/backend.dart';
 import 'package:macro_tracker/auth/firebase_auth/email_auth.dart';
 import 'package:macro_tracker/auth/firebase_auth/firebase_user_provider.dart';
 
+import 'auth_util.dart';
+
 export 'package:macro_tracker/auth/base_auth_user_provider.dart';
 
 class FirebaseAuthManager extends AuthManager
@@ -37,6 +39,30 @@ class FirebaseAuthManager extends AuthManager
                   'Too long since most recent sign in. Sign in again before deleting your account.')),
         );
       }
+    }
+  }
+
+  Future modifyUser(BuildContext context, String mail, String name, String surname) async {
+    try {
+      if (!loggedIn) {
+        print('Error: delete user attempted with no logged in user!');
+        return;
+      }
+
+      FirebaseAuth.instance.currentUser!.updateEmail(mail);
+
+      print("Mail: $mail, name: $name, surname: $surname");
+      FirebaseFirestore.instance
+      .collection('users')
+      .doc(currentUserDocument?.uid)
+      .update({
+        'mail' : mail,
+        'name' : name, 
+        'surname' : surname,
+      });
+
+    } catch (e){
+      print(e);
     }
   }
 

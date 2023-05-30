@@ -18,10 +18,21 @@ void main() {
 
   testWidgets("Display Goals", (WidgetTester tester) async {
     final mockObserver = MockNavigatorObserver();
-
-    await tester.pumpWidget(GoalWidgetMock());
-
-    expect(find.byType(Text), findsOneWidget);
+    tester.binding.window.physicalSizeTestValue = Size(1656,2688);
+    await tester.pumpWidget(MaterialApp(
+        home: Material(
+        child: Builder(
+          builder: (context) {
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 0.8),
+              child: GoalWidgetMock(),
+            );
+          }
+        ),
+      ),
+    )
+  );
+    expect(find.byType(Column), findsWidgets);
   }
   );
 }

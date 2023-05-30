@@ -6,8 +6,10 @@ class EditProfileModel extends FlutterFlowModel {
 
   final formKey = GlobalKey<FormState>();
   // State field(s) for fullNameField widget.
-  TextEditingController? fullNameFieldController;
-  String? Function(BuildContext, String?)? fullNameFieldControllerValidator;
+  TextEditingController? nameFieldController;
+  String? Function(BuildContext, String?)? nameFieldControllerValidator;
+  TextEditingController? surnameFieldController;
+  String? Function(BuildContext, String?)? surnameFieldControllerValidator;
   // State field(s) for mailField widget.
   TextEditingController? mailFieldController;
   String? Function(BuildContext, String?)? mailFieldControllerValidator;
@@ -17,7 +19,8 @@ class EditProfileModel extends FlutterFlowModel {
   void initState(BuildContext context) {}
 
   void dispose() {
-    fullNameFieldController?.dispose();
+    nameFieldController?.dispose();
+    surnameFieldController?.dispose();
     mailFieldController?.dispose();
   }
 
