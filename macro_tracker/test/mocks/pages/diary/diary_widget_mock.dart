@@ -9,14 +9,14 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'diary_model.dart';
-export 'diary_model.dart';
+import 'diary_model_mock.dart';
+export 'diary_model_mock.dart';
 import 'package:macro_tracker/services/local_notification_service.dart';
 
 LocalNotificationService notificationService = LocalNotificationService();
 
-class DiaryWidget extends StatefulWidget {
-  const DiaryWidget({
+class DiaryWidgetMock extends StatefulWidget {
+  const DiaryWidgetMock({
     Key? key,
   }) : super(key: key);
 
@@ -24,8 +24,8 @@ class DiaryWidget extends StatefulWidget {
   _DiaryWidgetState createState() => _DiaryWidgetState();
 }
 
-class _DiaryWidgetState extends State<DiaryWidget> {
-  late DiaryModel _model;
+class _DiaryWidgetState extends State<DiaryWidgetMock> {
+  late DiaryModelMock _model;
   final bool consumedWidget = true;
   final bool remainingWidget = false;
   final bool mobileWidget = true;
@@ -50,7 +50,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => DiaryModel());
+    _model = createModel(context, () => DiaryModelMock());
     notificationService.initialize();
     notificationService.scheduleDailyNotification();
 

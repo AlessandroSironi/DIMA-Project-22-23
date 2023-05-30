@@ -14,17 +14,17 @@ import '../../../../lib/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'edit_diet_food_model.dart';
+import 'edit_diet_food_model_mock.dart';
 
-class EditDietFoodWidget extends StatefulWidget {
-  const EditDietFoodWidget({Key? key}) : super(key: key);
+class EditDietFoodWidgetMock extends StatefulWidget {
+  const EditDietFoodWidgetMock({Key? key}) : super(key: key);
 
   @override
   _EditDietFoodWidgetState createState() => _EditDietFoodWidgetState();
 }
 
-class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
-  late EditDietFoodModel _model;
+class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
+  late EditDietFoodModelMock _model;
 
   bool mobileWidget = true;
   bool tabletWidget = false;
@@ -41,7 +41,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => EditDietFoodModel());
+    _model = createModel(context, () => EditDietFoodModelMock());
 
     _model.foodNameController1 ??= TextEditingController();
     _model.kcalController1 ??= TextEditingController();

@@ -4,25 +4,25 @@ import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
 import '../../../../lib/flutter_flow/flutter_flow_util.dart';
 import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'change_password_model.dart';
-export 'change_password_model.dart';
+import 'change_password_model_mock.dart';
+export 'change_password_model_mock.dart';
 
-class ChangePasswordWidget extends StatefulWidget {
-  const ChangePasswordWidget({Key? key}) : super(key: key);
+class ChangePasswordWidgetMock extends StatefulWidget {
+  const ChangePasswordWidgetMock({Key? key}) : super(key: key);
 
   @override
   _ChangePasswordWidgetState createState() => _ChangePasswordWidgetState();
 }
 
-class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
-  late ChangePasswordModel _model;
+class _ChangePasswordWidgetState extends State<ChangePasswordWidgetMock> {
+  late ChangePasswordModelMock _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ChangePasswordModel());
+    _model = createModel(context, () => ChangePasswordModelMock());
 
     _model.emailTextController1 ??= TextEditingController();
     _model.emailTextController2 ??= TextEditingController();

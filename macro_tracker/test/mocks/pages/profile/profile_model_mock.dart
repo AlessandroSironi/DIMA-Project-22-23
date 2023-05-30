@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:macro_tracker/services/local_notification_service.dart';
 
-class ProfileModel extends FlutterFlowModel {
+class ProfileModelMock extends FlutterFlowModel {
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}

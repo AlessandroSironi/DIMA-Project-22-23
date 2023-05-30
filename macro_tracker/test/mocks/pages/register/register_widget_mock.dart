@@ -4,25 +4,25 @@ import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
 import '../../../../lib/flutter_flow/flutter_flow_util.dart';
 import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'register_model.dart';
-export 'register_model.dart';
+import 'register_model_mock.dart';
+export 'register_model_mock.dart';
 
-class RegisterWidget extends StatefulWidget {
-  const RegisterWidget({Key? key}) : super(key: key);
+class RegisterWidgetMock extends StatefulWidget {
+  const RegisterWidgetMock({Key? key}) : super(key: key);
 
   @override
   _RegisterWidgetState createState() => _RegisterWidgetState();
 }
 
-class _RegisterWidgetState extends State<RegisterWidget> {
-  late RegisterModel _model;
+class _RegisterWidgetState extends State<RegisterWidgetMock> {
+  late RegisterModelMock _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => RegisterModel());
+    _model = createModel(context, () => RegisterModelMock());
 
     _model.nameController ??= TextEditingController();
     _model.surnameController ??= TextEditingController();

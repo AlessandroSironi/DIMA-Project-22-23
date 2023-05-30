@@ -2,7 +2,7 @@ import '../../../../lib/flutter_flow/flutter_flow_util.dart';
 import '../../../../lib/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 
-class AddBarcodeFoodModel extends FlutterFlowModel {
+class AddBarcodeFoodModelMock extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for foodName widget.
