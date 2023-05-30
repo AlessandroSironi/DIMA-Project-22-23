@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../mocks/pages/add/add_widget_mock.dart';
+import '../mocks/pages/add_custom_food/add_custom_food_widget_mock.dart';
 import '../test_navigator.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
@@ -16,28 +16,25 @@ void main() {
     reset(appNavigator);
   });
 
-  testWidgets("Display Add", (WidgetTester tester) async {
+  testWidgets("Display Add Custom Food", (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = Size(1656, 2688);
     await tester.pumpWidget(MaterialApp(
       home: Material(
         child: Builder(builder: (context) {
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: 0.8),
-            child: AddWidgetMock(),
+            child: AddCustomFoodWidgetMock(),
           );
         }),
       ),
     ));
     expect(find.byType(Scaffold), findsOneWidget);
     expect(find.byType(SafeArea), findsNWidgets(2));
-    expect(find.byType(SingleChildScrollView), findsAtLeastNWidgets(1));
     expect(find.byType(Text), findsWidgets);
+
     expect(find.byType(Column), findsWidgets);
     expect(find.byType(Row), findsWidgets);
 
-    expect(find.byType(Padding), findsAtLeastNWidgets(3));
-    expect(find.byType(Container), findsWidgets);
-
-    expect(find.byType(ListView), findsWidgets);
+    expect(find.byType(Padding), findsWidgets);
   });
 }
