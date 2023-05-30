@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
@@ -11,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:macro_tracker/pages/goal/goal_model.dart';
 export 'package:macro_tracker/pages/goal/goal_model.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class GoalWidget extends StatefulWidget {
   const GoalWidget({Key? key}) : super(key: key);
@@ -122,8 +122,8 @@ class _GoalWidgetState extends State<GoalWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) =>  KeyboardDismisser (
+    child: Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
@@ -142,7 +142,7 @@ class _GoalWidgetState extends State<GoalWidget> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -3253,8 +3253,8 @@ class _GoalWidgetState extends State<GoalWidget> {
           ),
         ),
       ),
+    ),
     );
-  }
 
   Widget buildTextFieldFromFirestore(
       TextEditingController? controller,
@@ -3324,7 +3324,9 @@ class _GoalWidgetState extends State<GoalWidget> {
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium,
                 textAlign: TextAlign.center,
-                keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
+                /* keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true), */
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.done,
                 validator: controllerValidator.asValidator(context),
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp('[0-9]'))

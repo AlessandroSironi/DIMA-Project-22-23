@@ -92,6 +92,7 @@ dependencies:
   openfoodfacts: ^2.5.0
   health: ^6.0.0
   mockito: ^5.4.0
+  keyboard_dismisser: ^3.0.0
 
 dev_dependencies:
   analyzer: 5.10.0
