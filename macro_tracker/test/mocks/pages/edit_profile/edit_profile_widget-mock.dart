@@ -3,25 +3,25 @@ import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
 import '../../../../lib/flutter_flow/flutter_flow_util.dart';
 import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'edit_profile_model.dart';
-export 'edit_profile_model.dart';
+import 'edit_profile_model_mock.dart';
+export 'edit_profile_model_mock.dart';
 
-class EditProfileWidget extends StatefulWidget {
-  const EditProfileWidget({Key? key}) : super(key: key);
+class EditProfileWidgetMock extends StatefulWidget {
+  const EditProfileWidgetMock({Key? key}) : super(key: key);
 
   @override
   _EditProfileWidgetState createState() => _EditProfileWidgetState();
 }
 
-class _EditProfileWidgetState extends State<EditProfileWidget> {
-  late EditProfileModel _model;
+class _EditProfileWidgetState extends State<EditProfileWidgetMock> {
+  late EditProfileModelMock _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => EditProfileModel());
+    _model = createModel(context, () => EditProfileModelMock());
 
     _model.nameFieldController ??= TextEditingController();
     _model.surnameFieldController ??= TextEditingController();

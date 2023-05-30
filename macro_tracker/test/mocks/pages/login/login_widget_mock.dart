@@ -3,25 +3,25 @@ import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
 import '../../../../lib/flutter_flow/flutter_flow_util.dart';
 import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'login_model.dart';
-export 'login_model.dart';
+import 'login_model_mock.dart';
+export 'login_model_mock.dart';
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key? key}) : super(key: key);
+class LoginWidgetMock extends StatefulWidget {
+  const LoginWidgetMock({Key? key}) : super(key: key);
 
   @override
   _LoginWidgetState createState() => _LoginWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
-  late LoginModel _model;
+class _LoginWidgetState extends State<LoginWidgetMock> {
+  late LoginModelMock _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LoginModel());
+    _model = createModel(context, () => LoginModelMock());
 
     _model.emailController ??= TextEditingController();
     _model.passwordController ??= TextEditingController();

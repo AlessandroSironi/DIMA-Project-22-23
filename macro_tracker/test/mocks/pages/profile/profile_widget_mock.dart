@@ -6,19 +6,19 @@ import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'profile_model.dart';
-export 'profile_model.dart';
+import 'profile_model_mock.dart';
+export 'profile_model_mock.dart';
 
-class ProfileWidget extends StatefulWidget {
-  const ProfileWidget({Key? key}) : super(key: key);
+class ProfileWidgetMock extends StatefulWidget {
+  const ProfileWidgetMock({Key? key}) : super(key: key);
 
   @override
   _ProfileWidgetState createState() => _ProfileWidgetState();
 }
 
-class _ProfileWidgetState extends State<ProfileWidget>
+class _ProfileWidgetState extends State<ProfileWidgetMock>
     with TickerProviderStateMixin {
-  late ProfileModel _model;
+  late ProfileModelMock _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var hasContainerTriggered1 = false;
@@ -56,7 +56,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ProfileModel());
+    _model = createModel(context, () => ProfileModelMock());
     _model.notificationService.initialize();
     setupAnimations(
       animationsMap.values.where((anim) =>

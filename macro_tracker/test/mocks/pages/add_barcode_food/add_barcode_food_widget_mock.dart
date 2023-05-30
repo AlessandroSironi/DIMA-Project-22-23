@@ -1,6 +1,6 @@
-import 'package:health/health.dart';
-import 'package:macro_tracker/services/health_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+
 import '../../../../lib/auth/firebase_auth/auth_util.dart';
 import '../../../../lib/flutter_flow/flutter_flow_choice_chips.dart';
 import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
@@ -9,30 +9,38 @@ import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
 import '../../../../lib/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'add_custom_food_model.dart';
-export 'add_custom_food_model.dart';
+import 'add_barcode_food_model_mock.dart';
+export 'add_barcode_food_model_mock.dart';
 
-class AddCustomFoodWidget extends StatefulWidget {
-  const AddCustomFoodWidget({Key? key}) : super(key: key);
+import 'package:health/health.dart';
+import 'package:macro_tracker/services/health_service.dart';
+
+class AddBarcodeFoodWidgetMock extends StatefulWidget {
+  const AddBarcodeFoodWidgetMock({
+    Key? key,
+    required this.scannedBarcode,
+  }) : super(key: key);
+
+  final String? scannedBarcode;
 
   @override
-  _AddCustomFoodWidgetState createState() => _AddCustomFoodWidgetState();
+  _AddBarcodeFoodWidgetState createState() => _AddBarcodeFoodWidgetState();
 }
 
-class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
-  late AddCustomFoodModel _model;
+class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidgetMock> {
+  late AddBarcodeFoodModelMock _model;
+  int documentId = -1;
+  HealthService healthService = HealthService();
 
   final bool mobileWidget = true;
   final bool tabletWidget = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final HealthService healthService = HealthService();
-
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddCustomFoodModel());
+    _model = createModel(context, () => AddBarcodeFoodModelMock());
 
     _model.foodNameController1 ??= TextEditingController();
     _model.kcalController1 ??= TextEditingController();
@@ -46,6 +54,8 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
     _model.proteinsController2 ??= TextEditingController();
     _model.fatsController2 ??= TextEditingController();
     _model.foodQuantityController2 ??= TextEditingController();
+
+    initTextFieldsFromDB();
   }
 
   @override
@@ -53,6 +63,32 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Future<void> initTextFieldsFromDB() async {
+    final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .limit(1)
+        .get();
+
+    Map<String, dynamic> tempData =
+        querySnapshot.docs.first.data() as Map<String, dynamic>;
+
+    _model.foodNameController1.text = tempData['name'].toString();
+    _model.kcalController1.text = tempData['kcal'].toString();
+    _model.carbsController1.text = tempData['carbs'].toString();
+    _model.proteinsController1.text = tempData['proteins'].toString();
+    _model.fatsController1.text = tempData['fats'].toString();
+
+    _model.foodNameController2.text = tempData['name'].toString();
+    _model.kcalController2.text = tempData['kcal'].toString();
+    _model.carbsController2.text = tempData['carbs'].toString();
+    _model.proteinsController2.text = tempData['proteins'].toString();
+    _model.fatsController2.text = tempData['fats'].toString();
   }
 
   @override
@@ -104,6 +140,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.foodNameController1,
+                              readOnly: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Name',
@@ -173,6 +210,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.kcalController1,
+                              readOnly: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: '🔥 Kcal',
@@ -226,7 +264,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontSize: 20.0,
                                   ),
                               textAlign: TextAlign.end,
-                              keyboardType: TextInputType.number,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: true, decimal: true),
                               validator: _model.kcalController1Validator
                                   .asValidator(context),
                               inputFormatters: [
@@ -239,7 +279,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 g',
+                              '/ 100 gr',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -260,6 +300,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.carbsController1,
+                              readOnly: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: '🍞 Carbs',
@@ -313,7 +354,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontSize: 20.0,
                                   ),
                               textAlign: TextAlign.end,
-                              keyboardType: TextInputType.number,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: true, decimal: true),
                               validator: _model.carbsController1Validator
                                   .asValidator(context),
                               inputFormatters: [
@@ -326,7 +369,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 g',
+                              '/ 100 gr',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -347,6 +390,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.proteinsController1,
+                              readOnly: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: '🥩 Proteins',
@@ -400,7 +444,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontSize: 20.0,
                                   ),
                               textAlign: TextAlign.end,
-                              keyboardType: TextInputType.number,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: true, decimal: true),
                               validator: _model.proteinsController1Validator
                                   .asValidator(context),
                               inputFormatters: [
@@ -413,7 +459,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 g',
+                              '/ 100 gr',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -434,6 +480,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.fatsController1,
+                              readOnly: false,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: '🥑 Fats ',
@@ -487,7 +534,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontSize: 20.0,
                                   ),
                               textAlign: TextAlign.end,
-                              keyboardType: TextInputType.number,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: true, decimal: true),
                               validator: _model.fatsController1Validator
                                   .asValidator(context),
                               inputFormatters: [
@@ -500,7 +549,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 g',
+                              '/ 100 gr',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -574,7 +623,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                     fontSize: 20.0,
                                   ),
                               textAlign: TextAlign.end,
-                              keyboardType: TextInputType.number,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: true, decimal: true),
                               validator: _model.foodQuantityController1Validator
                                   .asValidator(context),
                               inputFormatters: [
@@ -656,7 +707,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             onPressed: () async {
                               if (textFieldsAlert(mobileWidget)) {
                                 addFoodToDiet(mobileWidget);
-                                context.goNamed('Diet');
+                                context.pushNamed('Diary');
                               }
                             },
                             text: 'Add to diet',
@@ -688,7 +739,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             onPressed: () async {
                               if (textFieldsAlert(mobileWidget)) {
                                 logFoodToDiary(mobileWidget);
-                                context.goNamed('Diary');
+                                context.pushNamed('Diary');
                               }
                             },
                             text: 'Log food',
@@ -721,7 +772,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                       width: MediaQuery.of(context).size.width * 1.0,
                       height: MediaQuery.of(context).size.height * 0.05,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        color: FlutterFlowTheme.of(context).alternate,
                       ),
                     ),
                   ],
@@ -742,7 +793,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                         width: MediaQuery.of(context).size.width * 1.0,
                         height: MediaQuery.of(context).size.height * 0.05,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          color: FlutterFlowTheme.of(context).alternate,
                         ),
                       ),
                       Padding(
@@ -754,6 +805,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.foodNameController2,
+                                readOnly: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Name',
@@ -807,7 +859,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontFamily: 'Outfit',
                                       fontSize: 20.0,
                                     ),
-                                textAlign: TextAlign.start,
+                                textAlign: TextAlign.end,
                                 validator: _model.foodNameController2Validator
                                     .asValidator(context),
                               ),
@@ -824,6 +876,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.kcalController2,
+                                readOnly: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🔥 Kcal',
@@ -878,7 +931,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontSize: 20.0,
                                     ),
                                 textAlign: TextAlign.end,
-                                keyboardType: TextInputType.number,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        signed: true, decimal: true),
                                 validator: _model.kcalController2Validator
                                     .asValidator(context),
                                 inputFormatters: [
@@ -891,7 +946,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 g',
+                                '/ 100 gr',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -912,6 +967,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.carbsController2,
+                                readOnly: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🍞 Carbs',
@@ -966,7 +1022,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontSize: 20.0,
                                     ),
                                 textAlign: TextAlign.end,
-                                keyboardType: TextInputType.number,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        signed: true, decimal: true),
                                 validator: _model.carbsController2Validator
                                     .asValidator(context),
                                 inputFormatters: [
@@ -979,7 +1037,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 g',
+                                '/ 100 gr',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -1000,6 +1058,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.proteinsController2,
+                                readOnly: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🥩 Proteins',
@@ -1054,7 +1113,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontSize: 20.0,
                                     ),
                                 textAlign: TextAlign.end,
-                                keyboardType: TextInputType.number,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        signed: true, decimal: true),
                                 validator: _model.proteinsController2Validator
                                     .asValidator(context),
                                 inputFormatters: [
@@ -1067,7 +1128,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 g',
+                                '/ 100 gr',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -1088,6 +1149,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.fatsController2,
+                                readOnly: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: '🥑 Fats ',
@@ -1142,7 +1204,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontSize: 20.0,
                                     ),
                                 textAlign: TextAlign.end,
-                                keyboardType: TextInputType.number,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        signed: true, decimal: true),
                                 validator: _model.fatsController2Validator
                                     .asValidator(context),
                                 inputFormatters: [
@@ -1155,7 +1219,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 g',
+                                '/ 100 gr',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -1230,7 +1294,9 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                                       fontSize: 20.0,
                                     ),
                                 textAlign: TextAlign.end,
-                                keyboardType: TextInputType.number,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        signed: true, decimal: true),
                                 validator: _model
                                     .foodQuantityController2Validator
                                     .asValidator(context),
@@ -1316,7 +1382,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               onPressed: () async {
                                 if (textFieldsAlert(tabletWidget)) {
                                   addFoodToDiet(tabletWidget);
-                                  context.goNamed('Diet');
+                                  context.pushNamed('Diary');
                                 }
                               },
                               text: 'Add to diet',
@@ -1348,7 +1414,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               onPressed: () async {
                                 if (textFieldsAlert(tabletWidget)) {
                                   logFoodToDiary(tabletWidget);
-                                  //context.goNamed('Diary');
+                                  context.pushNamed('Diary');
                                 }
                               },
                               text: 'Log food',
@@ -1381,7 +1447,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                         width: MediaQuery.of(context).size.width * 1.0,
                         height: MediaQuery.of(context).size.height * 0.05,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          color: FlutterFlowTheme.of(context).alternate,
                         ),
                       ),
                     ],
@@ -1394,53 +1460,11 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
     );
   }
 
-  void addFoodToDiet(bool isMobile) async {
+  void logFoodToDiary(isMobile) async {
+    final firestore = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     int documentId = now.millisecondsSinceEpoch;
 
-    final firestore = FirebaseFirestore.instance;
-    if (isMobile) {
-      await firestore
-          .collection('users')
-          .doc(currentUserDocument?.uid)
-          .collection('diet_foods')
-          .doc(documentId.toString())
-          .set({
-        'name': capitalizeFirstLetter(_model.foodNameController1.text),
-        'kcal': _model.kcalController1.text,
-        'carbs': _model.carbsController1.text,
-        'proteins': _model.proteinsController1.text,
-        'fats': _model.fatsController1.text,
-        'meal': _model.mealChoiceChipsValue1?.split(' ')[1],
-        'quantity': _model.foodQuantityController1.text,
-        'datetime': now,
-        'id': documentId,
-      });
-    } else {
-      await firestore
-          .collection('users')
-          .doc(currentUserDocument?.uid)
-          .collection('diet_foods')
-          .doc(documentId.toString())
-          .set({
-        'name': capitalizeFirstLetter(_model.foodNameController2.text),
-        'kcal': _model.kcalController2.text,
-        'carbs': _model.carbsController2.text,
-        'proteins': _model.proteinsController2.text,
-        'fats': _model.fatsController2.text,
-        'meal': _model.mealChoiceChipsValue2?.split(' ')[1],
-        'quantity': _model.foodQuantityController2.text,
-        'datetime': now,
-        'id': documentId,
-      });
-    }
-  }
-
-  void logFoodToDiary(bool isMobile) async {
-    DateTime now = DateTime.now();
-    int documentId = now.millisecondsSinceEpoch;
-
-    final firestore = FirebaseFirestore.instance;
     if (isMobile) {
       await firestore
           .collection('users')
@@ -1458,6 +1482,16 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'datetime': now,
         'id': documentId,
       });
+
+      /* await healthService.removeFromHealth(
+          HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+      await healthService.removeFromHealth(
+          HealthDataType.DIETARY_FATS_CONSUMED, datetime); */
+
       await healthService.addToHealth(
           double.parse(_model.kcalController1.text) *
               (double.parse(_model.foodQuantityController1.text) / 100),
@@ -1496,6 +1530,70 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
         'id': documentId,
       });
     }
+
+    removeFoodFromTemp();
+  }
+
+  String capitalizeFirstLetter(String s) {
+    String temp = s[0].toUpperCase();
+    return temp + s.substring(1, s.length);
+  }
+
+  void removeFoodFromTemp() async {
+    final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .limit(1)
+        .get();
+
+    DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+    DocumentReference documentReference = documentSnapshot.reference;
+
+    await documentReference.delete();
+  }
+
+  void addFoodToDiet(bool isMobile) async {
+    DateTime now = DateTime.now();
+    int documentId = now.millisecondsSinceEpoch;
+
+    final firestore = FirebaseFirestore.instance;
+    if (isMobile) {
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('diet_foods')
+          .doc(documentId.toString())
+          .set({
+        'name': capitalizeFirstLetter(_model.foodNameController1.text),
+        'kcal': _model.kcalController1.text,
+        'carbs': _model.carbsController1.text,
+        'proteins': _model.proteinsController1.text,
+        'fats': _model.fatsController1.text,
+        'meal': _model.mealChoiceChipsValue1?.split(' ')[1],
+        'quantity': _model.foodQuantityController1.text,
+        'datetime': now,
+      });
+    } else {
+      await firestore
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .collection('diet_foods')
+          .doc(documentId.toString())
+          .set({
+        'name': capitalizeFirstLetter(_model.foodNameController2.text),
+        'kcal': _model.kcalController2.text,
+        'carbs': _model.carbsController2.text,
+        'proteins': _model.proteinsController2.text,
+        'fats': _model.fatsController2.text,
+        'meal': _model.mealChoiceChipsValue2?.split(' ')[1],
+        'quantity': _model.foodQuantityController2.text,
+        'datetime': now,
+      });
+    }
+    removeFoodFromTemp();
   }
 
   bool textFieldsAlert(bool isMobile) {
@@ -1565,10 +1663,5 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
       }
     }
     return true;
-  }
-
-  String capitalizeFirstLetter(String s) {
-    String temp = s[0].toUpperCase();
-    return temp + s.substring(1, s.length);
   }
 }

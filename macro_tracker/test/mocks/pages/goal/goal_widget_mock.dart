@@ -3233,7 +3233,7 @@ class _GoalWidgetMockState extends State<GoalWidgetMock> {
       String controllerName,
       String field,
       String? Function(BuildContext, String?)? controllerValidator) {
-    final fieldValue = data![field];
+    final fieldValue = data[field];
     controller.text = fieldValue;
     return Expanded(
       child: Align(

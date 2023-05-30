@@ -8,18 +8,18 @@ import '../../../../lib/flutter_flow/flutter_flow_util.dart';
 import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
 import '../../../../lib/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
-import 'diet_model.dart';
-export 'diet_model.dart';
+import 'diet_model_mock.dart';
+export 'diet_model_mock.dart';
 
-class DietWidget extends StatefulWidget {
-  const DietWidget({Key? key}) : super(key: key);
+class DietWidgetMock extends StatefulWidget {
+  const DietWidgetMock({Key? key}) : super(key: key);
 
   @override
   _DietWidgetState createState() => _DietWidgetState();
 }
 
-class _DietWidgetState extends State<DietWidget> {
-  late DietModel _model;
+class _DietWidgetState extends State<DietWidgetMock> {
+  late DietModelMock _model;
   final mobileWidget = true;
   final tabletWidget = false;
   //bool showClearChoice = false;
@@ -29,7 +29,7 @@ class _DietWidgetState extends State<DietWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => DietModel());
+    _model = createModel(context, () => DietModelMock());
   }
 
   @override
