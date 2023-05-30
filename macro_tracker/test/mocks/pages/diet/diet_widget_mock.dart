@@ -1,12 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../../../lib/auth/firebase_auth/auth_util.dart';
-import '../../../../lib/components/diet_food_item_widget.dart';
-import '../../../../lib/flutter_flow/flutter_flow_choice_chips.dart';
-import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
-import '../../../../lib/flutter_flow/flutter_flow_util.dart';
-import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
-import '../../../../lib/flutter_flow/form_field_controller.dart';
+import 'package:macro_tracker/components/diet_food_item_widget.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_choice_chips.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
+import 'package:macro_tracker/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'diet_model_mock.dart';
 export 'diet_model_mock.dart';
@@ -191,12 +188,12 @@ class _DietWidgetState extends State<DietWidgetMock> {
                               )
                             ),
                         ), */
-                        Padding(
+                        /* Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 10.0, 10.0, 10.0),
                           child: buildListView(
                               _model.mealChoiceFilterValue1?.split(' ')[1]),
-                        ),
+                        ), */
                       ],
                     ),
                   ),
@@ -270,12 +267,12 @@ class _DietWidgetState extends State<DietWidgetMock> {
                             ),
                           ),
                         ),
-                        Padding(
+                        /* Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               50.0, 10.0, 50.0, 10.0),
                           child: buildListView(
                               _model.mealChoiceFilterValue2?.split(" ")[1]),
-                        ),
+                        ), */
                       ],
                     ),
                   ),
@@ -287,12 +284,12 @@ class _DietWidgetState extends State<DietWidgetMock> {
     );
   }
 
-  Widget buildListView(String? meal) {
-    Query<Map<String, dynamic>> foodsQuery = FirebaseFirestore.instance
+/*   Widget buildListView(String? meal) {
+    /* Query<Map<String, dynamic>> foodsQuery = FirebaseFirestore.instance
         .collection('users')
         .doc(currentUserDocument?.uid)
         .collection('diet_foods')
-        .where("meal", isEqualTo: meal);
+        .where("meal", isEqualTo: meal); */
 
     return Container(
       child: SingleChildScrollView(
@@ -355,5 +352,5 @@ class _DietWidgetState extends State<DietWidgetMock> {
         ),
       ),
     );
-  }
+  } */
 }

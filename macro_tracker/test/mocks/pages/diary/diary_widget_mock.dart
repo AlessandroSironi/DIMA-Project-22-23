@@ -1,10 +1,10 @@
-import '../../../../lib/auth/firebase_auth/auth_util.dart';
-import '../../../../lib/backend/backend.dart';
-import '../../../../lib/components/food_item_widget.dart';
-import '../../../../lib/flutter_flow/flutter_flow_calendar.dart';
-import '../../../../lib/flutter_flow/flutter_flow_icon_button.dart';
-import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
-import '../../../../lib/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
+import 'package:macro_tracker/backend/backend.dart';
+import 'package:macro_tracker/components/food_item_widget.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_calendar.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';

@@ -16,7 +16,7 @@ void main() {
     reset(appNavigator);
   });
 
-  testWidgets("Display Add Custom Food", (WidgetTester tester) async {
+  testWidgets("Display Change Password", (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = Size(1656, 2688);
     await tester.pumpWidget(MaterialApp(
       home: Material(
