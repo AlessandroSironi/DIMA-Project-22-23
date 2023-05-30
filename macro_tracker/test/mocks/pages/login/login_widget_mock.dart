@@ -227,7 +227,7 @@ class _LoginWidgetState extends State<LoginWidgetMock> {
                                   0.0, 24.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  GoRouter.of(context).prepareAuthEvent();
+                                  /* GoRouter.of(context).prepareAuthEvent();
 
                                   final user =
                                       await authManager.signInWithEmail(
@@ -237,7 +237,7 @@ class _LoginWidgetState extends State<LoginWidgetMock> {
                                   );
                                   if (user == null) {
                                     return;
-                                  }
+                                  } */
 
                                   context.goNamedAuth('Diary', mounted);
                                 },

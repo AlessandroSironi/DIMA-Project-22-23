@@ -659,7 +659,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               ),
                             ),
                             Text(
-                              'App Version v0.0',
+                              'App Version v1.0',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context).bodySmall,
                             ),

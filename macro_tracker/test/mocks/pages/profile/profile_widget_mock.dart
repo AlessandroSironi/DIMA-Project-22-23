@@ -1,4 +1,3 @@
-import '../../../../lib/auth/firebase_auth/auth_util.dart';
 import '../../../../lib/flutter_flow/flutter_flow_animations.dart';
 import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
 import '../../../../lib/flutter_flow/flutter_flow_util.dart';
@@ -118,7 +117,7 @@ class _ProfileWidgetState extends State<ProfileWidgetMock>
                               color: FlutterFlowTheme.of(context).primary,
                               width: 1.0,
                             ),
-                          ),
+                          )/* ,
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 0.0, 0.0),
@@ -133,7 +132,7 @@ class _ProfileWidgetState extends State<ProfileWidgetMock>
                                     ),
                               ),
                             ),
-                          ),
+                          ), */
                         ),
                       ],
                     ),
@@ -592,8 +591,8 @@ class _ProfileWidgetState extends State<ProfileWidgetMock>
                                   0.0, 0.0, 0.0, 16.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  GoRouter.of(context).prepareAuthEvent();
-                                  await authManager.signOut();
+                                  /* GoRouter.of(context).prepareAuthEvent(); */
+                                 /*  await authManager.signOut(); */
                                   GoRouter.of(context).clearRedirectLocation();
 
                                   context.goNamedAuth('Login', mounted);

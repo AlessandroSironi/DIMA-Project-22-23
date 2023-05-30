@@ -1,5 +1,5 @@
-import '../../../../lib/flutter_flow/flutter_flow_util.dart';
-import '../../../../lib/flutter_flow/form_field_controller.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 
 class EditDiaryFoodModelMock extends FlutterFlowModel {

@@ -1,16 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:health/health.dart';
 import 'package:macro_tracker/components/food_item_widget.dart';
-import 'package:macro_tracker/services/health_service.dart';
-import '../../../../lib/auth/firebase_auth/auth_util.dart';
-import '../../../../lib/flutter_flow/flutter_flow_choice_chips.dart';
-import '../../../../lib/flutter_flow/flutter_flow_icon_button.dart';
-import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
-import '../../../../lib/flutter_flow/flutter_flow_util.dart';
-import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
-import '../../../../lib/flutter_flow/form_field_controller.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_choice_chips.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
+import 'package:macro_tracker/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -30,11 +27,11 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
   bool tabletWidget = false;
 
   late FoodItemModel initialValues;
-  String initialMealChoice = "";
+  String initialMealChoice = '🥐 Breakfast';
   int documentId = -1;
   late DateTime datetime;
 
-  final HealthService healthService = HealthService();
+/*   final HealthService healthService = HealthService(); */
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -57,11 +54,11 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
     _model.foodQuantityController2 ??= TextEditingController();
 
     initTextFieldsFromDB();
-    initializeDBValues();
+/*     initializeDBValues(); */
   }
 
   Future<void> initTextFieldsFromDB() async {
-    final firestore = FirebaseFirestore.instance;
+    /* final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
         .collection('users')
@@ -71,28 +68,28 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
         .get();
 
     Map<String, dynamic> tempData =
-        querySnapshot.docs.first.data() as Map<String, dynamic>;
+        querySnapshot.docs.first.data() as Map<String, dynamic>; */
 
-    _model.foodNameController1.text = tempData['name'];
-    _model.kcalController1.text = tempData['kcal'];
-    _model.carbsController1.text = tempData['carbs'];
-    _model.proteinsController1.text = tempData['proteins'];
-    _model.fatsController1.text = tempData['fats'];
-    _model.foodQuantityController1.text = tempData['quantity'];
+    _model.foodNameController1.text = 'name';
+    _model.kcalController1.text = '100';
+    _model.carbsController1.text = '100';
+    _model.proteinsController1.text = '100';
+    _model.fatsController1.text = '100';
+    _model.foodQuantityController1.text = '100';
 
-    _model.foodNameController2.text = tempData['name'];
-    _model.kcalController2.text = tempData['kcal'];
-    _model.carbsController2.text = tempData['carbs'];
-    _model.proteinsController2.text = tempData['proteins'];
-    _model.fatsController2.text = tempData['fats'];
-    _model.foodQuantityController2.text = tempData['quantity'];
+    _model.foodNameController2.text = 'name';
+    _model.kcalController2.text = '100';
+    _model.carbsController2.text = '100';
+    _model.proteinsController2.text = '100';
+    _model.fatsController2.text = '100';
+    _model.foodQuantityController2.text = '100';
 
-    initialMealChoice = getChipValueFromMeal(tempData['meal']);
-    documentId = tempData['id'];
-    datetime = (tempData['datetime'] as Timestamp).toDate();
+    initialMealChoice = 'Breakfast';
+    documentId = 1;
+    datetime = DateTime(2023,01,01);
   }
 
-  void initializeDBValues() async {
+/*   void initializeDBValues() async {
     final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
@@ -131,7 +128,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
       default:
         return '';
     }
-  }
+  } */
 
   @override
   void dispose() {
@@ -196,7 +193,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                                 ),
                                 CupertinoDialogAction(
                                   onPressed: () {
-                                    removeFoodFromTemp();
+                                    /* removeFoodFromTemp(); */
                                     context.goNamed('Diet');
                                   },
                                   child: Text(
@@ -242,7 +239,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                       child: buildTextFieldFromFirestore(
                                           _model.foodNameController1,
                                           "_model.foodNameController1",
@@ -250,20 +247,20 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                                           _model.foodNameController1Validator)),
                                 ],
                               ),
-                            ),
+                            ), */
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   70.0, 20.0, 70.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.kcalController1,
                                         "_model.kcalController1",
                                         "kcal",
                                         _model.kcalController1Validator),
-                                  ),
+                                  ), */
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
@@ -286,13 +283,13 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.carbsController1,
                                         "_model.carbsController1",
                                         "carbs",
                                         _model.carbsController1Validator),
-                                  ),
+                                  ), */
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
@@ -315,13 +312,13 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.proteinsController1,
                                         "_model.proteinsController1",
                                         "proteins",
                                         _model.proteinsController1Validator),
-                                  ),
+                                  ), */
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
@@ -344,13 +341,13 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.fatsController1,
                                         "_model.fatsController1",
                                         "fats",
                                         _model.fatsController1Validator),
-                                  ),
+                                  ), */
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
@@ -373,14 +370,14 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.foodQuantityController1,
                                         "_model.foodQuantityController1",
                                         "quantity",
                                         _model
                                             .foodQuantityController1Validator),
-                                  ),
+                                  ), */
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
@@ -412,8 +409,8 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      removeFoodFromTemp();
-                                      addToFoodsWithoutChanges();
+                                      /* removeFoodFromTemp();
+                                      addToFoodsWithoutChanges(); */
                                       context.goNamed('Diet');
                                     },
                                     text: 'Cancel',
@@ -447,7 +444,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                                     onPressed: () async {
                                       if (textFieldsAlert(mobileWidget)) {
                                         context.goNamed('Diet');
-                                        updateFood(mobileWidget);
+                                        /* updateFood(mobileWidget); */
                                       }
                                     },
                                     text: 'Confirm',
@@ -515,13 +512,13 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                 /*  Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.foodNameController2,
                                         "_model.foodNameController2",
                                         "name",
                                         _model.foodNameController2Validator),
-                                  ),
+                                  ), */
                                 ],
                               ),
                             ),
@@ -531,13 +528,13 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.kcalController2,
                                         "_model.kcalController2",
                                         "kcal",
                                         _model.kcalController2Validator),
-                                  ),
+                                  ), */
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
@@ -560,13 +557,13 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.carbsController2,
                                         "_model.carbsController2",
                                         "carbs",
                                         _model.carbsController2Validator),
-                                  ),
+                                  ), */
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
@@ -589,13 +586,13 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.proteinsController2,
                                         "_model.proteinsController2",
                                         "proteins",
                                         _model.proteinsController2Validator),
-                                  ),
+                                  ), */
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
@@ -618,13 +615,13 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.fatsController2,
                                         "_model.fatsController2",
                                         "fats",
                                         _model.fatsController2Validator),
-                                  ),
+                                  ), */
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
@@ -647,14 +644,14 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Expanded(
+                                  /* Expanded(
                                     child: buildTextFieldFromFirestore(
                                         _model.foodQuantityController2,
                                         "_model.quantityController2",
                                         "quantity",
                                         _model
                                             .foodQuantityController2Validator),
-                                  ),
+                                  ), */
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
@@ -686,8 +683,8 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      removeFoodFromTemp();
-                                      addToFoodsWithoutChanges();
+                                      /* removeFoodFromTemp();
+                                      addToFoodsWithoutChanges(); */
                                       context.goNamed('Diet');
                                     },
                                     text: 'Cancel',
@@ -721,7 +718,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                                     onPressed: () async {
                                       if (textFieldsAlert(tabletWidget)) {
                                         context.goNamed('Diet');
-                                        updateFood(tabletWidget);
+                                       /*  updateFood(tabletWidget); */
                                       }
                                     },
                                     text: 'Confirm',
@@ -766,9 +763,9 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
                   ],
                 ),
               ),
-            ),
-          );
-        });
+            ]),
+          )
+        ),);});
   }
 
   StatefulWidget buildChoiceChips(bool isMobile) {
@@ -787,8 +784,8 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
           ],
           onChanged: (val) {
             setState(() => _model.mealChoiceChipsValue1 = val?.first);
-            updateFirestoreValue(
-                'meal', _model.mealChoiceChipsValue1!.split(" ")[1]);
+            /* updateFirestoreValue(
+                'meal', _model.mealChoiceChipsValue1!.split(" ")[1]); */
           },
           selectedChipStyle: ChipStyle(
             backgroundColor: FlutterFlowTheme.of(context).secondary,
@@ -834,8 +831,8 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
           ],
           onChanged: (val) {
             setState(() => _model.mealChoiceChipsValue2 = val?.first);
-            updateFirestoreValue(
-                'meal', _model.mealChoiceChipsValue2!.split(" ")[1]);
+            /* updateFirestoreValue(
+                'meal', _model.mealChoiceChipsValue2!.split(" ")[1]); */
           },
           selectedChipStyle: ChipStyle(
             backgroundColor: FlutterFlowTheme.of(context).secondary,
@@ -871,7 +868,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
     }
   }
 
-  Widget buildTextFieldFromFirestore(
+/*   Widget buildTextFieldFromFirestore(
     TextEditingController? controller,
     String controllerName,
     String field,
@@ -929,7 +926,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
         }
       },
     );
-  }
+  } */
 
   Widget buildTextFormField(
     TextEditingController? controller,
@@ -943,7 +940,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
         controllerName,
         Duration(milliseconds: 2000),
         () {
-          updateFirestoreValue(field, value);
+          /* updateFirestoreValue(field, value); */
           setState(() {});
         },
       ),
@@ -1000,7 +997,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
     );
   }
 
-  void updateFirestoreValue(String field, String value) async {
+  /* void updateFirestoreValue(String field, String value) async {
     final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
@@ -1183,7 +1180,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidgetMock> {
     }
 
     removeFoodFromTemp();
-  }
+  } */
 
   String capitalizeFirstLetter(String s) {
     String temp = s[0].toUpperCase();

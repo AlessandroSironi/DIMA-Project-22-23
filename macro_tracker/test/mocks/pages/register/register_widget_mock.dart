@@ -309,7 +309,7 @@ class _RegisterWidgetState extends State<RegisterWidgetMock> {
                               //creates initial fields for the user after his
                               //creation into firebase
 
-                              final usersCreateData = {
+                              /* final usersCreateData = {
                                 ...createUsersRecordData(
                                   email: _model.emailController.text,
                                   name: _model.nameController.text,
@@ -323,7 +323,7 @@ class _RegisterWidgetState extends State<RegisterWidgetMock> {
                               };
                               await UsersRecord.collection
                                   .doc(user.uid)
-                                  .update(usersCreateData);
+                                  .update(usersCreateData); */
 
                               context.goNamedAuth('Diary', mounted);
                             },
