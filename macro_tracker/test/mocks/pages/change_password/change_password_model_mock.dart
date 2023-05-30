@@ -1,4 +1,4 @@
-import '../../../../lib/flutter_flow/flutter_flow_util.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordModelMock extends FlutterFlowModel {

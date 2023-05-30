@@ -9,19 +9,19 @@ import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'add_model.dart';
-export 'add_model.dart';
+import 'add_model_mock.dart';
+export 'add_model_mock.dart';
 
 import 'package:openfoodfacts/openfoodfacts.dart';
 
-class AddWidget extends StatefulWidget {
-  const AddWidget({Key? key}) : super(key: key);
+class AddWidgetMock extends StatefulWidget {
+  const AddWidgetMock({Key? key}) : super(key: key);
 
   @override
-  _AddWidgetState createState() => _AddWidgetState();
+  _AddWidgetMockState createState() => _AddWidgetMockState();
 }
 
-class _AddWidgetState extends State<AddWidget> {
+class _AddWidgetMockState extends State<AddWidgetMock> {
   late AddModel _model;
   final mobileWidget = true;
   final tabletWidget = false;
@@ -45,6 +45,8 @@ class _AddWidgetState extends State<AddWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> emptyList = [];
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -98,7 +100,7 @@ class _AddWidgetState extends State<AddWidget> {
                               20.0, 20.0, 20.0, 20.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              var result = scanBarcode();
+                              /* var result = scanBarcode();
                               if (await result) {
                                 context.pushNamed('AddBarcodeFood');
                               } else {
@@ -127,7 +129,9 @@ class _AddWidgetState extends State<AddWidget> {
                                         ],
                                       );
                                     });
-                              }
+                              } */
+
+                              context.pushNamed('AddBarcodeFood');
                             },
                             text: 'Barcode Scanner',
                             icon: FaIcon(
@@ -256,9 +260,20 @@ class _AddWidgetState extends State<AddWidget> {
                       ],
                     ),
                     Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            10.0, 10.0, 10.0, 10.0),
-                        child: buildListView(mobileWidget)),
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          10.0, 10.0, 10.0, 10.0),
+                      child: Container(
+                        height: 100,
+                        child: ListView.builder(
+                          itemCount: emptyList.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text('Item $index'),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               if (responsiveVisibility(
@@ -295,7 +310,7 @@ class _AddWidgetState extends State<AddWidget> {
                                   20.0, 20.0, 20.0, 20.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  var result = scanBarcode();
+                                  /* var result = scanBarcode();
                                   if (await result) {
                                     context.pushNamed('AddBarcodeFood');
                                   } else {
@@ -324,7 +339,8 @@ class _AddWidgetState extends State<AddWidget> {
                                             ],
                                           );
                                         });
-                                  }
+                                  } */
+                                  context.pushNamed('AddBarcodeFood');
                                 },
                                 text: 'Barcode Scanner',
                                 icon: FaIcon(
@@ -364,7 +380,8 @@ class _AddWidgetState extends State<AddWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  FFButtonWidget(
+                                  Expanded(
+                                      child: FFButtonWidget(
                                     onPressed: () async {
                                       context.pushNamed('AddCustomFood');
                                     },
@@ -401,7 +418,7 @@ class _AddWidgetState extends State<AddWidget> {
                                         width: 1.0,
                                       ),
                                     ),
-                                  ),
+                                  )),
                                   FFButtonWidget(
                                     onPressed: () async {
                                       context.pushNamed('Diet');
@@ -473,7 +490,17 @@ class _AddWidgetState extends State<AddWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             50.0, 10.0, 50.0, 10.0),
-                        child: buildListView(tabletWidget),
+                        child: Container(
+                          height: 100,
+                          child: ListView.builder(
+                            itemCount: emptyList.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Text('Item $index'),
+                              );
+                            },
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -483,123 +510,5 @@ class _AddWidgetState extends State<AddWidget> {
         ),
       ),
     );
-  }
-
-  Widget buildListView(bool isMobile) {
-    DateTime yesterday = DateTime.now().subtract(Duration(days: 1));
-
-    Query<Map<String, dynamic>> foodsQuery = FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUserDocument?.uid)
-        .collection('foods')
-        .where('datetime', isGreaterThanOrEqualTo: yesterday.startOfDay)
-        .where('datetime', isLessThan: yesterday.endOfDay);
-
-    return Container(
-        child: SingleChildScrollView(
-            child: Column(children: [
-      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: foodsQuery.snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          }
-
-          final List<DocumentSnapshot> documents = snapshot.data!.docs;
-
-          if (documents.isEmpty) {
-            Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(50.0, 10.0, 50.0, 10.0),
-                child: Text('No foods inserted yesterday'));
-          }
-
-          return ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: documents.length,
-            itemBuilder: (BuildContext context, int index) {
-              final foodData = documents[index].data() as Map<String, dynamic>;
-
-              final foodItem = FoodItemNoModifyModel(
-                carbs: foodData['carbs'],
-                fats: foodData['fats'],
-                kcal: foodData['kcal'],
-                proteins: foodData['proteins'],
-                name: foodData['name'],
-                meal: foodData['meal'],
-                quantity: foodData['quantity'],
-                datetime: (foodData['datetime'] as Timestamp).toDate(),
-                id: foodData['id'],
-              );
-
-              return Container(
-                  height: 80,
-                  child:
-                      FoodItemNoModifyWidget(foodItemNoModifyModel: foodItem));
-            },
-          );
-        },
-      )
-    ])));
-  }
-
-  Future<bool> scanBarcode() async {
-    final firestore = FirebaseFirestore.instance;
-    String scannedBarcode = await FlutterBarcodeScanner.scanBarcode(
-      '#DD2556', // scanning line color
-      'Cancel', // cancel button text
-      true, // whether to show the flash icon
-      ScanMode.BARCODE,
-    );
-
-    print("scanned barcode: $scannedBarcode");
-    //OpenFoodFacts
-    ProductQueryConfiguration config = ProductQueryConfiguration(scannedBarcode,
-        version: ProductQueryVersion.v3);
-    ProductResultV3 product = await OpenFoodAPIClient.getProductV3(config);
-
-    String? name = product.product?.productName;
-    if (name != null) {
-      int? kcal = product.product?.nutriments
-          ?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams)
-          ?.toInt();
-      int? carbs = product.product?.nutriments
-          ?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams)
-          ?.toInt();
-      int? proteins = product.product?.nutriments
-          ?.getValue(Nutrient.proteins, PerSize.oneHundredGrams)
-          ?.toInt();
-      int? fats = product.product?.nutriments
-          ?.getValue(Nutrient.fat, PerSize.oneHundredGrams)
-          ?.toInt();
-
-      DateTime now = DateTime.now();
-      documentId = now.millisecondsSinceEpoch;
-
-      await firestore
-          .collection('users')
-          .doc(currentUserDocument?.uid)
-          .collection('temp')
-          .doc(documentId.toString())
-          .set({
-        'name': name,
-        'kcal': kcal,
-        'carbs': carbs,
-        'proteins': proteins,
-        'fats': fats,
-        'datetime': now,
-        'id': documentId,
-      });
-
-      print(
-          "Scanned: $scannedBarcode, name: $name, kcal: $kcal, carbs: $carbs, proteins: $proteins, fats: $fats");
-      return true;
-    }
-    return false;
   }
 }
