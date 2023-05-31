@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_choice_chips.dart';
@@ -92,8 +93,8 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) =>  KeyboardDismisser (
+    child: Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
@@ -1457,8 +1458,9 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
           ),
         ),
       ),
-    );
-  }
+    )
+  );
+  
 
   void logFoodToDiary(isMobile) async {
     final firestore = FirebaseFirestore.instance;

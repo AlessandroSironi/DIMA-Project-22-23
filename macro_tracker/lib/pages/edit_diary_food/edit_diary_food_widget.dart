@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:health/health.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:macro_tracker/components/food_item_widget.dart';
 import 'package:macro_tracker/services/health_service.dart';
 import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
@@ -140,8 +141,8 @@ class _EditDiaryFoodWidgetState extends State<EditDiaryFoodWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
+  Widget build(BuildContext context) =>  KeyboardDismisser (
+    child: FutureBuilder(
         future: initTextFieldsFromDB(),
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
           return Scaffold(
@@ -767,8 +768,9 @@ class _EditDiaryFoodWidgetState extends State<EditDiaryFoodWidget> {
               ),
             ),
           );
-        });
-  }
+        })
+  );
+  
 
   StatefulWidget buildChoiceChips(bool isMobile) {
     if (isMobile) {

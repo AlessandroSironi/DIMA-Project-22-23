@@ -1,4 +1,5 @@
 import 'package:health/health.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:macro_tracker/services/health_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
@@ -56,8 +57,8 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) =>  KeyboardDismisser (
+    child: Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
@@ -1391,8 +1392,8 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
           ),
         ),
       ),
-    );
-  }
+    )
+  );
 
   void addFoodToDiet(bool isMobile) async {
     DateTime now = DateTime.now();
