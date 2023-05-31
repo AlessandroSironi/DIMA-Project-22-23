@@ -279,7 +279,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              '/ 100 g',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -369,7 +369,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              '/ 100 g',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -459,7 +459,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              '/ 100 g',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -549,7 +549,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              '/ 100 g',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -946,7 +946,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 gr',
+                                '/ 100 g',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -1037,7 +1037,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 gr',
+                                '/ 100 g',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -1128,7 +1128,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 gr',
+                                '/ 100 g',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -1219,7 +1219,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                '/ 100 gr',
+                                '/ 100 g',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

@@ -244,7 +244,7 @@ class _AddBarcodeFoodWidgetMockState extends State<AddBarcodeFoodWidgetMock> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              "/ 100 g",
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -334,7 +334,7 @@ class _AddBarcodeFoodWidgetMockState extends State<AddBarcodeFoodWidgetMock> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              "/ 100g",
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -424,7 +424,7 @@ class _AddBarcodeFoodWidgetMockState extends State<AddBarcodeFoodWidgetMock> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              "/ 100g",
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -514,7 +514,7 @@ class _AddBarcodeFoodWidgetMockState extends State<AddBarcodeFoodWidgetMock> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              '/ 100 gr',
+                              "/ 100g",
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(

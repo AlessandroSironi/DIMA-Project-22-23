@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
 import 'package:mockito/mockito.dart';
 
 import '../mocks/pages/add_barcode_food/add_barcode_food_widget_mock.dart';
@@ -32,10 +35,10 @@ void main() {
     expect(find.byType(SafeArea), findsNWidgets(2));
     expect(find.byType(SingleChildScrollView), findsAtLeastNWidgets(1));
     expect(find.byType(Text), findsWidgets);
-
     expect(find.byType(Column), findsWidgets);
     expect(find.byType(Row), findsWidgets);
-
     expect(find.byType(Padding), findsWidgets);
+
+    expect(find.text("Add food"), findsOneWidget);
   });
 }
