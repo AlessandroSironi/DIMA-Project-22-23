@@ -49,5 +49,32 @@ void main() {
     expect(find.byType(Row), findsWidgets);
     expect(find.byType(Padding), findsWidgets);
     expect(find.byType(TextFormField), findsAtLeastNWidgets(6));
+    expect(find.text("Log food"), findsWidgets);
+    expect(find.text("Add to diet"), findsWidgets);
+  });
+
+  testWidgets('Navigate to add and then Food from Diet', (tester) async {
+    app.main();
+    await tester.pumpAndSettle();
+
+    expect(find.text('Diary'), findsAtLeastNWidgets(1));
+
+    final Finder add = find.byIcon(Icons.add_circle);
+    await tester.tap(add);
+    await tester.pumpAndSettle();
+
+    final Finder addFromDiet = find.byIcon(Icons.restaurant_menu);
+    await tester.tap(addFromDiet);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Diet'), findsWidgets);
+    expect(find.byType(Scaffold), findsWidgets);
+    expect(find.byType(SafeArea), findsAtLeastNWidgets(2));
+    expect(find.byType(SingleChildScrollView), findsAtLeastNWidgets(1));
+    expect(find.byType(Text), findsWidgets);
+    expect(find.byType(Column), findsWidgets);
+    expect(find.byType(Row), findsWidgets);
+    expect(find.byType(Padding), findsWidgets);
+    expect(find.text("Add Custom Food"), findsWidgets);
   });
 }
