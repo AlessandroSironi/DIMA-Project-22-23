@@ -31,8 +31,13 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Diary'), findsAtLeastNWidgets(1));
-    final Finder add = find.byIcon(Icons.playlist_add_sharp);
+
+    final Finder add = find.byIcon(Icons.add_circle);
     await tester.tap(add);
+    await tester.pumpAndSettle();
+
+    final Finder addManual = find.byIcon(Icons.playlist_add_sharp);
+    await tester.tap(addManual);
     await tester.pumpAndSettle();
 
     expect(find.text('Add food'), findsOneWidget);
