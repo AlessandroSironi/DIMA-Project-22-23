@@ -1,14 +1,12 @@
-import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
-import 'package:macro_tracker/backend/backend.dart';
-import 'package:macro_tracker/components/food_item_widget.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_calendar.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'diary_model_mock.dart';
 export 'diary_model_mock.dart';
 import 'package:macro_tracker/services/local_notification_service.dart';
@@ -36,25 +34,11 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
   int documentId = -1;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  int get pageViewCurrentIndex1 => _model.pageViewController1 != null &&
-          _model.pageViewController1!.hasClients &&
-          _model.pageViewController1!.page != null
-      ? _model.pageViewController1!.page!.round()
-      : 0;
-  int get pageViewCurrentIndex2 => _model.pageViewController2 != null &&
-          _model.pageViewController2!.hasClients &&
-          _model.pageViewController2!.page != null
-      ? _model.pageViewController2!.page!.round()
-      : 0;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => DiaryModelMock());
-    notificationService.initialize();
-    notificationService.scheduleDailyNotification();
-
-    removeFoodFromTemp();
   }
 
   @override
@@ -64,26 +48,10 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
     super.dispose();
   }
 
-  void removeFoodFromTemp() async {
-    final firestore = FirebaseFirestore.instance;
-
-    QuerySnapshot querySnapshot = await firestore
-        .collection('users')
-        .doc(currentUserDocument?.uid)
-        .collection('temp')
-        .where("id", isEqualTo: documentId)
-        .limit(1)
-        .get();
-
-    if (querySnapshot.docs.length != 0) {
-      DocumentSnapshot documentSnapshot1 = querySnapshot.docs.first;
-      DocumentReference documentReference = documentSnapshot1.reference;
-      await documentReference.delete();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final List<String> emptyList = [];
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -140,7 +108,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                       inactiveDateStyle: TextStyle(
                         color: FlutterFlowTheme.of(context).primaryText,
                       ),
-                      locale: FFLocalizations.of(context).languageCode,
+                      locale: FFLocalizations.of(context)?.languageCode,
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -236,10 +204,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'carbs_goal',
-                                                              mobileWidget,
-                                                              consumedWidget,
-                                                              isCircular),
+                                                              true),
                                                         ],
                                                       ),
                                                       Column(
@@ -265,10 +230,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'proteins_goal',
-                                                              mobileWidget,
-                                                              consumedWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                       Column(
@@ -294,10 +256,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'fats_goal',
-                                                              mobileWidget,
-                                                              consumedWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                     ],
@@ -348,10 +307,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                           ),
                                                         ),
                                                         buildProgressWidgets(
-                                                            'kcal_goal',
-                                                            mobileWidget,
-                                                            consumedWidget,
-                                                            isLinear)
+                                                            false),
                                                       ],
                                                     ),
                                                   ],
@@ -453,10 +409,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'carbs_goal',
-                                                              mobileWidget,
-                                                              remainingWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                       Column(
@@ -482,10 +435,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'proteins_goal',
-                                                              mobileWidget,
-                                                              remainingWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                       Column(
@@ -511,10 +461,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'fats_goal',
-                                                              mobileWidget,
-                                                              remainingWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                     ],
@@ -562,10 +509,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                           ),
                                                         ),
                                                         buildProgressWidgets(
-                                                            'kcal_goal',
-                                                            mobileWidget,
-                                                            remainingWidget,
-                                                            isLinear)
+                                                            false),
                                                       ],
                                                     ),
                                                   ],
@@ -733,10 +677,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                             .primary,
                                         size: 30.0,
                                       ),
-                                      onPressed: () {
-                                        removeAssumptionItem(
-                                            "water_assumption", true);
-                                      },
+                                      onPressed: () {},
                                     ),
                                     Image.asset(
                                       'assets/images/glass-of-water_(2).png',
@@ -755,10 +696,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                             .primary,
                                         size: 30.0,
                                       ),
-                                      onPressed: () {
-                                        addAssumptionItem(
-                                            "water_assumption", true);
-                                      },
+                                      onPressed: () {},
                                     ),
                                     Container(
                                       width: MediaQuery.of(context).size.width *
@@ -780,8 +718,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
-                                      child: countDailyAssumption(
-                                          context, "water_assumption", true),
+                                      child: Text("1"),
                                     ),
                                     Text(
                                       'glasses',
@@ -856,10 +793,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                             .primary,
                                         size: 30.0,
                                       ),
-                                      onPressed: () {
-                                        removeAssumptionItem(
-                                            "coffee_assumption", true);
-                                      },
+                                      onPressed: () {},
                                     ),
                                     Image.asset(
                                       'assets/images/coffee_(1).png',
@@ -878,10 +812,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                             .primary,
                                         size: 30.0,
                                       ),
-                                      onPressed: () {
-                                        addAssumptionItem(
-                                            "coffee_assumption", true);
-                                      },
+                                      onPressed: () {},
                                     ),
                                   ],
                                 ),
@@ -892,8 +823,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 5.0, 0.0, 0.0),
-                                      child: countDailyAssumption(
-                                          context, "coffee_assumption", true),
+                                      child: Text("2"),
                                     ),
                                     Text(
                                       'cups',
@@ -939,9 +869,20 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            10.0, 10.0, 10.0, 10.0),
-                        child: buildListView(mobileWidget)),
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          10.0, 10.0, 10.0, 10.0),
+                      child: Container(
+                        height: 100,
+                        child: ListView.builder(
+                          itemCount: emptyList.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text('Item $index'),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               if (responsiveVisibility(
@@ -980,7 +921,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                         inactiveDateStyle: TextStyle(
                           color: FlutterFlowTheme.of(context).primaryText,
                         ),
-                        locale: FFLocalizations.of(context).languageCode,
+                        locale: FFLocalizations.of(context)?.languageCode,
                       ),
                     ),
                     Row(
@@ -1076,10 +1017,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'carbs_goal',
-                                                              tabletWidget,
-                                                              consumedWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                       Column(
@@ -1105,10 +1043,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'proteins_goal',
-                                                              tabletWidget,
-                                                              consumedWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                       Column(
@@ -1134,10 +1069,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'fats_goal',
-                                                              tabletWidget,
-                                                              consumedWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                     ],
@@ -1151,47 +1083,37 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                           context)
                                                       .accent4,
                                                 ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      10.0),
-                                                          child: Text(
-                                                            'Calories',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
+                                                Expanded(
+                                                  child: ListView(
+                                                    children: [
+                                                      Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        10.0),
+                                                            child: Text(
+                                                              'Calories',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium,
+                                                            ),
                                                           ),
-                                                        ),
-                                                        buildProgressWidgets(
-                                                            'kcal_goal',
-                                                            tabletWidget,
-                                                            consumedWidget,
-                                                            isLinear)
-                                                      ],
-                                                    ),
-                                                  ],
+                                                          buildProgressWidgets(
+                                                              false),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                                 Row(
                                                   mainAxisSize:
@@ -1295,10 +1217,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'carbs_goal',
-                                                              tabletWidget,
-                                                              remainingWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                       Column(
@@ -1324,10 +1243,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'proteins_goal',
-                                                              tabletWidget,
-                                                              remainingWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                       Column(
@@ -1353,10 +1269,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                             ),
                                                           ),
                                                           buildProgressWidgets(
-                                                              'fats_goal',
-                                                              tabletWidget,
-                                                              remainingWidget,
-                                                              isCircular)
+                                                              true),
                                                         ],
                                                       ),
                                                     ],
@@ -1404,10 +1317,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                           ),
                                                         ),
                                                         buildProgressWidgets(
-                                                            'kcal_goal',
-                                                            tabletWidget,
-                                                            remainingWidget,
-                                                            isLinear)
+                                                            false),
                                                       ],
                                                     ),
                                                   ],
@@ -1575,10 +1485,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                       .primary,
                                               size: 30.0,
                                             ),
-                                            onPressed: () {
-                                              removeAssumptionItem(
-                                                  "water_assumption", false);
-                                            },
+                                            onPressed: () {},
                                           ),
                                           Image.asset(
                                             'assets/images/glass-of-water_(2).png',
@@ -1598,10 +1505,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                       .primary,
                                               size: 30.0,
                                             ),
-                                            onPressed: () {
-                                              addAssumptionItem(
-                                                  "water_assumption", false);
-                                            },
+                                            onPressed: () {},
                                           ),
                                         ],
                                       ),
@@ -1614,8 +1518,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 5.0, 0.0, 0.0),
-                                            child: countDailyAssumption(context,
-                                                "water_assumption", false),
+                                            child: Text("0"),
                                           ),
                                           Text(
                                             'glasses',
@@ -1691,10 +1594,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                       .primary,
                                               size: 30.0,
                                             ),
-                                            onPressed: () {
-                                              removeAssumptionItem(
-                                                  "coffee_assumption", false);
-                                            },
+                                            onPressed: () {},
                                           ),
                                           Image.asset(
                                             'assets/images/coffee_(1).png',
@@ -1714,10 +1614,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                                       .primary,
                                               size: 30.0,
                                             ),
-                                            onPressed: () {
-                                              addAssumptionItem(
-                                                  "coffee_assumption", false);
-                                            },
+                                            onPressed: () {},
                                           ),
                                         ],
                                       ),
@@ -1730,8 +1627,7 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 5.0, 0.0, 0.0),
-                                            child: countDailyAssumption(context,
-                                                "coffee_assumption", false),
+                                            child: Text("0"),
                                           ),
                                           Text(
                                             'cups',
@@ -1782,7 +1678,17 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                           50.0, 10.0, 50.0, 10.0),
-                      child: buildListView(tabletWidget),
+                      child: Container(
+                        height: 100,
+                        child: ListView.builder(
+                          itemCount: emptyList.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text('Item $index'),
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -1793,299 +1699,41 @@ class _DiaryWidgetState extends State<DiaryWidgetMock> {
     );
   }
 
-  void addAssumptionItem(String targetCollection, bool isMobile) async {
-    CollectionReference collection = FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUserDocument?.uid)
-        .collection(targetCollection);
-
-    DateTime date = isMobile
-        ? _model.calendarSelectedDay1!.start
-        : _model.calendarSelectedDay2!.start;
-
-    collection.add({'date': date});
-  }
-
-  void removeAssumptionItem(String targetCollection, bool isMobile) async {
-    CollectionReference collection = FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUserDocument?.uid)
-        .collection(targetCollection);
-
-    // Uses different calendar widgets based on the platform
-    // Set the start of the day
-    DateTime startOfToday = isMobile
-        ? _model.calendarSelectedDay1!.start
-        : _model.calendarSelectedDay2!.start;
-
-    // Set the end of the day
-    DateTime endOfToday = isMobile
-        ? _model.calendarSelectedDay1!.end
-        : _model.calendarSelectedDay2!.end;
-
-    QuerySnapshot querySnapshot = await collection
-        .where('date', isGreaterThanOrEqualTo: startOfToday)
-        .where('date', isLessThan: endOfToday)
-        .orderBy('date', descending: true)
-        .limit(1)
-        .get();
-    if (querySnapshot.size > 0) {
-      // Get the reference to the latest document
-      DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
-      DocumentReference documentReference = documentSnapshot.reference;
-
-      // Delete the latest document
-      await documentReference.delete();
-    }
-  }
-
-  Widget countDailyAssumption(
-      BuildContext context, String targetCollection, bool isMobile) {
-    CollectionReference collection = FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUserDocument?.uid)
-        .collection(targetCollection);
-
-    // Uses different calendar widgets based on the platform
-    // Set the start of the day
-    DateTime startOfToday = isMobile
-        ? _model.calendarSelectedDay1!.start
-        : _model.calendarSelectedDay2!.start;
-
-    // Set the end of the day
-    DateTime endOfToday = isMobile
-        ? _model.calendarSelectedDay1!.end
-        : _model.calendarSelectedDay2!.end;
-
-    // Create a query for documents with a timestamp between startOfToday and
-    // endOfToday
-    Query query = collection
-        .where('date', isGreaterThanOrEqualTo: startOfToday)
-        .where('date', isLessThan: endOfToday);
-
-    return StreamBuilder<QuerySnapshot>(
-      stream: query.snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return SizedBox(
-            width: 10.0,
-            height: 10.0,
-            child: CircularProgressIndicator(
-              strokeWidth: 2.0,
-            ),
-          );
-        }
-
-        // Get the number of documents in the query result
-        int? count = snapshot.data?.docs.length;
-
-        return Text(
-          '$count',
-          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Outfit',
-                color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: 16.0,
+  Widget buildProgressWidgets(bool isCircular) {
+    return Column(children: [
+      isCircular
+          ? CircularPercentIndicator(
+              percent: 0.5,
+              radius: 40.0,
+              lineWidth: 8.0,
+              animation: true,
+              progressColor: FlutterFlowTheme.of(context).primary,
+              backgroundColor: FlutterFlowTheme.of(context).accent3,
+              center: Text(
+                '50%',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Outfit',
+                      color: FlutterFlowTheme.of(context).primary,
+                    ),
               ),
-        );
-      },
-    );
-  }
-
-  Widget buildProgressWidgets(
-      String macroField, bool isMobile, bool isMacroConsumed, bool isCircular) {
-    return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(currentUserDocument?.uid)
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-          String fieldValue = data[macroField];
-
-          DateTime startOfToday = isMobile
-              ? _model.calendarSelectedDay1!.start
-              : _model.calendarSelectedDay2!.start;
-
-          // Set the end of the day
-          DateTime endOfToday = isMobile
-              ? _model.calendarSelectedDay1!.end
-              : _model.calendarSelectedDay2!.end;
-
-          Query<Map<String, dynamic>> foodsQuery = FirebaseFirestore.instance
-              .collection('users')
-              .doc(currentUserDocument?.uid)
-              .collection('foods')
-              .where('datetime', isGreaterThanOrEqualTo: startOfToday)
-              .where('datetime', isLessThan: endOfToday);
-
-          int totalSum = 0;
-
-          return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: foodsQuery.snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<DocumentSnapshot> documents = snapshot.data!.docs;
-
-                totalSum = 0;
-                for (var doc in documents) {
-                  Map<String, dynamic> data =
-                      doc.data() as Map<String, dynamic>;
-
-                  int fieldValue =
-                      int.tryParse(data[macroField.split('_')[0]]) ?? 0;
-                  int quantity = int.tryParse(data['quantity']) ?? 0;
-                  totalSum += fieldValue * quantity ~/ 100;
-                }
-              }
-
-              int sumToDisplay = isMacroConsumed
-                  ? totalSum
-                  : max(int.parse(fieldValue) - totalSum, 0);
-
-              double percentage = sumToDisplay / int.parse(fieldValue);
-
-              String percentageToPrint = (percentage * 100).floor().toString();
-
-              return Column(children: [
-                isCircular
-                    ? CircularPercentIndicator(
-                        percent: percentage > 1 ? 1.0 : percentage,
-                        radius: 40.0,
-                        lineWidth: 8.0,
-                        animation: true,
-                        progressColor: FlutterFlowTheme.of(context).primary,
-                        backgroundColor: FlutterFlowTheme.of(context).accent3,
-                        center: Text(
-                          '$percentageToPrint%',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Outfit',
-                                    color: FlutterFlowTheme.of(context).primary,
-                                  ),
-                        ),
-                        startAngle: 0.0,
-                      )
-                    : LinearPercentIndicator(
-                        percent: percentage > 1 ? 1.0 : percentage,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        lineHeight: 12.0,
-                        animation: true,
-                        progressColor: FlutterFlowTheme.of(context).primary,
-                        backgroundColor: FlutterFlowTheme.of(context).accent3,
-                        barRadius: Radius.circular(15.0),
-                        padding: EdgeInsets.zero,
-                      ),
-                Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                    child: Text(
-                      '$sumToDisplay / $fieldValue ${macroField == 'kcal_goal' ? 'kcal' : 'g'}',
-                      style: FlutterFlowTheme.of(context).bodyMedium,
-                    ))
-              ]);
-            },
-          );
-        } else {
-          return SizedBox(
-            width: 10.0,
-            height: 10.0,
-            child: CircularProgressIndicator(
-              strokeWidth: 2.0,
+              startAngle: 0.0,
+            )
+          : LinearPercentIndicator(
+              percent: 0.5 > 1 ? 1.0 : 0.5,
+              width: MediaQuery.of(context).size.width * 0.7,
+              lineHeight: 12.0,
+              animation: true,
+              progressColor: FlutterFlowTheme.of(context).primary,
+              backgroundColor: FlutterFlowTheme.of(context).accent3,
+              barRadius: Radius.circular(15.0),
+              padding: EdgeInsets.zero,
             ),
-          );
-        }
-      },
-    );
-  }
-
-  Widget buildListView(bool isMobile) {
-    DateTime startOfToday = isMobile
-        ? _model.calendarSelectedDay1!.start
-        : _model.calendarSelectedDay2!.start;
-
-    // Set the end of the day
-    DateTime endOfToday = isMobile
-        ? _model.calendarSelectedDay1!.end
-        : _model.calendarSelectedDay2!.end;
-
-    Query<Map<String, dynamic>> foodsQuery = FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUserDocument?.uid)
-        .collection('foods')
-        .where('datetime', isGreaterThanOrEqualTo: startOfToday)
-        .where('datetime', isLessThan: endOfToday);
-
-    Stream<QuerySnapshot<Map<String, dynamic>>> foodsQueryStream =
-        foodsQuery.snapshots();
-
-    return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: foodsQueryStream,
-              builder: (
-                BuildContext context,
-                AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
-              ) {
-                if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                }
-
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                }
-
-                final List<DocumentSnapshot> documents = snapshot.data!.docs;
-
-                if (documents.isEmpty) {
-                  return Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(50.0, 10.0, 50.0, 10.0),
-                    child: Text('No foods inserted yet'),
-                  );
-                }
-
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: documents.length,
-                  itemBuilder: (
-                    BuildContext context,
-                    int index,
-                  ) {
-                    final foodData =
-                        documents[index].data() as Map<String, dynamic>;
-
-                    final foodItem = FoodItemModel(
-                      carbs: foodData['carbs'],
-                      fats: foodData['fats'],
-                      kcal: foodData['kcal'],
-                      proteins: foodData['proteins'],
-                      name: foodData['name'],
-                      meal: foodData['meal'],
-                      quantity: foodData['quantity'],
-                      datetime: (foodData['datetime'] as Timestamp).toDate(),
-                      id: foodData['id'],
-                    );
-
-                    return Container(
-                      height: 80,
-                      child: FoodItemWidget(foodItemModel: foodItem),
-                    );
-                  },
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+      Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+          child: Text(
+            '0 / 100 g',
+            style: FlutterFlowTheme.of(context).bodyMedium,
+          ))
+    ]);
   }
 }

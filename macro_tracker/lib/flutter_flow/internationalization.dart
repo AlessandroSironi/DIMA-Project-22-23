@@ -9,8 +9,8 @@ class FFLocalizations {
 
   final Locale locale;
 
-  static FFLocalizations of(BuildContext context) =>
-      Localizations.of<FFLocalizations>(context, FFLocalizations)!;
+  static FFLocalizations? of(BuildContext context) =>
+      Localizations.of<FFLocalizations>(context, FFLocalizations);
 
   static List<String> languages() => ['en'];
 
