@@ -292,7 +292,8 @@ class _DietWidgetState extends State<DietWidget> {
         .collection('users')
         .doc(currentUserDocument?.uid)
         .collection('diet_foods')
-        .where("meal", isEqualTo: meal);
+        .where("meal", isEqualTo: meal)
+        .orderBy("name");
 
     return Container(
       child: SingleChildScrollView(

@@ -565,18 +565,22 @@ class _AddWidgetState extends State<AddWidget> {
 
     String? name = product.product?.productName;
     if (name != null) {
-      int? kcal = product.product?.nutriments
+      String? kcal = product.product?.nutriments
           ?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams)
-          ?.toInt();
-      int? carbs = product.product?.nutriments
+          ?.toInt()
+          .toString();
+      String? carbs = product.product?.nutriments
           ?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams)
-          ?.toInt();
-      int? proteins = product.product?.nutriments
+          ?.toInt()
+          .toString();
+      String? proteins = product.product?.nutriments
           ?.getValue(Nutrient.proteins, PerSize.oneHundredGrams)
-          ?.toInt();
-      int? fats = product.product?.nutriments
+          ?.toInt()
+          .toString();
+      String? fats = product.product?.nutriments
           ?.getValue(Nutrient.fat, PerSize.oneHundredGrams)
-          ?.toInt();
+          ?.toInt()
+          .toString();
 
       DateTime now = DateTime.now();
       documentId = now.millisecondsSinceEpoch;
