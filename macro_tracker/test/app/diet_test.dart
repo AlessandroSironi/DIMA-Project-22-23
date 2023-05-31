@@ -34,5 +34,7 @@ void main() {
     expect(find.byType(Column), findsWidgets);
     expect(find.byType(Row), findsWidgets);
     expect(find.byType(Padding), findsWidgets);
+
+    expect(find.text("Diet"), findsOneWidget);
   });
 }

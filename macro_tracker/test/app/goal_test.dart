@@ -41,5 +41,16 @@ void main() {
     expect(find.byType(SingleChildScrollView), findsWidgets);
     expect(find.byType(PageView), findsWidgets);
     expect(find.byType(FlutterFlowIconButton), findsAtLeastNWidgets(8));
+
+    expect(find.text("Goal"), findsOneWidget);
+    expect(find.text("Kcal goal:"), findsOneWidget);
+    expect(find.text("Carbs goal:"), findsOneWidget);
+    expect(find.text("Proteins goal:"), findsOneWidget);
+    expect(find.text("Fats goal:"), findsOneWidget);
+    expect(find.text("🔥 KCAL"), findsOneWidget);
+    expect(find.text("🍞 Carbs"), findsOneWidget);
+    expect(find.text("🥩 Proteins"), findsOneWidget);
+    expect(find.text("🥑 Fats"), findsOneWidget);
+    expect(find.text("A few tips:"), findsOneWidget);
   });
 }

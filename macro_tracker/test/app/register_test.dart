@@ -16,20 +16,17 @@ void main() {
   });
 
   testWidgets("Display Register", (WidgetTester tester) async {
-    tester.binding.window.physicalSizeTestValue = Size(1656,2688);
+    tester.binding.window.physicalSizeTestValue = Size(1656, 2688);
     await tester.pumpWidget(MaterialApp(
-        home: Material(
-        child: Builder(
-          builder: (context) {
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 0.8),
-              child: RegisterWidgetMock(),
-            );
-          }
-        ),
+      home: Material(
+        child: Builder(builder: (context) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 0.8),
+            child: RegisterWidgetMock(),
+          );
+        }),
       ),
-    )
-  );
+    ));
     expect(find.byType(Scaffold), findsOneWidget);
     expect(find.byType(Row), findsWidgets);
     expect(find.byType(Column), findsWidgets);
@@ -39,6 +36,10 @@ void main() {
     expect(find.byType(TextFormField), findsNWidgets(4));
     expect(find.byType(Padding), findsWidgets);
     expect(find.byType(InkWell), findsWidgets);
-  }
-  );
+
+    expect(find.text("MacroTracker"), findsOneWidget);
+    expect(find.text("Create Account"), findsOneWidget);
+    expect(find.text("Already have an account?"), findsOneWidget);
+    expect(find.text("Login"), findsOneWidget);
+  });
 }
