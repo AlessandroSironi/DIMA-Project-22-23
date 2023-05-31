@@ -1575,6 +1575,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
         'meal': _model.mealChoiceChipsValue1?.split(' ')[1],
         'quantity': _model.foodQuantityController1.text,
         'datetime': now,
+        'id': documentId,
       });
     } else {
       await firestore
@@ -1591,6 +1592,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
         'meal': _model.mealChoiceChipsValue2?.split(' ')[1],
         'quantity': _model.foodQuantityController2.text,
         'datetime': now,
+        'id': documentId,
       });
     }
     removeFoodFromTemp();

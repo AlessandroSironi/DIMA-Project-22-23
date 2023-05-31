@@ -93,6 +93,8 @@ dependencies:
   health: ^6.0.0
   mockito: ^5.4.0
   keyboard_dismisser: ^3.0.0
+  integration_test:
+    sdk: flutter
 
 dev_dependencies:
   analyzer: 5.10.0

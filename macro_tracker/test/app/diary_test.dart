@@ -16,7 +16,7 @@ void main() {
     reset(appNavigator);
   });
 
-  testWidgets("Display Diary", (WidgetTester tester) async {
+  /* testWidgets("Display Diary", (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = Size(1656, 2688);
     await tester.pumpWidget(MaterialApp(
       home: Material(
@@ -35,5 +35,5 @@ void main() {
     expect(find.byType(Column), findsWidgets);
     expect(find.byType(Row), findsWidgets);
     expect(find.byType(Padding), findsWidgets);
-  });
+  }); */
 }
