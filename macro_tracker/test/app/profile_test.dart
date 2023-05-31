@@ -17,20 +17,17 @@ void main() {
   });
 
   testWidgets("Display Profile", (WidgetTester tester) async {
-    tester.binding.window.physicalSizeTestValue = Size(1656,2688);
+    tester.binding.window.physicalSizeTestValue = Size(1656, 2688);
     await tester.pumpWidget(MaterialApp(
-        home: Material(
-        child: Builder(
-          builder: (context) {
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 0.8),
-              child: ProfileWidgetMock(),
-            );
-          }
-        ),
+      home: Material(
+        child: Builder(builder: (context) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 0.8),
+            child: ProfileWidgetMock(),
+          );
+        }),
       ),
-    )
-  );
+    ));
     expect(find.byType(Scaffold), findsOneWidget);
     expect(find.byType(Row), findsWidgets);
     expect(find.byType(Column), findsWidgets);
@@ -43,6 +40,12 @@ void main() {
     expect(find.byType(Stack), findsNWidgets(2));
     expect(find.byType(Divider), findsNWidgets(2));
     expect(find.byType(Align), findsWidgets);
-  }
-  );
+
+    expect(find.text("Welcome"), findsOneWidget);
+    expect(find.text("Account Information"), findsOneWidget);
+    expect(find.text("Edit Profile"), findsOneWidget);
+    expect(find.text("Change Password"), findsOneWidget);
+    expect(find.text("Log Out"), findsOneWidget);
+    expect(find.text("Test Notification"), findsOneWidget);
+  });
 }

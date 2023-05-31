@@ -18,20 +18,17 @@ void main() {
   });
 
   testWidgets("Display Edit Diary Food", (WidgetTester tester) async {
-    tester.binding.window.physicalSizeTestValue = Size(1656,2688);
+    tester.binding.window.physicalSizeTestValue = Size(1656, 2688);
     await tester.pumpWidget(MaterialApp(
-        home: Material(
-        child: Builder(
-          builder: (context) {
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 0.8),
-              child: EditDiaryFoodWidgetMock(),
-            );
-          }
-        ),
+      home: Material(
+        child: Builder(builder: (context) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 0.8),
+            child: EditDiaryFoodWidgetMock(),
+          );
+        }),
       ),
-    )
-  );
+    ));
     expect(find.byType(Scaffold), findsOneWidget);
     expect(find.byType(Row), findsWidgets);
     expect(find.byType(Column), findsWidgets);
@@ -39,6 +36,7 @@ void main() {
     expect(find.byType(Text), findsWidgets);
     expect(find.byType(Icon), findsNWidgets(1));
     expect(find.byType(Padding), findsWidgets);
-  }
-  );
+
+    expect(find.text("Edit food"), findsOneWidget);
+  });
 }
