@@ -140,7 +140,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                       inactiveDateStyle: TextStyle(
                         color: FlutterFlowTheme.of(context).primaryText,
                       ),
-                      locale: FFLocalizations.of(context).languageCode,
+                      locale: FFLocalizations.of(context)?.languageCode,
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -980,7 +980,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                         inactiveDateStyle: TextStyle(
                           color: FlutterFlowTheme.of(context).primaryText,
                         ),
-                        locale: FFLocalizations.of(context).languageCode,
+                        locale: FFLocalizations.of(context)?.languageCode,
                       ),
                     ),
                     Row(

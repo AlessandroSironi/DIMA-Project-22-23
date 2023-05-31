@@ -1,18 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:macro_tracker/flutter_flow/flutter_flow_calendar.dart';
-import '../../../../lib/auth/firebase_auth/auth_util.dart';
-import '../../../../lib/backend/backend.dart';
-import '../../../../lib/components/food_item_no_modify_widget.dart';
 import '../../../../lib/flutter_flow/flutter_flow_theme.dart';
 import '../../../../lib/flutter_flow/flutter_flow_util.dart';
 import '../../../../lib/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'add_model_mock.dart';
 export 'add_model_mock.dart';
-
-import 'package:openfoodfacts/openfoodfacts.dart';
 
 class AddWidgetMock extends StatefulWidget {
   const AddWidgetMock({Key? key}) : super(key: key);
