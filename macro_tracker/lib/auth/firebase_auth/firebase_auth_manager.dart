@@ -11,9 +11,7 @@ import 'auth_util.dart';
 
 export 'package:macro_tracker/auth/base_auth_user_provider.dart';
 
-class FirebaseAuthManager extends AuthManager
-    with
-        EmailSignInManager {
+class FirebaseAuthManager extends AuthManager with EmailSignInManager {
   // Set when using phone verification (after phone number is provided).
   // Set when using phone sign in in web mode (ignored otherwise).
 
@@ -42,7 +40,8 @@ class FirebaseAuthManager extends AuthManager
     }
   }
 
-  Future modifyUser(BuildContext context, String mail, String name, String surname) async {
+  Future modifyUser(
+      BuildContext context, String mail, String name, String surname) async {
     try {
       if (!loggedIn) {
         print('Error: delete user attempted with no logged in user!');
@@ -51,17 +50,16 @@ class FirebaseAuthManager extends AuthManager
 
       FirebaseAuth.instance.currentUser!.updateEmail(mail);
 
-      print("Mail: $mail, name: $name, surname: $surname");
+      print("Email: $mail, name: $name, surname: $surname");
       FirebaseFirestore.instance
-      .collection('users')
-      .doc(currentUserDocument?.uid)
-      .update({
-        'mail' : mail,
-        'name' : name, 
-        'surname' : surname,
+          .collection('users')
+          .doc(currentUserDocument?.uid)
+          .update({
+        'email': mail,
+        'name': name,
+        'surname': surname,
       });
-
-    } catch (e){
+    } catch (e) {
       print(e);
     }
   }
