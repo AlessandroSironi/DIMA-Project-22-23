@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:health/health.dart';
 
 import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
@@ -6,6 +7,7 @@ import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:macro_tracker/components/diet_food_item_model.dart';
+import 'package:macro_tracker/services/health_service.dart';
 export 'package:macro_tracker/components/diet_food_item_model.dart';
 
 class DietFoodItemWidget extends StatefulWidget {
@@ -207,6 +209,28 @@ class _DietFoodItemWidgetState extends State<DietFoodItemWidget> {
       'datetime': now,
       'id': _model.id,
     });
+
+    final healthService = HealthService();
+    await healthService.addToHealth(
+          double.parse(_model.kcal) *
+              (double.parse(_model.kcal) / 100),
+          HealthDataType.DIETARY_ENERGY_CONSUMED,
+          now);
+      await healthService.addToHealth(
+          double.parse(_model.carbs) *
+              (double.parse(_model.carbs) / 100),
+          HealthDataType.DIETARY_CARBS_CONSUMED,
+          now);
+      await healthService.addToHealth(
+          double.parse(_model.proteins) *
+              (double.parse(_model.proteins) / 100),
+          HealthDataType.DIETARY_PROTEIN_CONSUMED,
+          now);
+      await healthService.addToHealth(
+          double.parse(_model.fats) *
+              (double.parse(_model.fats) / 100),
+          HealthDataType.DIETARY_FATS_CONSUMED,
+          now);
   }
 
   String getMealIcon(String meal) {
