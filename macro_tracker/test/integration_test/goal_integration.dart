@@ -45,18 +45,23 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Goal'), findsWidgets);
-    expect(find.text("1000"), findsOneWidget);
+
+    expect(find.byType(TextFormField), findsWidgets);
+    final Finder kcalGoal = find.byType(TextFormField).first;
+    await tester.enterText(kcalGoal, '2000');
+    await tester.pumpAndSettle();
+    expect(find.text("2000"), findsOneWidget);
 
     final Finder plusButton = find.byIcon(Icons.add_circle_sharp).first;
     await tester.tap(plusButton);
     await tester.pumpAndSettle();
 
-    expect(find.text("1050"), findsOneWidget);
+    expect(find.text("2050"), findsOneWidget);
 
     final Finder minusButton = find.byIcon(Icons.remove_circle).first;
     await tester.tap(minusButton);
     await tester.pumpAndSettle();
 
-    expect(find.text("1000"), findsOneWidget);
+    expect(find.text("2000"), findsOneWidget);
   });
 }
