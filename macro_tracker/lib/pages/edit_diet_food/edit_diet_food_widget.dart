@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:macro_tracker/pages/edit_diet_food/edit_diet_food_model.dart';
+import 'package:macro_tracker/services/removeTempFood.dart';
 
 class EditDietFoodWidget extends StatefulWidget {
   const EditDietFoodWidget({Key? key}) : super(key: key);
@@ -1021,7 +1022,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
   }
 
   void removeFoodFromTemp() async {
-    final firestore = FirebaseFirestore.instance;
+  /*   final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
         .collection('users')
@@ -1033,7 +1034,8 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
     DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
     DocumentReference documentReference = documentSnapshot.reference;
 
-    await documentReference.delete();
+    await documentReference.delete(); */
+    removeFoodTemp();
   }
 
   void addToFoodsWithoutChanges() async {

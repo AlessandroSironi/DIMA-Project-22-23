@@ -1,4 +1,5 @@
 import '../../auth/firebase_auth/auth_util.dart';
+import '../../services/removeTempFood.dart';
 import '/backend/backend.dart';
 import '/components/food_item_widget.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_calendar.dart';
@@ -64,7 +65,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
     super.dispose();
   }
 
-  void removeFoodFromTemp() async {
+   void removeFoodFromTemp() async {
     /* final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
@@ -80,7 +81,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
       DocumentReference documentReference = documentSnapshot1.reference;
       await documentReference.delete();
     } */
-    final firestore = FirebaseFirestore.instance;
+    /* final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
         .collection('users')
@@ -95,8 +96,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
         print("Deleting a temp food...");
       }
       await Future.wait(deleteFutures);
-    }
-  }
+    } */
+    removeFoodTemp();
+  } 
 
   @override
   Widget build(BuildContext context) {

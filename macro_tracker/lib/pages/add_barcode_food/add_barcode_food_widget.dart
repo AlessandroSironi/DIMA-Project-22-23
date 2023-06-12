@@ -15,6 +15,7 @@ export 'package:macro_tracker/pages/add_barcode_food/add_barcode_food_model.dart
 
 import 'package:health/health.dart';
 import 'package:macro_tracker/services/health_service.dart';
+import 'package:macro_tracker/services/removeTempFood.dart';
 
 class AddBarcodeFoodWidget extends StatefulWidget {
   const AddBarcodeFoodWidget({
@@ -1542,7 +1543,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
   }
 
   void removeFoodFromTemp() async {
-    final firestore = FirebaseFirestore.instance;
+/*     final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
         .collection('users')
@@ -1554,7 +1555,8 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
     DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
     DocumentReference documentReference = documentSnapshot.reference;
 
-    await documentReference.delete();
+    await documentReference.delete(); */
+    removeFoodTemp();
   }
 
   void addFoodToDiet(bool isMobile) async {
