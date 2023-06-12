@@ -1,6 +1,5 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:health/health.dart';
 import 'package:macro_tracker/components/food_item_widget.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_choice_chips.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';

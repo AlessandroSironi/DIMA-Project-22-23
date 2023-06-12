@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:macro_tracker/flutter_flow/flutter_flow_choice_chips.dart';
-import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
 import 'package:mockito/mockito.dart';
 import '../mocks/pages/edit_diary_food/edit_diary_food_widget_mock.dart';
 import '../test_navigator.dart';

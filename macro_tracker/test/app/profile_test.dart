@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import '../mocks/pages/profile/profile_widget_mock.dart';
-import '../mocks/pages/register/register_widget_mock.dart';
 import '../test_navigator.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}

@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
 import 'package:mockito/mockito.dart';
 
 import '../mocks/pages/add_barcode_food/add_barcode_food_widget_mock.dart';

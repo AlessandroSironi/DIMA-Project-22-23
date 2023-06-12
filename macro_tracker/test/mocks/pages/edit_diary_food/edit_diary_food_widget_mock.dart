@@ -1,7 +1,6 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:macro_tracker/components/food_item_widget.dart';
-import 'package:macro_tracker/auth/firebase_auth/auth_util.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_choice_chips.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_icon_button.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_theme.dart';

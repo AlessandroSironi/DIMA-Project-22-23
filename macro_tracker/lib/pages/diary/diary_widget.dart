@@ -65,7 +65,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
   }
 
   void removeFoodFromTemp() async {
-    final firestore = FirebaseFirestore.instance;
+    /* final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
         .collection('users')
@@ -79,6 +79,22 @@ class _DiaryWidgetState extends State<DiaryWidget> {
       DocumentSnapshot documentSnapshot1 = querySnapshot.docs.first;
       DocumentReference documentReference = documentSnapshot1.reference;
       await documentReference.delete();
+    } */
+    final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      List<Future<void>> deleteFutures = [];
+      for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        deleteFutures.add(documentSnapshot.reference.delete());
+        print("Deleting a temp food...");
+      }
+      await Future.wait(deleteFutures);
     }
   }
 

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:macro_tracker/flutter_flow/flutter_flow_widgets.dart';
 import 'package:mockito/mockito.dart';
 import '../mocks/pages/edit_diet_food/edit_diet_food_widget_mock.dart';
-import '../mocks/pages/edit_profile/edit_profile_widget-mock.dart';
-import '../mocks/pages/register/register_widget_mock.dart';
 import '../test_navigator.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
