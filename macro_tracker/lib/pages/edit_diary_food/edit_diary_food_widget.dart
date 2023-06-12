@@ -15,7 +15,6 @@ import 'package:macro_tracker/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:macro_tracker/pages/edit_diary_food/edit_diary_food_model.dart';
-import 'package:macro_tracker/services/removeTempFood.dart';
 
 class EditDiaryFoodWidget extends StatefulWidget {
   const EditDiaryFoodWidget({Key? key}) : super(key: key);
@@ -1031,7 +1030,7 @@ class _EditDiaryFoodWidgetState extends State<EditDiaryFoodWidget> {
   }
 
   void removeFoodFromTemp() async {
-/*     final firestore = FirebaseFirestore.instance;
+    final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
         .collection('users')
@@ -1040,11 +1039,12 @@ class _EditDiaryFoodWidgetState extends State<EditDiaryFoodWidget> {
         .limit(1)
         .get();
 
-    DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
-    DocumentReference documentReference = documentSnapshot.reference;
+    if (querySnapshot.docs.length != 0) {
+      DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+      DocumentReference documentReference = documentSnapshot.reference;
 
-    await documentReference.delete(); */
-    removeFoodTemp();
+      await documentReference.delete();
+    }
   }
 
   void addToFoodsWithoutChanges() async {

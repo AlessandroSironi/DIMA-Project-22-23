@@ -1,5 +1,4 @@
 import '../../auth/firebase_auth/auth_util.dart';
-import '../../services/removeTempFood.dart';
 import '/backend/backend.dart';
 import '/components/food_item_widget.dart';
 import 'package:macro_tracker/flutter_flow/flutter_flow_calendar.dart';
@@ -66,13 +65,13 @@ class _DiaryWidgetState extends State<DiaryWidget> {
   }
 
    void removeFoodFromTemp() async {
-    /* final firestore = FirebaseFirestore.instance;
+    final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
         .collection('users')
         .doc(currentUserDocument?.uid)
         .collection('temp')
-        .where("id", isEqualTo: documentId)
+        /* .where("id", isEqualTo: documentId) */
         .limit(1)
         .get();
 
@@ -80,7 +79,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
       DocumentSnapshot documentSnapshot1 = querySnapshot.docs.first;
       DocumentReference documentReference = documentSnapshot1.reference;
       await documentReference.delete();
-    } */
+    }
     /* final firestore = FirebaseFirestore.instance;
 
     QuerySnapshot querySnapshot = await firestore
@@ -97,7 +96,23 @@ class _DiaryWidgetState extends State<DiaryWidget> {
       }
       await Future.wait(deleteFutures);
     } */
-    removeFoodTemp();
+    //removeFoodTemp();
+    /* final firestore = FirebaseFirestore.instance;
+
+    QuerySnapshot querySnapshot = await firestore
+        .collection('users')
+        .doc(currentUserDocument?.uid)
+        .collection('temp')
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      List<Future<void>> deleteFutures = [];
+      for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        deleteFutures.add(documentSnapshot.reference.delete());
+        print("Deleting a temp food...");
+      }
+      await Future.wait(deleteFutures);
+    } */
   } 
 
   @override
