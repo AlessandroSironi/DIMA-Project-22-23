@@ -73,6 +73,7 @@ class _AddBarcodeFoodWidgetState extends State<AddBarcodeFoodWidget> {
         .collection('users')
         .doc(currentUserDocument?.uid)
         .collection('temp')
+        .orderBy('id', descending: true)
         .limit(1)
         .get();
 
