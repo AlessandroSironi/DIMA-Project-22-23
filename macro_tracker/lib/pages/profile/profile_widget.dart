@@ -630,7 +630,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   _model.notificationService.showNotification(
-                                      0, 'Test', 'Test Notifica');
+                                      0, 'Have you logged today?', 'Remember to log your diet today.');
                                 },
                                 text: 'Test Notification',
                                 options: FFButtonOptions(
