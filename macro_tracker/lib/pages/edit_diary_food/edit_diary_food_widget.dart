@@ -950,14 +950,13 @@ class _EditDiaryFoodWidgetState extends State<EditDiaryFoodWidget> {
   ) {
     return TextFormField(
       controller: controller,
-      onChanged: (value) => EasyDebounce.debounce(
-        controllerName,
-        Duration(milliseconds: 2000),
-        () {
-          updateFirestoreValue(field, value);
-          setState(() {});
-        },
-      ),
+      onChanged: (value) {
+        EasyDebounce.debounce(
+          controllerName,
+          Duration(milliseconds: 2000),
+          () {},
+        );
+      },
       obscureText: false,
       decoration: InputDecoration(
         labelText: capitalizeFirstLetter(field),

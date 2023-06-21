@@ -142,636 +142,646 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
   }
 
   @override
-  Widget build(BuildContext context) =>  KeyboardDismisser (
-    child: FutureBuilder(
-        future: initTextFieldsFromDB(),
-        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          return Scaffold(
-            key: scaffoldKey,
-            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            appBar: AppBar(
-              backgroundColor: FlutterFlowTheme.of(context).primary,
-              automaticallyImplyLeading: false,
-              title: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Edit food',
-                    style: FlutterFlowTheme.of(context).displaySmall.override(
-                          fontFamily: 'Outfit',
-                          color: FlutterFlowTheme.of(context).white,
-                        ),
-                  ),
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30.0,
-                    borderWidth: 1.0,
-                    buttonSize: 60.0,
-                    icon: Icon(
-                      Icons.delete,
-                      color: FlutterFlowTheme.of(context).white,
-                      size: 24.0,
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CupertinoAlertDialog(
-                              title: const Text('Error'),
-                              content: Text(
-                                  'Do you really want to delete the food from your diet?'),
-                              actions: <CupertinoDialogAction>[
-                                CupertinoDialogAction(
-                                  onPressed: () {
-                                    Navigator.pop(context, false);
-                                  },
-                                  child: Text(
-                                    'No',
-                                    style: TextStyle(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ),
-                                CupertinoDialogAction(
-                                  onPressed: () {
-                                    removeFoodFromTemp();
-                                    context.goNamed('Diet');
-                                  },
-                                  child: Text(
-                                    'Yes',
-                                    style: TextStyle(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          });
-                    },
-                  ),
-                ],
-              ),
-              actions: [],
-              centerTitle: false,
-              elevation: 0.0,
-            ),
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
+  Widget build(BuildContext context) => KeyboardDismisser(
+      child: FutureBuilder(
+          future: initTextFieldsFromDB(),
+          builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+            return Scaffold(
+              key: scaffoldKey,
+              backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              appBar: AppBar(
+                backgroundColor: FlutterFlowTheme.of(context).primary,
+                automaticallyImplyLeading: false,
+                title: Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if (responsiveVisibility(
-                      context: context,
-                      tablet: false,
-                      tabletLandscape: false,
-                      desktop: false,
-                    ))
-                      SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 70.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                      child: buildTextFieldFromFirestore(
-                                          _model.foodNameController1,
-                                          "_model.foodNameController1",
-                                          'name',
-                                          _model.foodNameController1Validator)),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 70.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.kcalController1,
-                                        "_model.kcalController1",
-                                        "kcal",
-                                        _model.kcalController1Validator),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      '/ 100 g',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 70.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.carbsController1,
-                                        "_model.carbsController1",
-                                        "carbs",
-                                        _model.carbsController1Validator),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      '/ 100 g',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 70.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.proteinsController1,
-                                        "_model.proteinsController1",
-                                        "proteins",
-                                        _model.proteinsController1Validator),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      '/ 100 g',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 70.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.fatsController1,
-                                        "_model.fatsController1",
-                                        "fats",
-                                        _model.fatsController1Validator),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      '/ 100 g',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 105.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.foodQuantityController1,
-                                        "_model.foodQuantityController1",
-                                        "quantity",
-                                        _model
-                                            .foodQuantityController1Validator),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      'g',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 25.0, 10.0, 0.0),
-                              child: buildChoiceChips(mobileWidget),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 50.0, 0.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  FFButtonWidget(
-                                    onPressed: () async {
-                                      removeFoodFromTemp();
-                                      addToFoodsWithoutChanges();
-                                      context.goNamed('Diet');
+                    Text(
+                      'Edit food',
+                      style: FlutterFlowTheme.of(context).displaySmall.override(
+                            fontFamily: 'Outfit',
+                            color: FlutterFlowTheme.of(context).white,
+                          ),
+                    ),
+                    FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30.0,
+                      borderWidth: 1.0,
+                      buttonSize: 60.0,
+                      icon: Icon(
+                        Icons.delete,
+                        color: FlutterFlowTheme.of(context).white,
+                        size: 24.0,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CupertinoAlertDialog(
+                                title: const Text('Error'),
+                                content: Text(
+                                    'Do you really want to delete the food from your diet?'),
+                                actions: <CupertinoDialogAction>[
+                                  CupertinoDialogAction(
+                                    onPressed: () {
+                                      Navigator.pop(context, false);
                                     },
-                                    text: 'Cancel',
-                                    options: FFButtonOptions(
-                                      width: 130.0,
-                                      height: 40.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontSize: 16.0,
-                                          ),
-                                      borderSide: BorderSide(
+                                    child: Text(
+                                      'No',
+                                      style: TextStyle(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
-                                        width: 1.0,
+                                        fontWeight: FontWeight.w800,
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  FFButtonWidget(
-                                    onPressed: () async {
-                                      if (textFieldsAlert(mobileWidget)) {
-                                        context.goNamed('Diet');
-                                        updateFood(mobileWidget);
-                                      }
-                                    },
-                                    text: 'Confirm',
-                                    options: FFButtonOptions(
-                                      width: 130.0,
-                                      height: 40.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontSize: 16.0,
-                                          ),
-                                      borderSide: BorderSide(
-                                        width: 0.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 1.0,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    if (responsiveVisibility(
-                      context: context,
-                      phone: false,
-                    ))
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            50.0, 0.0, 50.0, 0.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 1.0,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 70.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.foodNameController2,
-                                        "_model.foodNameController2",
-                                        "name",
-                                        _model.foodNameController2Validator),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 70.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.kcalController2,
-                                        "_model.kcalController2",
-                                        "kcal",
-                                        _model.kcalController2Validator),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      '/ 100 g',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 70.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.carbsController2,
-                                        "_model.carbsController2",
-                                        "carbs",
-                                        _model.carbsController2Validator),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      '/ 100 g',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 70.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.proteinsController2,
-                                        "_model.proteinsController2",
-                                        "proteins",
-                                        _model.proteinsController2Validator),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      '/ 100 g',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 70.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.fatsController2,
-                                        "_model.fatsController2",
-                                        "fats",
-                                        _model.fatsController2Validator),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      '/ 100 g',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  70.0, 20.0, 110.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: buildTextFieldFromFirestore(
-                                        _model.foodQuantityController2,
-                                        "_model.quantityController2",
-                                        "quantity",
-                                        _model
-                                            .foodQuantityController2Validator),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      'g',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 25.0, 10.0, 0.0),
-                              child: buildChoiceChips(tabletWidget),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 50.0, 0.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  FFButtonWidget(
-                                    onPressed: () async {
+                                  CupertinoDialogAction(
+                                    onPressed: () {
                                       removeFoodFromTemp();
-                                      addToFoodsWithoutChanges();
                                       context.goNamed('Diet');
                                     },
-                                    text: 'Cancel',
-                                    options: FFButtonOptions(
-                                      width: 130.0,
-                                      height: 40.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontSize: 16.0,
-                                          ),
-                                      borderSide: BorderSide(
+                                    child: Text(
+                                      'Yes',
+                                      style: TextStyle(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
-                                        width: 1.0,
+                                        fontWeight: FontWeight.w800,
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                  FFButtonWidget(
-                                    onPressed: () async {
-                                      if (textFieldsAlert(tabletWidget)) {
-                                        context.goNamed('Diet');
-                                        updateFood(tabletWidget);
-                                      }
-                                    },
-                                    text: 'Confirm',
-                                    options: FFButtonOptions(
-                                      width: 130.0,
-                                      height: 40.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontSize: 16.0,
-                                          ),
-                                      borderSide: BorderSide(
-                                        width: 0.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
                                 ],
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 1.0,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                              );
+                            });
+                      },
+                    ),
                   ],
                 ),
+                actions: [],
+                centerTitle: false,
+                elevation: 0.0,
               ),
-            ),
-          );
-        })
-  );
-  
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (responsiveVisibility(
+                        context: context,
+                        tablet: false,
+                        tabletLandscape: false,
+                        desktop: false,
+                      ))
+                        SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 70.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                        child: buildTextFieldFromFirestore(
+                                            _model.foodNameController1,
+                                            "_model.foodNameController1",
+                                            'name',
+                                            _model
+                                                .foodNameController1Validator)),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 70.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.kcalController1,
+                                          "_model.kcalController1",
+                                          "kcal",
+                                          _model.kcalController1Validator),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        '/ 100 g',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 16.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 70.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.carbsController1,
+                                          "_model.carbsController1",
+                                          "carbs",
+                                          _model.carbsController1Validator),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        '/ 100 g',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 16.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 70.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.proteinsController1,
+                                          "_model.proteinsController1",
+                                          "proteins",
+                                          _model.proteinsController1Validator),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        '/ 100 g',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 16.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 70.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.fatsController1,
+                                          "_model.fatsController1",
+                                          "fats",
+                                          _model.fatsController1Validator),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        '/ 100 g',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 16.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 105.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.foodQuantityController1,
+                                          "_model.foodQuantityController1",
+                                          "quantity",
+                                          _model
+                                              .foodQuantityController1Validator),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        'g',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 16.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 25.0, 10.0, 0.0),
+                                child: buildChoiceChips(mobileWidget),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 50.0, 0.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        removeFoodFromTemp();
+                                        addToFoodsWithoutChanges();
+                                        context.goNamed('Diet');
+                                      },
+                                      text: 'Cancel',
+                                      options: FFButtonOptions(
+                                        width: 130.0,
+                                        height: 40.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 16.0,
+                                            ),
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        if (textFieldsAlert(mobileWidget)) {
+                                          context.goNamed('Diet');
+                                          updateFood(mobileWidget);
+                                        }
+                                      },
+                                      text: 'Confirm',
+                                      options: FFButtonOptions(
+                                        width: 130.0,
+                                        height: 40.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 16.0,
+                                            ),
+                                        borderSide: BorderSide(
+                                          width: 0.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 1.0,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      if (responsiveVisibility(
+                        context: context,
+                        phone: false,
+                      ))
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              50.0, 0.0, 50.0, 0.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 1.0,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 70.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.foodNameController2,
+                                          "_model.foodNameController2",
+                                          "name",
+                                          _model.foodNameController2Validator),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 70.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.kcalController2,
+                                          "_model.kcalController2",
+                                          "kcal",
+                                          _model.kcalController2Validator),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        '/ 100 g',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 16.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 70.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.carbsController2,
+                                          "_model.carbsController2",
+                                          "carbs",
+                                          _model.carbsController2Validator),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        '/ 100 g',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 16.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 70.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.proteinsController2,
+                                          "_model.proteinsController2",
+                                          "proteins",
+                                          _model.proteinsController2Validator),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        '/ 100 g',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 16.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 70.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.fatsController2,
+                                          "_model.fatsController2",
+                                          "fats",
+                                          _model.fatsController2Validator),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        '/ 100 g',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 16.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    70.0, 20.0, 110.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: buildTextFieldFromFirestore(
+                                          _model.foodQuantityController2,
+                                          "_model.quantityController2",
+                                          "quantity",
+                                          _model
+                                              .foodQuantityController2Validator),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        'g',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 16.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 25.0, 10.0, 0.0),
+                                child: buildChoiceChips(tabletWidget),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 50.0, 0.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        removeFoodFromTemp();
+                                        addToFoodsWithoutChanges();
+                                        context.goNamed('Diet');
+                                      },
+                                      text: 'Cancel',
+                                      options: FFButtonOptions(
+                                        width: 130.0,
+                                        height: 40.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 16.0,
+                                            ),
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        if (textFieldsAlert(tabletWidget)) {
+                                          context.goNamed('Diet');
+                                          updateFood(tabletWidget);
+                                        }
+                                      },
+                                      text: 'Confirm',
+                                      options: FFButtonOptions(
+                                        width: 130.0,
+                                        height: 40.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 16.0,
+                                            ),
+                                        borderSide: BorderSide(
+                                          width: 0.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 1.0,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }));
 
   StatefulWidget buildChoiceChips(bool isMobile) {
     if (isMobile) {
@@ -941,14 +951,13 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
   ) {
     return TextFormField(
       controller: controller,
-      onChanged: (value) => EasyDebounce.debounce(
-        controllerName,
-        Duration(milliseconds: 2000),
-        () {
-          updateFirestoreValue(field, value);
-          setState(() {});
-        },
-      ),
+      onChanged: (value) {
+        EasyDebounce.debounce(
+          controllerName,
+          Duration(milliseconds: 2000),
+          () {},
+        );
+      },
       obscureText: false,
       decoration: InputDecoration(
         labelText: capitalizeFirstLetter(field),
