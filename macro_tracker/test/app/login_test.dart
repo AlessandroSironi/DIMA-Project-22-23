@@ -40,7 +40,7 @@ void main() {
 
     expect(find.text("MacroTracker"), findsOneWidget);
     expect(find.text("Login"), findsOneWidget);
-    expect(find.text("Don't have an account yet? "), findsOneWidget);
+    expect(find.text("Don’t have an account yet? "), findsOneWidget);
     expect(find.text("Register"), findsOneWidget);
   });
 }
