@@ -37,6 +37,8 @@ class _DietWidgetState extends State<DietWidgetMock> {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> emptyList = [];
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -263,6 +265,36 @@ class _DietWidgetState extends State<DietWidgetMock> {
                                 _model.mealChoiceFilterValueController2 ??=
                                     FormFieldController<List<String>>(
                               [],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              10.0, 10.0, 10.0, 10.0),
+                          child: Container(
+                            height: 100,
+                            child: ListView.builder(
+                              itemCount: emptyList.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text('Item $index'),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              10.0, 10.0, 10.0, 10.0),
+                          child: Container(
+                            height: 100,
+                            child: ListView.builder(
+                              itemCount: emptyList.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text('Item $index'),
+                                );
+                              },
                             ),
                           ),
                         ),
