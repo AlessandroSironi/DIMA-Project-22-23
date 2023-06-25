@@ -1349,7 +1349,7 @@ class _AddCustomFoodWidgetState extends State<AddCustomFoodWidget> {
                               onPressed: () async {
                                 if (textFieldsAlert(tabletWidget)) {
                                   logFoodToDiary(tabletWidget);
-                                  //context.goNamed('Diary');
+                                  context.goNamed('Diary');
                                 }
                               },
                               text: 'Log food',
