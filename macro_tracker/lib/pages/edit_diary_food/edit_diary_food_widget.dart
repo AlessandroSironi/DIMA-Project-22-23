@@ -196,6 +196,7 @@ class _EditDiaryFoodWidgetState extends State<EditDiaryFoodWidget> {
                                   ),
                                   CupertinoDialogAction(
                                     onPressed: () {
+                                      removeFoodFromHealth();
                                       removeFoodFromTemp();
                                       context.goNamed('Diary');
                                     },
@@ -1044,6 +1045,17 @@ class _EditDiaryFoodWidgetState extends State<EditDiaryFoodWidget> {
 
       await documentReference.delete();
     }
+  }
+
+  void removeFoodFromHealth() async {
+    await healthService.removeFromHealth(
+          HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
+    await healthService.removeFromHealth(
+        HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
+    await healthService.removeFromHealth(
+        HealthDataType.DIETARY_PROTEIN_CONSUMED, datetime);
+    await healthService.removeFromHealth(
+        HealthDataType.DIETARY_FATS_CONSUMED, datetime);
   }
 
   void addToFoodsWithoutChanges() async {

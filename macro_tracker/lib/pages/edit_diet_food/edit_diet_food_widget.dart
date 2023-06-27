@@ -1117,7 +1117,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
         'id': documentId,
       });
 
-      await healthService.removeFromHealth(
+      /* await healthService.removeFromHealth(
           HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
       await healthService.removeFromHealth(
           HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
@@ -1145,7 +1145,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
           double.parse(_model.fatsController1.text) *
               (double.parse(_model.foodQuantityController1.text) / 100),
           HealthDataType.DIETARY_FATS_CONSUMED,
-          datetime);
+          datetime); */
     } else {
       await firestore
           .collection('users')
@@ -1164,7 +1164,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
         'id': documentId,
       });
 
-      await healthService.removeFromHealth(
+      /* await healthService.removeFromHealth(
           HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
       await healthService.removeFromHealth(
           HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
@@ -1192,9 +1192,8 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
           double.parse(_model.fatsController2.text) *
               (double.parse(_model.foodQuantityController2.text) / 100),
           HealthDataType.DIETARY_FATS_CONSUMED,
-          datetime);
+          datetime); */
     }
-
     removeFoodFromTemp();
   }
 
