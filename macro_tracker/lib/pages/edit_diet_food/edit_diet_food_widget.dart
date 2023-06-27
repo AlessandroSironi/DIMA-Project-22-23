@@ -1067,7 +1067,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
       'id': initialValues.id,
     });
 
-    await healthService.removeFromHealth(
+    /* await healthService.removeFromHealth(
         HealthDataType.DIETARY_ENERGY_CONSUMED, datetime);
     await healthService.removeFromHealth(
         HealthDataType.DIETARY_CARBS_CONSUMED, datetime);
@@ -1093,7 +1093,7 @@ class _EditDietFoodWidgetState extends State<EditDietFoodWidget> {
     await healthService.addToHealth(
         double.parse(initialValues.fats) * (quantity / 100),
         HealthDataType.DIETARY_FATS_CONSUMED,
-        datetime);
+        datetime); */
   }
 
   void updateFood(isMobile) async {
