@@ -141,8 +141,8 @@ class _EditDiaryFoodWidgetState extends State<EditDiaryFoodWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => KeyboardDismisser(
-      child: FutureBuilder(
+  Widget build(BuildContext context) /* => KeyboardDismisser( */ {
+      /*child:*/ return FutureBuilder(
           future: initTextFieldsFromDB(),
           builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
             return Scaffold(
@@ -781,7 +781,7 @@ class _EditDiaryFoodWidgetState extends State<EditDiaryFoodWidget> {
                 ),
               ),
             );
-          }));
+          });/* ); */}
 
   StatefulWidget buildChoiceChips(bool isMobile) {
     if (isMobile) {
