@@ -101,7 +101,7 @@ class _GoalWidgetState extends State<GoalWidget> {
         String currentValue = data?[field];
         int parsedValue = int.tryParse(currentValue) ?? 0;
         int updatedValue = parsedValue + amount;
-
+        if (updatedValue <= 0) updatedValue = 10;
         // Update the value in Firestore
         userDocument.update({field: updatedValue.toString()}).then((_) {
           print('Value updated successfully');
@@ -3261,8 +3261,15 @@ class _GoalWidgetState extends State<GoalWidget> {
                     Duration(milliseconds: 2000),
                     () {},
                   );
-                  updateFirestoreValue(field, value);
-                  setState(() {});
+                  /* updateFirestoreValue(field, value); */
+                  /* setState(() {}); */
+                },
+                onTapOutside: (event) {
+                  print(int.tryParse(controller.text));
+                  if (controller.text == "" || int.tryParse(controller.text)! <= 0) {
+                    controller.text = "1";
+                  }
+                  updateFirestoreValue(field, controller.text);
                 },
                 obscureText: false,
                 decoration: InputDecoration(
